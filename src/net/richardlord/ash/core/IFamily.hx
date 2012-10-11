@@ -4,7 +4,7 @@ package net.richardlord.ash.core;
  * The interface for classes that are used to manage NodeLists
  * (set as the familyClass property in the Game object)
  */
-interface Family<TNode:Node<TNode>>
+interface IFamily<TNode:Node<TNode>>
 {
     /**
      * Returns the NodeList managed by this class. This should be a reference that remains valid always

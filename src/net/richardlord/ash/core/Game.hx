@@ -12,7 +12,7 @@ class Game
 {
     private var entities:EntityList;
     private var systems:SystemList;
-    private var families:ObjectHash<Class<Dynamic>, Family<Dynamic>>;
+    private var families:ObjectHash<Class<Dynamic>, IFamily<Dynamic>>;
 
     /**
      * Indicates if the game is currently in its update loop.
@@ -31,15 +31,15 @@ class Game
      * but it is exposed here so advanced developers can choose to create and use a
      * different implementation.
      *
-     * The class must implement the Family interface.
+     * The class must implement the IFamily interface.
      */
-    public var familyClass:Class<Family<Dynamic>> = ComponentMatchingFamily;
+    public var familyClass:Class<IFamily<Dynamic>> = ComponentMatchingFamily;
 
     public function new()
     {
         entities = new EntityList();
         systems = new SystemList();
-        families = new ObjectHash<Class<Node<Dynamic>>, Family<Dynamic>>();
+        families = new ObjectHash<Class<Node<Dynamic>>, IFamily<Dynamic>>();
         updateComplete = new Signal0();
     }
 
@@ -132,7 +132,7 @@ class Game
         {
             return cast(families.get(nodeClass)).nodeList;
         }
-        var family:Family<TNode> = cast(Type.createInstance(familyClass, [nodeClass, this ]));
+        var family:IFamily<TNode> = cast(Type.createInstance(familyClass, [nodeClass, this ]));
         families.set(nodeClass, family);
 
         var entity:Entity = entities.head;

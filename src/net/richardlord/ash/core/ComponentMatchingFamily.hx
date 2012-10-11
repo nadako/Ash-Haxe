@@ -10,7 +10,7 @@ import nme.ObjectHash;
  * It uses the basic entity matching pattern of an entity system - entities are added to the list if
  * they contain components matching all the public properties of the node class.
  */
-class ComponentMatchingFamily<TNode:Node<TNode>> implements Family<TNode>
+class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
 {
     public var nodeList(default, null):NodeList<TNode>;
     private var entities:ObjectHash<Entity, TNode>;
