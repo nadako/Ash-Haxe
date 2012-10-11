@@ -62,6 +62,7 @@ class Entity
      *     .add( new Position( 100, 200 )
      *     .add( new Display( new PlayerClip() );</code>
      */
+
     public function add<T>(component:T, componentClass:Class<Dynamic> = null):Entity
     {
         if (componentClass == null)
@@ -81,6 +82,7 @@ class Entity
      * @param componentClass The class of the component to be removed.
      * @return the component, or null if the component doesn't exist in the entity
      */
+
     public function remove<T>(componentClass:Class<Dynamic>):T
     {
         var component:T = components.get(componentClass);
@@ -99,6 +101,7 @@ class Entity
      * @param componentClass The class of the component requested.
      * @return The component, or null if none was found.
      */
+
     public function get<T>(componentClass:Class<Dynamic>):T
     {
         return components.get(componentClass);
@@ -109,6 +112,7 @@ class Entity
      *
      * @return An array containing all the components that are on the entity.
      */
+
     public function getAll():Array<Dynamic>
     {
         var componentArray:Array<Dynamic> = new Array<Dynamic>();
@@ -123,6 +127,7 @@ class Entity
      * @param componentClass The class of the component sought.
      * @return true if the entity has a component of the type, false if not.
      */
+
     public function has(componentClass:Class<Dynamic>):Bool
     {
         return components.exists(componentClass);
@@ -134,6 +139,7 @@ class Entity
      * @return A new entity with new components that are copies of the components on the
      * original entity.
      */
+
     public function clone():Entity
     {
         var copy:Entity = new Entity();

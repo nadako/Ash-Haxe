@@ -9,7 +9,7 @@ import net.richardlord.signals.Signal1;
  * Provides a frame tick with a fixed frame duration. This tick ignores the length of
  * the frame and dispatches the same time period for each tick.
  */
-class FixedTickProvider implements TickProvider
+class FixedTickProvider implements ITickProvider
 {
     private var displayObject:DisplayObject;
     private var frameTime:Float;
@@ -28,12 +28,12 @@ class FixedTickProvider implements TickProvider
         this.frameTime = frameTime;
     }
 
-    public function add(listener:Float -> Void):Void
+    public function add(listener:Float->Void):Void
     {
         signal.add(listener);
     }
 
-    public function remove(listener:Float -> Void):Void
+    public function remove(listener:Float->Void):Void
     {
         signal.remove(listener);
     }

@@ -47,11 +47,11 @@ class KeyPoll
     private var states:ByteArray;
     private var dispObj:DisplayObject;
 
-/**
- * Constructor
- *
- * @param displayObj a display object on which to test listen for keyboard events. To catch all key events use the stage.
- */
+    /**
+     * Constructor
+     *
+     * @param displayObj a display object on which to test listen for keyboard events. To catch all key events use the stage.
+     */
 
     public function new(displayObj:DisplayObject)
     {
@@ -97,30 +97,30 @@ class KeyPoll
         }
     }
 
-/**
- * To test whether a key is down.
- *
- * @param keyCode code for the key to test.
- *
- * @return true if the key is down, false otherwise.
- *
- * @see isUp
- */
+    /**
+     * To test whether a key is down.
+     *
+     * @param keyCode code for the key to test.
+     *
+     * @return true if the key is down, false otherwise.
+     *
+     * @see isUp
+     */
 
     public function isDown(keyCode:Int):Bool
     {
         return ( states[ keyCode >>> 3 ] & (1 << (keyCode & 7)) ) != 0;
     }
 
-/**
- * To test whetrher a key is up.
- *
- * @param keyCode code for the key to test.
- *
- * @return true if the key is up, false otherwise.
- *
- * @see isDown
- */
+    /**
+     * To test whetrher a key is up.
+     *
+     * @param keyCode code for the key to test.
+     *
+     * @return true if the key is up, false otherwise.
+     *
+     * @see isDown
+     */
 
     public function isUp(keyCode:Int):Bool
     {

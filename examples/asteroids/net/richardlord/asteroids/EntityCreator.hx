@@ -1,8 +1,9 @@
 package net.richardlord.asteroids;
 
+import flash.ui.Keyboard;
+
 import net.richardlord.ash.tools.ComponentPool;
 import net.richardlord.asteroids.components.GameState;
-import flash.ui.Keyboard;
 import net.richardlord.ash.core.Entity;
 import net.richardlord.ash.core.Game;
 import net.richardlord.asteroids.components.Asteroid;
@@ -74,8 +75,7 @@ class EntityCreator
         var bullet:Entity = new Entity()
         .add(new Bullet( gun.bulletLifetime ))
         .add(new Position(
-        cos * gun.offsetFromParent.x - sin * gun.offsetFromParent.y + parentPosition.position.x,
-        sin * gun.offsetFromParent.x + cos * gun.offsetFromParent.y + parentPosition.position.y, 0, 0 ))
+             cos * gun.offsetFromParent.x - sin * gun.offsetFromParent.y + parentPosition.position.x, sin * gun.offsetFromParent.x + cos * gun.offsetFromParent.y + parentPosition.position.y, 0, 0 ))
         .add(new Motion( cos * 150, sin * 150, 0, 0 ))
         .add(new Display( new BulletView() ));
         game.addEntity(bullet);

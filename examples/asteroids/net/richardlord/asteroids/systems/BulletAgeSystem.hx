@@ -7,21 +7,19 @@ import net.richardlord.asteroids.nodes.BulletAgeNode;
 
 class BulletAgeSystem extends ListIteratingSystem<BulletAgeNode>
 {
-    private var creator : EntityCreator;
+    private var creator:EntityCreator;
 
-    public function new( creator : EntityCreator )
+    public function new(creator:EntityCreator)
     {
-        super( BulletAgeNode, updateNode );
+        super(BulletAgeNode, updateNode);
         this.creator = creator;
     }
 
-    private function updateNode( node : BulletAgeNode, time : Float ) : Void
+    private function updateNode(node:BulletAgeNode, time:Float):Void
     {
-        var bullet : Bullet = node.bullet;
+        var bullet:Bullet = node.bullet;
         bullet.lifeRemaining -= time;
-        if ( bullet.lifeRemaining <= 0 )
-        {
-            creator.destroyEntity( node.entity );
-        }
+        if (bullet.lifeRemaining <= 0)
+            creator.destroyEntity(node.entity);
     }
 }

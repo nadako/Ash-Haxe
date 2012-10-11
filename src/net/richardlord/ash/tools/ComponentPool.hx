@@ -40,12 +40,13 @@ class ComponentPool
         return pool;
     }
 
-	/**
-	 * Get an object from the pool.
-	 *
-	 * @param componentClass The type of component wanted.
-	 * @return The component.
-	 */
+    /**
+     * Get an object from the pool.
+     *
+     * @param componentClass The type of component wanted.
+     * @return The component.
+     */
+
     public static function get<TComponent>(componentClass:Class<TComponent>):TComponent
     {
         var pool:Array<TComponent> = getPool(componentClass);
@@ -55,11 +56,12 @@ class ComponentPool
             return Type.createInstance(componentClass, []);
     }
 
-	/**
-	 * Return an object to the pool for reuse.
-	 *
-	 * @param component The component to return to the pool.
-	 */
+    /**
+     * Return an object to the pool for reuse.
+     *
+     * @param component The component to return to the pool.
+     */
+
     public static function dispose<TComponent>(component:TComponent):Void
     {
         if (component != null)
@@ -70,9 +72,10 @@ class ComponentPool
         }
     }
 
-	/**
-	 * Dispose of all pooled resources, freeing them for garbage collection.
-	 */
+    /**
+     * Dispose of all pooled resources, freeing them for garbage collection.
+     */
+
     public static function empty():Void
     {
         pools = new ObjectHash<Class<Dynamic>, Array<Dynamic>>();

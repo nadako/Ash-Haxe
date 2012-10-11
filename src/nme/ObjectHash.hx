@@ -1,73 +1,76 @@
 package nme;
 
-
 #if flash
 import flash.utils.TypedDictionary;
 #end
 
-
-class ObjectHash <K, T> {
-
-
-	#if flash
+class ObjectHash<K, T>
+{
+    #if flash
 	/** @private */ private var dictionary:TypedDictionary <K, T>;
-	#else
-	/** @private */ private var hashKeys:IntHash <K>;
-	/** @private */ private var hashValues:IntHash <T>;
-	#end
+    #else
+    /** @private */ private var hashKeys:IntHash <K>;
+    /** @private */ private var hashValues:IntHash <T>;
+    #end
 
-	/** @private */ private static var nextObjectID:Int = 0;
+    /** @private */ private static var nextObjectID:Int = 0;
 
 
-	public function new () {
+    public function new()
+    {
 
-		#if flash
+        #if flash
 
 		dictionary = new TypedDictionary <K, T> ();
 
-		#else
+        #else
 
-		hashKeys = new IntHash <K> ();
-		hashValues = new IntHash <T> ();
+        hashKeys = new IntHash <K> ();
+        hashValues = new IntHash <T> ();
 
-		#end
+        #end
 
-	}
-
-
-	public inline function exists (key:K):Bool {
-
-		#if flash
-
-		return dictionary.exists (key);
-
-		#else
-
-		return hashValues.exists (getID (key));
-
-		#end
-
-	}
+    }
 
 
-	public inline function get (key:K):T {
+    public inline function exists(key:K):Bool
+    {
 
-		#if flash
+        #if flash
 
-		return dictionary.get (key);
+		return dictionary.exists(key);
 
-		#else
+        #else
 
-		return hashValues.get (getID (key));
+        return hashValues.exists (getID (key));
 
-		#end
+        #end
 
-	}
+    }
 
 
-	/** @private */ private inline function getID (key:K):Int {
+    public inline function get(key:K):T
+    {
 
-		#if cpp
+        #if flash
+
+		return dictionary.get(key);
+
+        #else
+
+        return hashValues.get (getID (key));
+
+        #end
+
+    }
+
+
+    /** @private */
+
+    private inline function getID(key:K):Int
+    {
+
+        #if cpp
 
 		return untyped __global__.__hxcpp_obj_id (key);
 
@@ -91,83 +94,86 @@ class ObjectHash <K, T> {
 
 		return 0;
 
-		#end
+        #end
 
-	}
+    }
 
 
-	public inline function iterator ():Iterator <T> {
+    public inline function iterator():Iterator <T>
+    {
 
-		#if flash
+        #if flash
 
 		var values:Array <T> = new Array <T> ();
 
-		for (key in dictionary.iterator ()) {
+        for (key in dictionary.iterator())
+        {
 
-			values.push (dictionary.get (key));
+            values.push(dictionary.get(key));
 
-		}
+        }
 
-		return values.iterator ();
+        return values.iterator();
 
-		#else
+        #else
 
-		return hashValues.iterator ();
+        return hashValues.iterator ();
 
-		#end
+        #end
 
-	}
-
-
-	public inline function keys ():Iterator <K> {
-
-		#if flash
-
-		return dictionary.iterator ();
-
-		#else
-
-		return hashKeys.iterator ();
-
-		#end
-
-	}
+    }
 
 
-	public inline function remove (key:K):Void {
+    public inline function keys():Iterator <K>
+    {
 
-		#if flash
+        #if flash
 
-		dictionary.delete (key);
+		return dictionary.iterator();
 
-		#else
+        #else
 
-		var id = getID (key);
+        return hashKeys.iterator ();
 
-		hashKeys.remove (id);
-		hashValues.remove (id);
+        #end
 
-		#end
-
-	}
+    }
 
 
-	public inline function set (key:K, value:T):Void {
+    public inline function remove(key:K):Void
+    {
 
-		#if flash
+        #if flash
 
-		dictionary.set (key, value);
+		dictionary.delete(key);
 
-		#else
+        #else
 
-		var id = getID (key);
+        var id = getID (key);
 
-		hashKeys.set (id, key);
-		hashValues.set (id, value);
+        hashKeys.remove (id);
+        hashValues.remove (id);
 
-		#end
+        #end
 
-	}
+    }
 
 
+    public inline function set(key:K, value:T):Void
+    {
+
+        #if flash
+
+		dictionary.set(key, value);
+
+        #else
+
+        var id = getID (key);
+
+        hashKeys.set (id, key);
+        hashValues.set (id, value);
+
+        #end
+
+    }
 }

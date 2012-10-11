@@ -31,11 +31,11 @@ class ListIteratingSystem<TNode:Node<TNode>> extends System
 {
     private var nodeList:NodeList<TNode>;
     private var nodeClass:Class<TNode>;
-    private var nodeUpdateFunction:TNode -> Float -> Void;
-    private var nodeAddedFunction:TNode -> Void;
-    private var nodeRemovedFunction:TNode -> Void;
+    private var nodeUpdateFunction:TNode->Float->Void;
+    private var nodeAddedFunction:TNode->Void;
+    private var nodeRemovedFunction:TNode->Void;
 
-    public function new(nodeClass:Class<TNode>, nodeUpdateFunction:TNode -> Float -> Void, nodeAddedFunction:TNode -> Void = null, nodeRemovedFunction:TNode -> Void = null)
+    public function new(nodeClass:Class<TNode>, nodeUpdateFunction:TNode->Float->Void, nodeAddedFunction:TNode->Void = null, nodeRemovedFunction:TNode->Void = null)
     {
         this.nodeClass = nodeClass;
         this.nodeUpdateFunction = nodeUpdateFunction;

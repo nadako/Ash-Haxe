@@ -10,5 +10,4 @@ class SystemPriorities
     public static inline var move:Int = 3;
     public static inline var resolveCollisions:Int = 4;
     public static inline var render:Int = 5;
-
 }

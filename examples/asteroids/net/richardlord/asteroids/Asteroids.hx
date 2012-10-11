@@ -1,9 +1,8 @@
 package net.richardlord.asteroids;
 
-import net.richardlord.ash.tick.TickProvider;
-import net.richardlord.ash.tick.FixedTickProvider;
-import net.richardlord.ash.core.Game;
+import net.richardlord.ash.tick.ITickProvider;
 import net.richardlord.ash.tick.FrameTickProvider;
+import net.richardlord.ash.core.Game;
 import net.richardlord.asteroids.systems.BulletAgeSystem;
 import net.richardlord.asteroids.systems.CollisionSystem;
 import net.richardlord.asteroids.systems.GameManager;
@@ -18,20 +17,20 @@ import flash.display.DisplayObjectContainer;
 
 class Asteroids
 {
-    private var container : DisplayObjectContainer;
-    private var game : Game;
-    private var tickProvider : TickProvider;
-    private var creator : EntityCreator;
-    private var keyPoll : KeyPoll;
-    private var config : GameConfig;
+    private var container:DisplayObjectContainer;
+    private var game:Game;
+    private var tickProvider:ITickProvider;
+    private var creator:EntityCreator;
+    private var keyPoll:KeyPoll;
+    private var config:GameConfig;
 
-    public function new( container : DisplayObjectContainer, width : Float, height : Float )
+    public function new(container:DisplayObjectContainer, width:Float, height:Float)
     {
         this.container = container;
-        prepare( width, height );
+        prepare(width, height);
     }
 
-    private function prepare( width : Float, height : Float ) : Void
+    private function prepare(width:Float, height:Float):Void
     {
         game = new Game();
         creator = new EntityCreator( game );
@@ -40,21 +39,21 @@ class Asteroids
         config.width = width;
         config.height = height;
 
-        game.addSystem( new GameManager( creator, config ), SystemPriorities.preUpdate );
-        game.addSystem( new MotionControlSystem( keyPoll ), SystemPriorities.update );
-        game.addSystem( new GunControlSystem( keyPoll, creator ), SystemPriorities.update );
-        game.addSystem( new BulletAgeSystem( creator ), SystemPriorities.update );
-        game.addSystem( new MovementSystem( config ), SystemPriorities.move );
-        game.addSystem( new CollisionSystem( creator ), SystemPriorities.resolveCollisions );
-        game.addSystem( new RenderSystem( container ), SystemPriorities.render );
+        game.addSystem(new GameManager( creator, config ), SystemPriorities.preUpdate);
+        game.addSystem(new MotionControlSystem( keyPoll ), SystemPriorities.update);
+        game.addSystem(new GunControlSystem( keyPoll, creator ), SystemPriorities.update);
+        game.addSystem(new BulletAgeSystem( creator ), SystemPriorities.update);
+        game.addSystem(new MovementSystem( config ), SystemPriorities.move);
+        game.addSystem(new CollisionSystem( creator ), SystemPriorities.resolveCollisions);
+        game.addSystem(new RenderSystem( container ), SystemPriorities.render);
 
         creator.createGame();
     }
 
-    public function start() : Void
+    public function start():Void
     {
         tickProvider = new FrameTickProvider( container );
-        tickProvider.add( game.update );
+        tickProvider.add(game.update);
         tickProvider.start();
     }
 }

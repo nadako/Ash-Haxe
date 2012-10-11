@@ -7,7 +7,7 @@ package net.richardlord.signals;
 /**
  * Provides a fast signal for use where no parameters are dispatched with the signal.
  */
-class Signal0 extends SignalBase<Void -> Void>
+class Signal0 extends SignalBase<Void->Void>
 {
     public function new()
     {
@@ -17,7 +17,7 @@ class Signal0 extends SignalBase<Void -> Void>
     public function dispatch():Void
     {
         startDispatch();
-        var node:ListenerNode<Void -> Void> = head;
+        var node:ListenerNode<Void->Void> = head;
         while (node != null)
         {
             node.listener();

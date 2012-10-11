@@ -12,45 +12,45 @@ import net.richardlord.asteroids.nodes.SpaceshipCollisionNode;
 
 class CollisionSystem extends System
 {
-    private var creator : EntityCreator;
+    private var creator:EntityCreator;
 
-    private var spaceships : NodeList<SpaceshipCollisionNode>;
-    private var asteroids : NodeList<AsteroidCollisionNode>;
-    private var bullets : NodeList<BulletCollisionNode>;
+    private var spaceships:NodeList<SpaceshipCollisionNode>;
+    private var asteroids:NodeList<AsteroidCollisionNode>;
+    private var bullets:NodeList<BulletCollisionNode>;
 
-    public function new( creator : EntityCreator )
+    public function new(creator:EntityCreator)
     {
         this.creator = creator;
     }
 
-    override public function addToGame( game : Game ) : Void
+    override public function addToGame(game:Game):Void
     {
-        spaceships = game.getNodeList( SpaceshipCollisionNode );
-        asteroids = game.getNodeList( AsteroidCollisionNode );
-        bullets = game.getNodeList( BulletCollisionNode );
+        spaceships = game.getNodeList(SpaceshipCollisionNode);
+        asteroids = game.getNodeList(AsteroidCollisionNode);
+        bullets = game.getNodeList(BulletCollisionNode);
     }
 
-    override public function update( time : Float ) : Void
+    override public function update(time:Float):Void
     {
-        var bullet : BulletCollisionNode;
-        var asteroid : AsteroidCollisionNode;
-        var spaceship : SpaceshipCollisionNode;
+        var bullet:BulletCollisionNode;
+        var asteroid:AsteroidCollisionNode;
+        var spaceship:SpaceshipCollisionNode;
 
         bullet = bullets.head;
-        while ( bullet != null )
+        while (bullet != null)
         {
             asteroid = asteroids.head;
-            while ( asteroid != null )
+            while (asteroid != null)
             {
-                if ( Point.distance( asteroid.position.position, bullet.position.position ) <= asteroid.position.collisionRadius )
+                if (Point.distance(asteroid.position.position, bullet.position.position) <= asteroid.position.collisionRadius)
                 {
-                    creator.destroyEntity( bullet.entity );
-                    if ( asteroid.position.collisionRadius > 10 )
+                    creator.destroyEntity(bullet.entity);
+                    if (asteroid.position.collisionRadius > 10)
                     {
-                        creator.createAsteroid( asteroid.position.collisionRadius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5 );
-                        creator.createAsteroid( asteroid.position.collisionRadius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5 );
+                        creator.createAsteroid(asteroid.position.collisionRadius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5);
+                        creator.createAsteroid(asteroid.position.collisionRadius - 10, asteroid.position.position.x + Math.random() * 10 - 5, asteroid.position.position.y + Math.random() * 10 - 5);
                     }
-                    creator.destroyEntity( asteroid.entity );
+                    creator.destroyEntity(asteroid.entity);
                     break;
                 }
                 asteroid = asteroid.next;
@@ -59,14 +59,14 @@ class CollisionSystem extends System
         }
 
         spaceship = spaceships.head;
-        while ( spaceship != null )
+        while (spaceship != null)
         {
             asteroid = asteroids.head;
-            while( asteroid != null )
+            while (asteroid != null)
             {
-                if ( Point.distance( asteroid.position.position, spaceship.position.position ) <= asteroid.position.collisionRadius + spaceship.position.collisionRadius )
+                if (Point.distance(asteroid.position.position, spaceship.position.position) <= asteroid.position.collisionRadius + spaceship.position.collisionRadius)
                 {
-                    creator.destroyEntity( spaceship.entity );
+                    creator.destroyEntity(spaceship.entity);
                     break;
                 }
                 asteroid = asteroid.next;
@@ -75,7 +75,7 @@ class CollisionSystem extends System
         }
     }
 
-    override public function removeFromGame( game : Game ) : Void
+    override public function removeFromGame(game:Game):Void
     {
         spaceships = null;
         asteroids = null;

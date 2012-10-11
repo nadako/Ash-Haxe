@@ -34,6 +34,7 @@ class System
      *
      * @param game The game the system was added to.
      */
+
     public function addToGame(game:Game):Void
     {
     }
@@ -44,6 +45,7 @@ class System
      *
      * @param game The game the system was removed from.
      */
+
     public function removeFromGame(game:Game):Void
     {
     }
@@ -58,6 +60,7 @@ class System
      *
      * @param time The duration, in seconds, of the frame.
      */
+
     public function update(time:Float):Void
     {
     }

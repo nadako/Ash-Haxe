@@ -11,7 +11,7 @@ import net.richardlord.signals.Signal1;
  * There is a maximum frame time parameter in the constructor that can be used to limit
  * the longest period a frame can be.
  */
-class FrameTickProvider implements TickProvider
+class FrameTickProvider implements ITickProvider
 {
     private var displayObject:DisplayObject;
     private var previousTime:Float;
@@ -31,12 +31,12 @@ class FrameTickProvider implements TickProvider
         this.maximumFrameTime = maximumFrameTime;
     }
 
-    public function add(listener:Float -> Void):Void
+    public function add(listener:Float->Void):Void
     {
         signal.add(listener);
     }
 
-    public function remove(listener:Float -> Void):Void
+    public function remove(listener:Float->Void):Void
     {
         signal.remove(listener);
     }

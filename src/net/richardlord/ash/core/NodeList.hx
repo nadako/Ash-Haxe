@@ -110,6 +110,7 @@ class NodeList<TNode:Node<TNode>>
     /**
      * Swaps the positions of two nodes in the list. Useful when sorting a list.
      */
+
     public function swap(node1:TNode, node2:TNode):Void
     {
         if (node1.previous == node2)
