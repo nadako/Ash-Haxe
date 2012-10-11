@@ -1,6 +1,7 @@
 package net.richardlord.ash.core;
 
 import haxe.rtti.CType.Classdef;
+
 import nme.ObjectHash;
 
 /**
@@ -33,12 +34,10 @@ class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
         entities = new ObjectHash<Entity, TNode>();
 
         components = new ObjectHash<Class<Dynamic>, String>();
-        nodePool.dispose(nodePool.get()); // create a dummy instance to ensure describeType works.
 
         var xml:Xml = Xml.parse(Reflect.field(nodeClass, "__rtti")).firstElement();
         var infos = new haxe.rtti.XmlParser().processElement(xml);
-        var classDef:Classdef;
-        switch(infos)
+        switch (infos)
         {
             case TClassdecl(classDef):
                 for (f in classDef.fields)
