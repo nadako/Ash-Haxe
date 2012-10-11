@@ -145,4 +145,9 @@ class SignalBase<TListener>
         toAddHead = null;
         toAddTail = null;
     }
+
+    private function iterator():Iterator<ListenerNode<TListener>>
+    {
+        return new GenericListIterator(head);
+    }
 }

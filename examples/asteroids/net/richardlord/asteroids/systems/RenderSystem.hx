@@ -2,6 +2,7 @@ package net.richardlord.asteroids.systems;
 
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
+
 import net.richardlord.ash.core.Game;
 import net.richardlord.ash.core.NodeList;
 import net.richardlord.ash.core.System;
@@ -23,12 +24,8 @@ class RenderSystem extends System
     override public function addToGame(game:Game):Void
     {
         nodes = game.getNodeList(RenderNode);
-        var node:RenderNode = nodes.head;
-        while (node != null)
-        {
+        for (node in nodes)
             addToDisplay(node);
-            node = node.next;
-        }
         nodes.nodeAdded.add(addToDisplay);
         nodes.nodeRemoved.add(removeFromDisplay);
     }
@@ -45,22 +42,15 @@ class RenderSystem extends System
 
     override public function update(time:Float):Void
     {
-        var position:Position;
-        var display:Display;
-        var displayObject:DisplayObject;
-
-        var node:RenderNode = nodes.head;
-        while (node != null)
+        for (node in nodes)
         {
-            display = node.display;
-            displayObject = display.displayObject;
-            position = node.position;
+            var display:Display = node.display;
+            var displayObject:DisplayObject = display.displayObject;
+            var position:Position = node.position;
 
             displayObject.x = position.position.x;
             displayObject.y = position.position.y;
             displayObject.rotation = position.rotation * 180 / Math.PI;
-
-            node = node.next;
         }
     }
 

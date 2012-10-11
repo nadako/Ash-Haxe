@@ -129,18 +129,14 @@ class Game
     public function getNodeList<TNode:Node<TNode>>(nodeClass:Class<TNode>):NodeList<TNode>
     {
         if (families.exists(nodeClass))
-        {
             return cast(families.get(nodeClass)).nodeList;
-        }
+
         var family:IFamily<TNode> = cast(Type.createInstance(familyClass, [nodeClass, this ]));
         families.set(nodeClass, family);
 
-        var entity:Entity = entities.head;
-        while (entity != null)
-        {
+        for (entity in entities)
             family.newEntity(entity);
-            entity = entity.next;
-        }
+
         return family.nodeList;
     }
 
@@ -234,12 +230,8 @@ class Game
     public function update(time:Float):Void
     {
         updating = true;
-        var system:System = systems.head;
-        while (system != null)
-        {
+        for (system in systems)
             system.update(time);
-            system = system.next;
-        }
         updating = false;
         updateComplete.dispatch();
     }

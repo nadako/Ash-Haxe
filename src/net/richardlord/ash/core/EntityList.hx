@@ -53,4 +53,9 @@ class EntityList
         }
         tail = null;
     }
+
+    public function iterator():Iterator<Entity>
+    {
+        return new GenericListIterator(head);
+    }
 }

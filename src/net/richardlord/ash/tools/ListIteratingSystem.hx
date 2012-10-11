@@ -48,12 +48,8 @@ class ListIteratingSystem<TNode:Node<TNode>> extends System
         nodeList = game.getNodeList(nodeClass);
         if (nodeAddedFunction != null)
         {
-            var node:TNode = nodeList.head;
-            while (node != null)
-            {
+            for (node in nodeList)
                 nodeAddedFunction(node);
-                node = node.next;
-            }
             nodeList.nodeAdded.add(nodeAddedFunction);
         }
         if (nodeRemovedFunction != null)
@@ -77,11 +73,7 @@ class ListIteratingSystem<TNode:Node<TNode>> extends System
 
     override public function update(time:Float):Void
     {
-        var node:TNode = nodeList.head;
-        while (node != null)
-        {
+        for (node in nodeList)
             nodeUpdateFunction(node, time);
-            node = node.next;
-        }
     }
 }

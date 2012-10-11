@@ -136,12 +136,8 @@ class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
 
     public function cleanUp():Void
     {
-        var node:TNode = nodeList.head;
-        while (node != null)
-        {
+        for (node in nodeList)
             entities.remove(node.entity);
-            node = node.next;
-        }
         nodeList.removeAll();
     }
 }

@@ -17,13 +17,11 @@ class Signal1<T1> extends SignalBase<T1->Void>
     public function dispatch(object:T1):Void
     {
         startDispatch();
-        var node:ListenerNode<T1->Void> = head;
-        while (node != null)
+        for (node in this)
         {
             node.listener(object);
             if (node.once)
                 remove(node.listener);
-            node = node.next;
         }
         endDispatch();
     }

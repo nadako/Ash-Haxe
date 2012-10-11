@@ -32,15 +32,9 @@ class CollisionSystem extends System
 
     override public function update(time:Float):Void
     {
-        var bullet:BulletCollisionNode;
-        var asteroid:AsteroidCollisionNode;
-        var spaceship:SpaceshipCollisionNode;
-
-        bullet = bullets.head;
-        while (bullet != null)
+        for (bullet in bullets)
         {
-            asteroid = asteroids.head;
-            while (asteroid != null)
+            for (asteroid in asteroids)
             {
                 if (Point.distance(asteroid.position.position, bullet.position.position) <= asteroid.position.collisionRadius)
                 {
@@ -53,25 +47,19 @@ class CollisionSystem extends System
                     creator.destroyEntity(asteroid.entity);
                     break;
                 }
-                asteroid = asteroid.next;
             }
-            bullet = bullet.next;
         }
 
-        spaceship = spaceships.head;
-        while (spaceship != null)
+        for (spaceship in spaceships)
         {
-            asteroid = asteroids.head;
-            while (asteroid != null)
+            for (asteroid in asteroids)
             {
                 if (Point.distance(asteroid.position.position, spaceship.position.position) <= asteroid.position.collisionRadius + spaceship.position.collisionRadius)
                 {
                     creator.destroyEntity(spaceship.entity);
                     break;
                 }
-                asteroid = asteroid.next;
             }
-            spaceship = spaceship.next;
         }
     }
 

@@ -17,13 +17,11 @@ class Signal0 extends SignalBase<Void->Void>
     public function dispatch():Void
     {
         startDispatch();
-        var node:ListenerNode<Void->Void> = head;
-        while (node != null)
+        for (node in this)
         {
             node.listener();
             if (node.once)
                 remove(node.listener);
-            node = node.next;
         }
         endDispatch();
     }

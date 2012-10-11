@@ -89,4 +89,9 @@ class SystemList
         }
         return null;
     }
+
+    public function iterator():Iterator<System>
+    {
+        return new GenericListIterator(head);
+    }
 }

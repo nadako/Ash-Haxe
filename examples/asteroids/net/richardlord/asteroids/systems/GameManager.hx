@@ -38,8 +38,7 @@ class GameManager extends System
 
     override public function update(time:Float):Void
     {
-        var node:GameNode = gameNodes.head;
-        while (node != null)
+        for (node in gameNodes)
         {
             if (spaceships.empty)
             {
@@ -48,15 +47,13 @@ class GameManager extends System
                     var newSpaceshipPosition:Point = new Point( config.width * 0.5, config.height * 0.5 );
                     var clearToAddSpaceship:Bool = true;
 
-                    var asteroid:AsteroidCollisionNode = asteroids.head;
-                    while (asteroid != null)
+                    for (asteroid in asteroids)
                     {
                         if (Point.distance(asteroid.position.position, newSpaceshipPosition) <= asteroid.position.collisionRadius + 50)
                         {
                             clearToAddSpaceship = false;
                             break;
                         }
-                        asteroid = asteroid.next;
                     }
                     if (clearToAddSpaceship)
                     {
@@ -88,7 +85,6 @@ class GameManager extends System
                     creator.createAsteroid(30, position.x, position.y);
                 }
             }
-            node = node.next;
         }
     }
 

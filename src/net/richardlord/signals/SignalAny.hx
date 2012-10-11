@@ -19,13 +19,11 @@ class SignalAny extends SignalBase<Dynamic>
     private function _dispatch(args:Array<Dynamic>):Void
     {
         startDispatch();
-        var node:ListenerNode<Dynamic> = head;
-        while (node != null)
+        for (node in this)
         {
             Reflect.callMethod(null, node.listener, args);
             if (node.once)
                 remove(node.listener);
-            node = node.next;
         }
         endDispatch();
     }

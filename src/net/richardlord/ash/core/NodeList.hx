@@ -8,9 +8,9 @@ import net.richardlord.signals.Signal1;
  * <p>Systems within the game access the components of entities via NodeLists. A NodeList contains
  * a node for each Entity in the game that has all the components required by the node. To iterate
  * over a NodeList, start from the head and step to the next on each loop, until the returned value
- * is null.</p>
+ * is null. Or just use for in syntax.</p>
  *
- * <p>for( var node : Node = nodeList.head; node; node = node.next )
+ * <p>for (node in nodeList)
  * {
  *   // do stuff
  * }</p>
@@ -105,6 +105,11 @@ class NodeList<TNode:Node<TNode>>
     private function getEmpty():Bool
     {
         return head == null;
+    }
+
+    public function iterator():Iterator<TNode>
+    {
+        return new GenericListIterator(head);
     }
 
     /**
