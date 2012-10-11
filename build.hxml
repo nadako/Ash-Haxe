@@ -4,4 +4,6 @@
 -swf out/Asteroids.swf
 -swf-version 10.1
 -swf-header 800:600:30:0
+-debug
+-D fdb
 --flash-strict
