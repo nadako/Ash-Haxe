@@ -1,5 +1,6 @@
 package net.richardlord.asteroids;
 
+import net.richardlord.ash.tools.ComponentPool;
 import net.richardlord.asteroids.components.GameState;
 import flash.ui.Keyboard;
 import net.richardlord.ash.core.Entity;
@@ -29,6 +30,8 @@ class EntityCreator
     public function destroyEntity(entity:Entity):Void
     {
         game.removeEntity(entity);
+        if (entity.has(Asteroid))
+            ComponentPool.dispose(entity.get(Asteroid));
     }
 
     public function createGame():Entity
@@ -42,7 +45,7 @@ class EntityCreator
     public function createAsteroid(radius:Float, x:Float, y:Float):Entity
     {
         var asteroid:Entity = new Entity()
-        .add(new Asteroid())
+        .add(ComponentPool.get(Asteroid))
         .add(new Position( x, y, 0, radius ))
         .add(new Motion( ( Math.random() - 0.5 ) * 4 * ( 50 - radius ), ( Math.random() - 0.5 ) * 4 * ( 50 - radius ), Math.random() * 2 - 1, 0 ))
         .add(new Display( new AsteroidView( radius ) ));
