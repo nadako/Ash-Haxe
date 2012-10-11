@@ -2,6 +2,8 @@ package net.richardlord.ash.core;
 
 import haxe.rtti.CType.Classdef;
 
+import flash.errors.Error;
+
 import nme.ObjectHash;
 
 /**
@@ -44,20 +46,20 @@ class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
                 {
                     if (f.name != "entity" && f.name != "previous" && f.name != "next")
                     {
-                        var type:String = Std.string(f.type);
-                        var arr:Array<String> = type.split("(");
-                        arr.shift();
-                        type = arr.pop();
-                        arr = type.split(",");
-                        arr.pop();
-                        var classname:String = arr.pop();
-                        if (classname == "{}" || classname == "Void")
-                            continue;
-                        var newClass:Class<Dynamic> = Type.resolveClass(classname);
-                        components.set(newClass, f.name);
+                        switch (f.type)
+                        {
+                            case CClass(name, params):
+                                if (params.length > 0)
+                                    throw new Error("Type parameters for node field types are not yet supported yet");
+                                var newClass:Class<Dynamic> = Type.resolveClass(name);
+                                components.set(newClass, f.name);
+                            default:
+                                throw new Error("Invalid node class with field type other than class: " + f.name);
+                        }
                     }
                 }
             default:
+                // this can't happen, because nodeClass is always subclass of Node
         }
 
 
