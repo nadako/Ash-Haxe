@@ -14,30 +14,27 @@ class NodeMacro
     @:macro public static function build():Array<Field>
     {
         var nodeClass:ClassType = Context.getLocalClass().get();
-        var fields:Array<Field> = Context.getBuildFields();
+        var fields:Array<Field> = Context.getBuildFields(); // TODO: check superclass fields as well
 
         var componentLinkFields:Array<Field> = [];
         for (field in fields)
         {
-            if (field.name != "entity" && field.name != "previous" && field.name != "next")
+            switch (field.kind)
             {
-                switch (field.kind)
-                {
-                    case FVar(type, expr):
-                        switch (type)
-                        {
-                            case TPath(path):
-                                // TODO: add support for type parameters
-                                if (path.params.length > 0)
-                                    throw new Error("Type parameters for node field types are not yet supported yet", field.pos);
-                                componentLinkFields.push(field);
-                            default:
-                                throw new Error("Invalid node class with field type other than class: " + field.name, field.pos);
-                        }
-                    default:
-                        // TODO: add support for functions and properties
-                        throw new Error("Node classes should only have public variables, no functions or properties. This will be fixed soon.", field.pos);
-                }
+                case FVar(type, expr):
+                    switch (type)
+                    {
+                        case TPath(path):
+                            // TODO: add support for type parameters
+                            if (path.params.length > 0)
+                                throw new Error("Type parameters for node field types are not yet supported yet", field.pos);
+                            componentLinkFields.push(field);
+                        default:
+                            throw new Error("Invalid node class with field type other than class: " + field.name, field.pos);
+                    }
+                default:
+                    // TODO: add support for functions and properties
+                    throw new Error("Node classes should only have public variables, no functions or properties. This will be fixed soon.", field.pos);
             }
         }
 
