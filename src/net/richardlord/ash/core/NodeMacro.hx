@@ -33,8 +33,8 @@ class NodeMacro
                             throw new Error("Invalid node class with field type other than class: " + field.name, field.pos);
                     }
                 default:
-                    // TODO: add support for functions and properties
-                    throw new Error("Node classes should only have public variables, no functions or properties. This will be fixed soon.", field.pos);
+                    // functions and properties are ignored and intended to be used only in custom Node APIs
+                    // only variables are set by component system
             }
         }
 

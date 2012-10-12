@@ -32,20 +32,19 @@ class RenderSystem extends System
 
     private function addToDisplay(node:RenderNode):Void
     {
-        container.addChild(node.display.displayObject);
+        container.addChild(node.displayObject);
     }
 
     private function removeFromDisplay(node:RenderNode):Void
     {
-        container.removeChild(node.display.displayObject);
+        container.removeChild(node.displayObject);
     }
 
     override public function update(time:Float):Void
     {
         for (node in nodes)
         {
-            var display:Display = node.display;
-            var displayObject:DisplayObject = display.displayObject;
+            var displayObject:DisplayObject = node.displayObject;
             var position:Position = node.position;
 
             displayObject.x = position.position.x;
