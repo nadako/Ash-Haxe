@@ -14,7 +14,7 @@ class NodeMacro
     @:macro public static function build():Array<Field>
     {
         var nodeClass:ClassType = Context.getLocalClass().get();
-        var fields:Array<Field> = Context.getBuildFields(); // TODO: check superclass fields as well
+        var fields:Array<Field> = Context.getBuildFields();
 
         var componentLinkFields:Array<Field> = [];
         for (field in fields)
