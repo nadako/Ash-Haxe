@@ -1,9 +1,5 @@
 package net.richardlord.ash.core;
 
-import haxe.rtti.CType.Classdef;
-
-import flash.errors.Error;
-
 import nme.ObjectHash;
 
 /**
@@ -34,35 +30,7 @@ class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
         nodePool = new NodePool<TNode>( nodeClass );
         nodeList = new NodeList<TNode>();
         entities = new ObjectHash<Entity, TNode>();
-
-        components = new ObjectHash<Class<Dynamic>, String>();
-
-        var xml:Xml = Xml.parse(Reflect.field(nodeClass, "__rtti")).firstElement();
-        var infos = new haxe.rtti.XmlParser().processElement(xml);
-        switch (infos)
-        {
-            case TClassdecl(classDef):
-                for (f in classDef.fields)
-                {
-                    if (f.name != "entity" && f.name != "previous" && f.name != "next")
-                    {
-                        switch (f.type)
-                        {
-                            case CClass(name, params):
-                                if (params.length > 0)
-                                    throw new Error("Type parameters for node field types are not yet supported yet");
-                                var newClass:Class<Dynamic> = Type.resolveClass(name);
-                                components.set(newClass, f.name);
-                            default:
-                                throw new Error("Invalid node class with field type other than class: " + f.name);
-                        }
-                    }
-                }
-            default:
-                // this can't happen, because nodeClass is always subclass of Node
-        }
-
-
+        components = untyped nodeClass._getComponents();
     }
 
     public function newEntity(entity:Entity):Void

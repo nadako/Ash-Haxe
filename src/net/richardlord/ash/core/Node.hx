@@ -9,7 +9,8 @@ package net.richardlord.ash.core;
  * to the list obtained by the system. The game keeps the list up to date as entities are added
  * to and removed from the game and as the components on entities change.</p>
  */
-class Node<TNode> implements haxe.rtti.Infos
+@:autoBuild(net.richardlord.ash.core.NodeMacro.build())
+class Node<TNode>
 {
     /**
      * The entity whose components are included in the node.
