@@ -25,10 +25,11 @@
  */
 package net.richardlord.input;
 
+import haxe.io.Bytes;
+
 import flash.events.KeyboardEvent;
 import flash.events.Event;
 import flash.display.DisplayObject;
-import flash.utils.ByteArray;
 
 /**
  * <p>Games often need to get the current state of various keys in order to respond to user input.
@@ -44,7 +45,7 @@ import flash.utils.ByteArray;
  */
 class KeyPoll
 {
-    private var states:ByteArray;
+    private var states:Bytes;
     private var dispObj:DisplayObject;
 
     /**
@@ -52,18 +53,9 @@ class KeyPoll
      *
      * @param displayObj a display object on which to test listen for keyboard events. To catch all key events use the stage.
      */
-
     public function new(displayObj:DisplayObject)
     {
-        states = new ByteArray();
-        states.writeUnsignedInt(0);
-        states.writeUnsignedInt(0);
-        states.writeUnsignedInt(0);
-        states.writeUnsignedInt(0);
-        states.writeUnsignedInt(0);
-        states.writeUnsignedInt(0);
-        states.writeUnsignedInt(0);
-        states.writeUnsignedInt(0);
+        states = Bytes.alloc(8);
         dispObj = displayObj;
         dispObj.addEventListener(KeyboardEvent.KEY_DOWN, keyDownListener, false, 0, true);
         dispObj.addEventListener(KeyboardEvent.KEY_UP, keyUpListener, false, 0, true);
@@ -73,28 +65,26 @@ class KeyPoll
 
     private function keyDownListener(ev:KeyboardEvent):Void
     {
-        states[ ev.keyCode >>> 3 ] |= 1 << (ev.keyCode & 7);
+        var pos:Int = ev.keyCode >>> 3;
+        states.set(pos, states.get(pos) | 1 << (ev.keyCode & 7));
     }
 
     private function keyUpListener(ev:KeyboardEvent):Void
     {
-        states[ ev.keyCode >>> 3 ] &= ~(1 << (ev.keyCode & 7));
+        var pos:Int = ev.keyCode >>> 3;
+        states.set(pos, states.get(pos) & ~(1 << (ev.keyCode & 7)));
     }
 
     private function activateListener(ev:Event):Void
     {
         for (i in 0...8)
-        {
-            states[ i ] = 0;
-        }
+            states.set(i, 0);
     }
 
     private function deactivateListener(ev:Event):Void
     {
         for (i in 0...8)
-        {
-            states[ i ] = 0;
-        }
+            states.set(i, 0);
     }
 
     /**
@@ -109,7 +99,7 @@ class KeyPoll
 
     public function isDown(keyCode:Int):Bool
     {
-        return ( states[ keyCode >>> 3 ] & (1 << (keyCode & 7)) ) != 0;
+        return ( states.get(keyCode >>> 3) & (1 << (keyCode & 7)) ) != 0;
     }
 
     /**
@@ -124,6 +114,6 @@ class KeyPoll
 
     public function isUp(keyCode:Int):Bool
     {
-        return ( states[ keyCode >>> 3 ] & (1 << (keyCode & 7)) ) == 0;
+        return ( states.get(keyCode >>> 3) & (1 << (keyCode & 7)) ) == 0;
     }
 }
