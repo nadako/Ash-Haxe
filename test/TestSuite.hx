@@ -1,6 +1,7 @@
 import massive.munit.TestSuite;
 
 import net.richardlord.ash.core.EntityTest;
+import net.richardlord.ash.core.GameTest;
 import net.richardlord.ash.core.SystemTest;
 import net.richardlord.ash.tools.ComponentPoolTest;
 import net.richardlord.ash.tools.ListIteratingSystemTest;
@@ -19,6 +20,7 @@ class TestSuite extends massive.munit.TestSuite
 		super();
 
 		add(net.richardlord.ash.core.EntityTest);
+		add(net.richardlord.ash.core.GameTest);
 		add(net.richardlord.ash.core.SystemTest);
 		add(net.richardlord.ash.tools.ComponentPoolTest);
 		add(net.richardlord.ash.tools.ListIteratingSystemTest);
