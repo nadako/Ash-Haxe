@@ -1,5 +1,6 @@
 import massive.munit.TestSuite;
 
+import net.richardlord.ash.core.ComponentMatchingFamilyTest;
 import net.richardlord.ash.core.EntityTest;
 import net.richardlord.ash.core.GameAndFamilyIntegrationTest;
 import net.richardlord.ash.core.GameTest;
@@ -20,6 +21,7 @@ class TestSuite extends massive.munit.TestSuite
 	{
 		super();
 
+		add(net.richardlord.ash.core.ComponentMatchingFamilyTest);
 		add(net.richardlord.ash.core.EntityTest);
 		add(net.richardlord.ash.core.GameAndFamilyIntegrationTest);
 		add(net.richardlord.ash.core.GameTest);
