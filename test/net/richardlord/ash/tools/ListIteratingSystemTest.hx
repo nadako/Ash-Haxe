@@ -2,11 +2,12 @@ package net.richardlord.ash.tools;
 
 import org.hamcrest.MatchersBase;
 
+import flash.geom.Point;
+
 import net.richardlord.ash.core.Node;
 import net.richardlord.ash.core.Entity;
 import net.richardlord.ash.core.Game;
-
-import flash.geom.Point;
+import net.richardlord.ash.Mocks;
 
 class ListIteratingSystemTest extends MatchersBase
 {
@@ -43,9 +44,4 @@ class ListIteratingSystemTest extends MatchersBase
         assertThat(time, equalTo(0.1));
         callCount++;
     }
-}
-
-class MockNode extends Node<MockNode>
-{
-    public var value:Point;
 }

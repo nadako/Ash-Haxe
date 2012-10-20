@@ -4,6 +4,8 @@ import massive.munit.async.AsyncFactory;
 
 import org.hamcrest.MatchersBase;
 
+import net.richardlord.ash.Mocks;
+
 class EntityTest extends MatchersBase
 {
     private var entity:Entity;
@@ -191,33 +193,5 @@ class EntityTest extends MatchersBase
     {
         assertThat(signalEntity, sameInstance(entity));
         assertThat(componentClass, sameInstance(MockComponent));
-    }
-}
-
-class MockComponent
-{
-    public var value:Int;
-
-    public function new()
-    {
-    }
-}
-
-class MockComponent2
-{
-    public var value:String;
-
-    public function new()
-    {
-    }
-}
-
-class MockComponentExtended extends MockComponent
-{
-    public var other:Int;
-
-    public function new()
-    {
-        super();
     }
 }

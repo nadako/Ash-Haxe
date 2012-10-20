@@ -1,21 +1,23 @@
 package net.richardlord.ash.core;
 
 import org.hamcrest.MatchersBase;
-import net.richardlord.ash.core.Node;
 
 import flash.geom.Matrix;
 import flash.geom.Point;
 
+import net.richardlord.ash.core.Node;
+import net.richardlord.ash.Mocks;
+
 class ComponentMatchingFamilyTest extends MatchersBase
 {
     private var game:Game;
-    private var family:ComponentMatchingFamily<MockNode4>;
+    private var family:ComponentMatchingFamily<MockNode>;
 
     @Before
     public function createFamily():Void
     {
         game = new Game();
-        family = new ComponentMatchingFamily( MockNode4, game );
+        family = new ComponentMatchingFamily( MockNode, game );
     }
 
     @After
@@ -192,13 +194,8 @@ class ComponentMatchingFamilyTest extends MatchersBase
         }
 
         var nodes = family.nodeList;
-        var node:MockNode4 = nodes.head.next;
+        var node:MockNode = nodes.head.next;
         family.cleanUp();
         assertThat(node.next, nullValue());
     }
-}
-
-class MockNode4 extends Node<MockNode4>
-{
-    public var point:Point;
 }

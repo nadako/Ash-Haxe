@@ -4,6 +4,7 @@ import net.richardlord.ash.core.ComponentMatchingFamilyTest;
 import net.richardlord.ash.core.EntityTest;
 import net.richardlord.ash.core.GameAndFamilyIntegrationTest;
 import net.richardlord.ash.core.GameTest;
+import net.richardlord.ash.core.NodeListTest;
 import net.richardlord.ash.core.SystemTest;
 import net.richardlord.ash.tools.ComponentPoolTest;
 import net.richardlord.ash.tools.ListIteratingSystemTest;
@@ -25,6 +26,7 @@ class TestSuite extends massive.munit.TestSuite
 		add(net.richardlord.ash.core.EntityTest);
 		add(net.richardlord.ash.core.GameAndFamilyIntegrationTest);
 		add(net.richardlord.ash.core.GameTest);
+		add(net.richardlord.ash.core.NodeListTest);
 		add(net.richardlord.ash.core.SystemTest);
 		add(net.richardlord.ash.tools.ComponentPoolTest);
 		add(net.richardlord.ash.tools.ListIteratingSystemTest);

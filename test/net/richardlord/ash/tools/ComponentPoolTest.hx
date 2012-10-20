@@ -2,6 +2,8 @@ package net.richardlord.ash.tools;
 
 import org.hamcrest.MatchersBase;
 
+import net.richardlord.ash.Mocks;
+
 class ComponentPoolTest extends MatchersBase
 {
     @Before
@@ -38,14 +40,5 @@ class ComponentPoolTest extends MatchersBase
         ComponentPool.empty();
         var retrievedComponent:MockComponent = ComponentPool.get(MockComponent);
         assertThat(retrievedComponent, not(sameInstance(mockComponent)));
-    }
-}
-
-class MockComponent
-{
-    public var value:Int;
-
-    public function new()
-    {
     }
 }

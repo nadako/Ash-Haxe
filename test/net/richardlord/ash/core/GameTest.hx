@@ -7,6 +7,7 @@ import net.richardlord.ash.core.Entity;
 import net.richardlord.ash.core.Game;
 import net.richardlord.ash.core.Node;
 import net.richardlord.ash.core.NodeList;
+import net.richardlord.ash.Mocks;
 
 import flash.geom.Matrix;
 import flash.geom.Point;
@@ -33,7 +34,7 @@ class GameTest extends MatchersBase
     public function testAddEntityChecksWithAllFamilies():Void
     {
         game.getNodeList(MockNode);
-        game.getNodeList(MockNode2);
+        game.getNodeList(MockNode3);
         var entity:Entity = new Entity();
         game.addEntity(entity);
         assertThat(MockFamily.instances[0].newEntityCalls, equalTo(1));
@@ -44,7 +45,7 @@ class GameTest extends MatchersBase
     public function testRemoveEntityChecksWithAllFamilies():Void
     {
         game.getNodeList(MockNode);
-        game.getNodeList(MockNode2);
+        game.getNodeList(MockNode3);
         var entity:Entity = new Entity();
         game.addEntity(entity);
         game.removeEntity(entity);
@@ -56,7 +57,7 @@ class GameTest extends MatchersBase
     public function testRemoveAllEntitiesChecksWithAllFamilies():Void
     {
         game.getNodeList(MockNode);
-        game.getNodeList(MockNode2);
+        game.getNodeList(MockNode3);
         var entity:Entity = new Entity();
         var entity2:Entity = new Entity();
         game.addEntity(entity);
@@ -70,7 +71,7 @@ class GameTest extends MatchersBase
     public function testComponentAddedChecksWithAllFamilies():Void
     {
         game.getNodeList(MockNode);
-        game.getNodeList(MockNode2);
+        game.getNodeList(MockNode3);
         var entity:Entity = new Entity();
         game.addEntity(entity);
         entity.add(new Point());
@@ -82,7 +83,7 @@ class GameTest extends MatchersBase
     public function testComponentRemovedChecksWithAllFamilies():Void
     {
         game.getNodeList(MockNode);
-        game.getNodeList(MockNode2);
+        game.getNodeList(MockNode3);
         var entity:Entity = new Entity();
         game.addEntity(entity);
         entity.add(new Point());
@@ -114,17 +115,6 @@ class GameTest extends MatchersBase
         game.releaseNodeList(MockNode);
         assertThat(MockFamily.instances[0].cleanUpCalls, equalTo(1));
     }
-}
-
-
-class MockNode extends Node<MockNode>
-{
-    public var point:Point;
-}
-
-class MockNode2 extends Node<MockNode2>
-{
-    public var matrix:Matrix;
 }
 
 class MockFamily<T:Node<T>> implements IFamily<T>

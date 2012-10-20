@@ -4,6 +4,7 @@ import massive.munit.async.AsyncFactory;
 
 import org.hamcrest.MatchersBase;
 
+import net.richardlord.ash.Mocks;
 import net.richardlord.ash.core.Game;
 import net.richardlord.ash.core.System;
 
@@ -218,41 +219,5 @@ class SystemTest extends MatchersBase
     private function listensForUpdateComplete(system:System, action:String, time:Float):Void
     {
         game.updateComplete.add(async.createHandler(this, function() {}));
-    }
-}
-
-
-class MockSystem extends System
-{
-    private var tests:SystemTest;
-
-    public function new(tests:SystemTest)
-    {
-        this.tests = tests;
-    }
-
-    override public function addToGame(game:Game):Void
-    {
-        if (tests.asyncCallback != null)
-            tests.asyncCallback(this, "added", game);
-    }
-
-    override public function removeFromGame(game:Game):Void
-    {
-        if (tests.asyncCallback != null)
-            tests.asyncCallback(this, "removed", game);
-    }
-
-    override public function update(time:Float):Void
-    {
-        if (tests.asyncCallback != null)
-            tests.asyncCallback(this, "update", time);
-    }
-}
-
-class EmptySystem extends System
-{
-    public function new()
-    {
     }
 }
