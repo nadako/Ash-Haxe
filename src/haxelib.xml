@@ -1,0 +1,8 @@
+<project name="ash" url="https://github.com/nadako/Ash-HaXe" license="MIT">
+    <user name="nadako"/>
+    <description>Port of the Ash entity component framework originally written in ActionScript 3</description>
+    <version name="1.0">
+        Initial release, ported everything besides some third-party integration stuff. Added static typing
+        features of HaXe for compile-time checks.
+    </version>
+</project>
