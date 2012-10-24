@@ -2,6 +2,7 @@ package net.richardlord.ash.core;
 
 import nme.ObjectHash;
 import net.richardlord.signals.Signal0;
+import net.richardlord.signals.Signal1;
 
 
 /**
@@ -10,7 +11,8 @@ import net.richardlord.signals.Signal0;
  */
 class Game
 {
-    private var entities:EntityList;
+    public var entities(default, null):EntityList;
+
     private var systems:SystemList;
     private var families:ObjectHash<Class<Dynamic>, IFamily<Dynamic>>;
 
@@ -18,6 +20,9 @@ class Game
      * Indicates if the game is currently in its update loop.
      */
     public var updating:Bool;
+
+    public var entityAdded(default, null):Signal1<Entity>;
+    public var entityRemoved(default, null):Signal1<Entity>;
 
     /**
      * Dispatched when the update loop ends. If you want to add and remove systems from the
@@ -40,6 +45,8 @@ class Game
         entities = new EntityList();
         systems = new SystemList();
         families = new ObjectHash<Class<Node<Dynamic>>, IFamily<Dynamic>>();
+        entityAdded = new Signal1<Entity>();
+        entityRemoved = new Signal1<Entity>();
         updateComplete = new Signal0();
     }
 
@@ -58,6 +65,7 @@ class Game
         {
             family.newEntity(entity);
         }
+        entityAdded.dispatch(entity);
     }
 
     /**
@@ -75,6 +83,7 @@ class Game
             family.removeEntity(entity);
         }
         entities.remove(entity);
+        entityRemoved.dispatch(entity);
     }
 
     /**
