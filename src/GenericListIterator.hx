@@ -4,7 +4,11 @@ package ;
  * An iterator class for any linked lists that
  * has "next" variable in its elements.
  **/
-class GenericListIterator<TNode:HasNext<TNode>>
+class GenericListIterator<TNode
+#if haxe_211
+:HasNext<TNode>
+#end
+>
 {
     private var previous:HasNext<TNode>;
 
@@ -21,7 +25,7 @@ class GenericListIterator<TNode:HasNext<TNode>>
     public function next():TNode
     {
         var node:TNode = previous.next;
-        previous = node;
+        previous = #if !haxe_211 untyped #end node;
         return node;
     }
 }
