@@ -38,7 +38,7 @@ class Entity
 
     public var previous:Entity;
     public var next:Entity;
-    public var components:ObjectHash<Class<Dynamic>, Dynamic>;
+    public var components(default, null):ObjectHash<Class<Dynamic>, Dynamic>;
 
     public function new()
     {
