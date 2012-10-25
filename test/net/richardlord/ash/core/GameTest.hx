@@ -31,7 +31,17 @@ class GameTest extends MatchersBase
     }
 
     @Test
-    public function testAddEntityChecksWithAllFamilies():Void
+    public function entitiesGetterReturnsAllTheEntities():Void
+    {
+        var entity1:Entity = new Entity();
+        game.addEntity(entity1);
+        var entity2:Entity = new Entity();
+        game.addEntity(entity2);
+        assertThat(game.entities, hasItems([entity1, entity2]));
+    }
+
+    @Test
+    public function addEntityChecksWithAllFamilies():Void
     {
         game.getNodeList(MockNode);
         game.getNodeList(MockNode3);
@@ -42,7 +52,7 @@ class GameTest extends MatchersBase
     }
 
     @Test
-    public function testRemoveEntityChecksWithAllFamilies():Void
+    public function removeEntityChecksWithAllFamilies():Void
     {
         game.getNodeList(MockNode);
         game.getNodeList(MockNode3);
@@ -54,7 +64,7 @@ class GameTest extends MatchersBase
     }
 
     @Test
-    public function testRemoveAllEntitiesChecksWithAllFamilies():Void
+    public function removeAllEntitiesChecksWithAllFamilies():Void
     {
         game.getNodeList(MockNode);
         game.getNodeList(MockNode3);
@@ -68,7 +78,7 @@ class GameTest extends MatchersBase
     }
 
     @Test
-    public function testComponentAddedChecksWithAllFamilies():Void
+    public function componentAddedChecksWithAllFamilies():Void
     {
         game.getNodeList(MockNode);
         game.getNodeList(MockNode3);
@@ -80,7 +90,7 @@ class GameTest extends MatchersBase
     }
 
     @Test
-    public function testComponentRemovedChecksWithAllFamilies():Void
+    public function romponentRemovedChecksWithAllFamilies():Void
     {
         game.getNodeList(MockNode);
         game.getNodeList(MockNode3);
@@ -93,14 +103,14 @@ class GameTest extends MatchersBase
     }
 
     @Test
-    public function testGetNodeListCreatesFamily():Void
+    public function getNodeListCreatesFamily():Void
     {
         game.getNodeList(MockNode);
         assertThat(MockFamily.instances.length, equalTo(1));
     }
 
     @Test
-    public function testGetNodeListChecksAllEntities():Void
+    public function getNodeListChecksAllEntities():Void
     {
         game.addEntity(new Entity());
         game.addEntity(new Entity());
@@ -109,7 +119,7 @@ class GameTest extends MatchersBase
     }
 
     @Test
-    public function testReleaseNodeListCallsCleanUp():Void
+    public function releaseNodeListCallsCleanUp():Void
     {
         game.getNodeList(MockNode);
         game.releaseNodeList(MockNode);

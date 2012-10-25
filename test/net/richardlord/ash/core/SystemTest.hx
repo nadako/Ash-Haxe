@@ -31,6 +31,16 @@ class SystemTest extends MatchersBase
         asyncCallback = null;
     }
 
+    @Test
+    public function systemsGetterReturnsAllTheSystems():Void
+    {
+        var system1:System = Type.createInstance(System, []);
+        game.addSystem(system1, 1);
+        var system2:System = Type.createInstance(System, []);
+        game.addSystem(system2, 1);
+        assertThat(game.systems, hasItems([system1, system2]));
+    }
+
     @AsyncTest
     public function addSystemCallsAddToGame(async:AsyncFactory):Void
     {
@@ -218,6 +228,7 @@ class SystemTest extends MatchersBase
 
     private function listensForUpdateComplete(system:System, action:String, time:Float):Void
     {
-        game.updateComplete.add(async.createHandler(this, function() {}));
+        game.updateComplete.add(async.createHandler(this, function()
+        {}));
     }
 }

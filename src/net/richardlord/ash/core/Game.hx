@@ -11,9 +11,11 @@ import net.richardlord.signals.Signal1;
  */
 class Game
 {
-    public var entities(default, null):EntityList;
+    public var entities(getEntities, never):Iterable<Entity>;
+    public var systems(getSystems, never):Iterable<System>;
 
-    private var systems:SystemList;
+    private var entityList:EntityList;
+    private var systemList:SystemList;
     private var families:ObjectHash<Class<Dynamic>, IFamily<Dynamic>>;
 
     /**
@@ -42,8 +44,8 @@ class Game
 
     public function new()
     {
-        entities = new EntityList();
-        systems = new SystemList();
+        entityList = new EntityList();
+        systemList = new SystemList();
         families = new ObjectHash<Class<Node<Dynamic>>, IFamily<Dynamic>>();
         entityAdded = new Signal1<Entity>();
         entityRemoved = new Signal1<Entity>();
@@ -58,7 +60,7 @@ class Game
 
     public function addEntity(entity:Entity):Void
     {
-        entities.add(entity);
+        entityList.add(entity);
         entity.componentAdded.add(componentAdded);
         entity.componentRemoved.add(componentRemoved);
         for (family in families)
@@ -82,7 +84,7 @@ class Game
         {
             family.removeEntity(entity);
         }
-        entities.remove(entity);
+        entityList.remove(entity);
         entityRemoved.dispatch(entity);
     }
 
@@ -92,10 +94,18 @@ class Game
 
     public function removeAllEntities():Void
     {
-        while (entities.head != null)
+        while (entityList.head != null)
         {
-            removeEntity(entities.head);
+            removeEntity(entityList.head);
         }
+    }
+
+    /**
+     * Returns an iterator of all entities in the game.
+     */
+    private function getEntities():Iterable<Entity>
+    {
+        return entityList;
     }
 
     /**
@@ -143,7 +153,7 @@ class Game
         var family:IFamily<TNode> = cast(Type.createInstance(familyClass, [nodeClass, this ]));
         families.set(nodeClass, family);
 
-        for (entity in entities)
+        for (entity in entityList)
             family.newEntity(entity);
 
         return family.nodeList;
@@ -186,7 +196,7 @@ class Game
     {
         system.priority = priority;
         system.addToGame(this);
-        systems.add(system);
+        systemList.add(system);
     }
 
     /**
@@ -199,7 +209,15 @@ class Game
 
     public function getSystem<TSystem:System>(type:Class<TSystem>):TSystem
     {
-        return systems.get(type);
+        return systemList.get(type);
+    }
+
+    /**
+     * Returns an iterator of all systems in the game.
+     */
+    private function getSystems():Iterable<System>
+    {
+        return systemList;
     }
 
     /**
@@ -210,7 +228,7 @@ class Game
 
     public function removeSystem(system:System):Void
     {
-        systems.remove(system);
+        systemList.remove(system);
         system.removeFromGame(this);
     }
 
@@ -220,9 +238,9 @@ class Game
 
     public function removeAllSystems():Void
     {
-        while (systems.head != null)
+        while (systemList.head != null)
         {
-            removeSystem(systems.head);
+            removeSystem(systemList.head);
         }
     }
 
@@ -239,7 +257,7 @@ class Game
     public function update(time:Float):Void
     {
         updating = true;
-        for (system in systems)
+        for (system in systemList)
             system.update(time);
         updating = false;
         updateComplete.dispatch();
