@@ -8,6 +8,4 @@ NOTE: I tested example game with Flash and HTML5. It doesn't currently compile o
 bug: http://code.google.com/p/haxe/issues/detail?id=1233 As soon as it's fixed, I'll work on improving cross-platform
 compatibility.
 
-NOTE2: This library currently requires development version of haxe to compile (2.11+).
-
 Author: Dan Korostelev <nadako@gmail.com>
