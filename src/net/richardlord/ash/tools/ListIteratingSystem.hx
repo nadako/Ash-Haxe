@@ -73,7 +73,10 @@ class ListIteratingSystem<TNode:Node<TNode>> extends System
 
     override public function update(time:Float):Void
     {
-        for (node in nodeList)
-            nodeUpdateFunction(node, time);
+        if (nodeUpdateFunction != null)
+        {
+            for (node in nodeList)
+                nodeUpdateFunction(node, time);
+        }
     }
 }
