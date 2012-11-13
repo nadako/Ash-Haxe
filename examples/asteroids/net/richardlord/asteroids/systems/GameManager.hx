@@ -8,7 +8,7 @@ import net.richardlord.asteroids.GameConfig;
 import net.richardlord.asteroids.nodes.AsteroidCollisionNode;
 import net.richardlord.asteroids.nodes.BulletCollisionNode;
 import net.richardlord.asteroids.nodes.GameNode;
-import net.richardlord.asteroids.nodes.SpaceshipCollisionNode;
+import net.richardlord.asteroids.nodes.SpaceshipNode;
 
 import flash.geom.Point;
 
@@ -18,7 +18,7 @@ class GameManager extends System
     private var creator:EntityCreator;
 
     private var gameNodes:NodeList<GameNode>;
-    private var spaceships:NodeList<SpaceshipCollisionNode>;
+    private var spaceships:NodeList<SpaceshipNode>;
     private var asteroids:NodeList<AsteroidCollisionNode>;
     private var bullets:NodeList<BulletCollisionNode>;
 
@@ -31,7 +31,7 @@ class GameManager extends System
     override public function addToGame(game:Game):Void
     {
         gameNodes = game.getNodeList(GameNode);
-        spaceships = game.getNodeList(SpaceshipCollisionNode);
+        spaceships = game.getNodeList(SpaceshipNode);
         asteroids = game.getNodeList(AsteroidCollisionNode);
         bullets = game.getNodeList(BulletCollisionNode);
     }
@@ -49,7 +49,7 @@ class GameManager extends System
 
                     for (asteroid in asteroids)
                     {
-                        if (Point.distance(asteroid.position.position, newSpaceshipPosition) <= asteroid.position.collisionRadius + 50)
+                        if (Point.distance(asteroid.position.position, newSpaceshipPosition) <= asteroid.collision.radius + 50)
                         {
                             clearToAddSpaceship = false;
                             break;
@@ -70,7 +70,7 @@ class GameManager extends System
             if (asteroids.empty && bullets.empty && !spaceships.empty)
             {
                 // next level
-                var spaceship:SpaceshipCollisionNode = spaceships.head;
+                var spaceship:SpaceshipNode = spaceships.head;
                 node.state.level++;
                 var asteroidCount:Int = 2 + node.state.level;
                 for (i in 0...asteroidCount)

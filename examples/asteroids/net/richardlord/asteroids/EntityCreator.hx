@@ -3,9 +3,13 @@ package net.richardlord.asteroids;
 import flash.ui.Keyboard;
 
 import net.richardlord.ash.tools.ComponentPool;
-import net.richardlord.asteroids.components.GameState;
 import net.richardlord.ash.core.Entity;
 import net.richardlord.ash.core.Game;
+import net.richardlord.ash.fsm.EntityStateMachine;
+import net.richardlord.asteroids.components.GameState;
+import net.richardlord.asteroids.components.Animation;
+import net.richardlord.asteroids.components.DeathThroes;
+import net.richardlord.asteroids.components.Collision;
 import net.richardlord.asteroids.components.Asteroid;
 import net.richardlord.asteroids.components.Bullet;
 import net.richardlord.asteroids.components.Display;
@@ -18,6 +22,7 @@ import net.richardlord.asteroids.components.Spaceship;
 import net.richardlord.asteroids.graphics.AsteroidView;
 import net.richardlord.asteroids.graphics.BulletView;
 import net.richardlord.asteroids.graphics.SpaceshipView;
+import net.richardlord.asteroids.graphics.SpaceshipDeathView;
 
 class EntityCreator
 {
@@ -47,7 +52,8 @@ class EntityCreator
     {
         var asteroid:Entity = new Entity()
         .add(ComponentPool.get(Asteroid))
-        .add(new Position( x, y, 0, radius ))
+        .add(new Position( x, y, 0))
+        .add(new Collision(radius))
         .add(new Motion( ( Math.random() - 0.5 ) * 4 * ( 50 - radius ), ( Math.random() - 0.5 ) * 4 * ( 50 - radius ), Math.random() * 2 - 1, 0 ))
         .add(new Display( new AsteroidView( radius ) ));
         game.addEntity(asteroid);
@@ -56,15 +62,28 @@ class EntityCreator
 
     public function createSpaceship():Entity
     {
-        var spaceship:Entity = new Entity()
-        .add(new Spaceship())
-        .add(new Position( 300, 225, 0, 6 ))
-        .add(new Motion( 0, 0, 0, 15 ))
-        .add(new MotionControls( Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, 100, 3 ))
-        .add(new Gun( 8, 0, 0.3, 2 ))
-        .add(new GunControls( Keyboard.Z ))
-        .add(new Display( new SpaceshipView() ));
+        var spaceship : Entity = new Entity();
+        var fsm : EntityStateMachine = new EntityStateMachine( spaceship );
+
+        fsm.createState( "playing" )
+        .add( Motion ).withInstance( new Motion( 0, 0, 0, 15 ) )
+        .add( MotionControls ).withInstance( new MotionControls( Keyboard.LEFT, Keyboard.RIGHT, Keyboard.UP, 100, 3 ) )
+        .add( Gun ).withInstance( new Gun( 8, 0, 0.3, 2 ) )
+        .add( GunControls ).withInstance( new GunControls( Keyboard.SPACE ) )
+        .add( Collision ).withInstance( new Collision( 9 ) )
+        .add( Display ).withInstance( new Display( new SpaceshipView() ) );
+
+        var deathView : SpaceshipDeathView = new SpaceshipDeathView();
+        fsm.createState( "destroyed" )
+        .add( DeathThroes ).withInstance( new DeathThroes( 5 ) )
+        .add( Display ).withInstance( new Display( deathView ) )
+        .add( Animation ).withInstance( new Animation( deathView ) );
+
+        spaceship.add( new Spaceship( fsm ) ).add( new Position( 300, 225, 0 ) );
+
+        fsm.changeState( "playing" );
         game.addEntity(spaceship);
+
         return spaceship;
     }
 
@@ -75,7 +94,8 @@ class EntityCreator
         var bullet:Entity = new Entity()
         .add(new Bullet( gun.bulletLifetime ))
         .add(new Position(
-             cos * gun.offsetFromParent.x - sin * gun.offsetFromParent.y + parentPosition.position.x, sin * gun.offsetFromParent.x + cos * gun.offsetFromParent.y + parentPosition.position.y, 0, 0 ))
+             cos * gun.offsetFromParent.x - sin * gun.offsetFromParent.y + parentPosition.position.x, sin * gun.offsetFromParent.x + cos * gun.offsetFromParent.y + parentPosition.position.y, 0))
+        .add(new Collision(0))
         .add(new Motion( cos * 150, sin * 150, 0, 0 ))
         .add(new Display( new BulletView() ));
         game.addEntity(bullet);

@@ -11,6 +11,8 @@ import net.richardlord.asteroids.systems.MotionControlSystem;
 import net.richardlord.asteroids.systems.MovementSystem;
 import net.richardlord.asteroids.systems.RenderSystem;
 import net.richardlord.asteroids.systems.SystemPriorities;
+import net.richardlord.asteroids.systems.AnimationSystem;
+import net.richardlord.asteroids.systems.DeathThroesSystem;
 import net.richardlord.input.KeyPoll;
 
 import flash.display.DisplayObjectContainer;
@@ -43,8 +45,10 @@ class Asteroids
         game.addSystem(new MotionControlSystem( keyPoll ), SystemPriorities.update);
         game.addSystem(new GunControlSystem( keyPoll, creator ), SystemPriorities.update);
         game.addSystem(new BulletAgeSystem( creator ), SystemPriorities.update);
+        game.addSystem(new DeathThroesSystem( creator ), SystemPriorities.update);
         game.addSystem(new MovementSystem( config ), SystemPriorities.move);
         game.addSystem(new CollisionSystem( creator ), SystemPriorities.resolveCollisions);
+        game.addSystem(new AnimationSystem(), SystemPriorities.animate);
         game.addSystem(new RenderSystem( container ), SystemPriorities.render);
 
         creator.createGame();
