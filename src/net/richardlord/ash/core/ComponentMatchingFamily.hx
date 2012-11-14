@@ -30,7 +30,12 @@ class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
         nodePool = new NodePool<TNode>( nodeClass );
         nodeList = new NodeList<TNode>();
         entities = new ObjectHash<Entity, TNode>();
+
+        #if cpp
+        components = Reflect.field(nodeClass, "_getComponents")();
+        #else
         components = untyped nodeClass._getComponents();
+        #end
     }
 
     public function newEntity(entity:Entity):Void
