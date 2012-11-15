@@ -37,6 +37,7 @@ class ListIteratingSystem<TNode:Node<TNode>> extends System
 
     public function new(nodeClass:Class<TNode>, nodeUpdateFunction:TNode->Float->Void, nodeAddedFunction:TNode->Void = null, nodeRemovedFunction:TNode->Void = null)
     {
+        super();
         this.nodeClass = nodeClass;
         this.nodeUpdateFunction = nodeUpdateFunction;
         this.nodeAddedFunction = nodeAddedFunction;

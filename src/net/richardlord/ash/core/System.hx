@@ -26,7 +26,12 @@ class System
      * Used internally to hold the priority of this system within the system list. This is
      * used to order the systems so they are updated in the correct order.
      */
-    public var priority:Int = 0;
+    public var priority:Int;
+
+    public function new()
+    {
+        priority = 0;
+    }
 
     /**
      * Called just after the system is added to the game, before any calls to the update method.

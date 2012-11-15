@@ -59,6 +59,7 @@ class MockSystem extends System
 
     public function new(tests:SystemTest)
     {
+        super();
         this.tests = tests;
     }
 
@@ -85,5 +86,6 @@ class EmptySystem extends System
 {
     public function new()
     {
+        super();
     }
 }

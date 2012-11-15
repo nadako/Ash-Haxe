@@ -50,6 +50,7 @@ class Game
         entityAdded = new Signal1<Entity>();
         entityRemoved = new Signal1<Entity>();
         updateComplete = new Signal0();
+        updating = false;
     }
 
     /**

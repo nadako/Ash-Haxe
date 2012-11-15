@@ -26,6 +26,8 @@
 -main TestMain
 -lib munit
 -lib hamcrest
+-lib nme
+--remap flash:nme
 -cp src
 
 -cp test
