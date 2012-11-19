@@ -1,8 +1,11 @@
 package net.richardlord.asteroids;
 
-import net.richardlord.ash.tick.ITickProvider;
-import net.richardlord.ash.tick.FrameTickProvider;
-import net.richardlord.ash.core.Game;
+import flash.display.DisplayObjectContainer;
+
+import ash.tick.ITickProvider;
+import ash.tick.FrameTickProvider;
+import ash.core.Ash;
+
 import net.richardlord.asteroids.systems.BulletAgeSystem;
 import net.richardlord.asteroids.systems.CollisionSystem;
 import net.richardlord.asteroids.systems.GameManager;
@@ -15,12 +18,10 @@ import net.richardlord.asteroids.systems.AnimationSystem;
 import net.richardlord.asteroids.systems.DeathThroesSystem;
 import net.richardlord.input.KeyPoll;
 
-import flash.display.DisplayObjectContainer;
-
 class Asteroids
 {
     private var container:DisplayObjectContainer;
-    private var game:Game;
+    private var game:Ash;
     private var tickProvider:ITickProvider;
     private var creator:EntityCreator;
     private var keyPoll:KeyPoll;
@@ -34,7 +35,7 @@ class Asteroids
 
     private function prepare(width:Float, height:Float):Void
     {
-        game = new Game();
+        game = new Ash();
         creator = new EntityCreator( game );
         keyPoll = new KeyPoll( container.stage );
         config = new GameConfig();

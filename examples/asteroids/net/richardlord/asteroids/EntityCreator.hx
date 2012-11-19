@@ -2,10 +2,11 @@ package net.richardlord.asteroids;
 
 import flash.ui.Keyboard;
 
-import net.richardlord.ash.tools.ComponentPool;
-import net.richardlord.ash.core.Entity;
-import net.richardlord.ash.core.Game;
-import net.richardlord.ash.fsm.EntityStateMachine;
+import ash.core.Entity;
+import ash.core.Ash;
+import ash.fsm.EntityStateMachine;
+import ash.tools.ComponentPool;
+
 import net.richardlord.asteroids.components.GameState;
 import net.richardlord.asteroids.components.Animation;
 import net.richardlord.asteroids.components.DeathThroes;
@@ -26,9 +27,9 @@ import net.richardlord.asteroids.graphics.SpaceshipDeathView;
 
 class EntityCreator
 {
-    private var game:Game;
+    private var game:Ash;
 
-    public function new(game:Game)
+    public function new(game:Ash)
     {
         this.game = game;
     }

@@ -1,19 +1,19 @@
 import massive.munit.TestSuite;
 
-import net.richardlord.ash.core.ComponentMatchingFamilyTest;
-import net.richardlord.ash.core.EntityTest;
-import net.richardlord.ash.core.GameAndFamilyIntegrationTest;
-import net.richardlord.ash.core.GameTest;
-import net.richardlord.ash.core.NodeListTest;
-import net.richardlord.ash.core.SystemTest;
-import net.richardlord.ash.fsm.ComponentInstanceProviderTest;
-import net.richardlord.ash.fsm.ComponentSingletonProviderTest;
-import net.richardlord.ash.fsm.ComponentTypeProviderTest;
-import net.richardlord.ash.fsm.EntityStateMachineTest;
-import net.richardlord.ash.fsm.EntityStateTest;
-import net.richardlord.ash.tools.ComponentPoolTest;
-import net.richardlord.ash.tools.ListIteratingSystemTest;
-import net.richardlord.signals.SignalTest;
+import ash.core.AshAndFamilyIntegrationTest;
+import ash.core.AshTest;
+import ash.core.ComponentMatchingFamilyTest;
+import ash.core.EntityTest;
+import ash.core.NodeListTest;
+import ash.core.SystemTest;
+import ash.fsm.ComponentInstanceProviderTest;
+import ash.fsm.ComponentSingletonProviderTest;
+import ash.fsm.ComponentTypeProviderTest;
+import ash.fsm.EntityStateMachineTest;
+import ash.fsm.EntityStateTest;
+import ash.signals.SignalTest;
+import ash.tools.ComponentPoolTest;
+import ash.tools.ListIteratingSystemTest;
 
 /**
  * Auto generated Test Suite for MassiveUnit.
@@ -27,19 +27,19 @@ class TestSuite extends massive.munit.TestSuite
 	{
 		super();
 
-		add(net.richardlord.ash.core.ComponentMatchingFamilyTest);
-		add(net.richardlord.ash.core.EntityTest);
-		add(net.richardlord.ash.core.GameAndFamilyIntegrationTest);
-		add(net.richardlord.ash.core.GameTest);
-		add(net.richardlord.ash.core.NodeListTest);
-		add(net.richardlord.ash.core.SystemTest);
-		add(net.richardlord.ash.fsm.ComponentInstanceProviderTest);
-		add(net.richardlord.ash.fsm.ComponentSingletonProviderTest);
-		add(net.richardlord.ash.fsm.ComponentTypeProviderTest);
-		add(net.richardlord.ash.fsm.EntityStateMachineTest);
-		add(net.richardlord.ash.fsm.EntityStateTest);
-		add(net.richardlord.ash.tools.ComponentPoolTest);
-		add(net.richardlord.ash.tools.ListIteratingSystemTest);
-		add(net.richardlord.signals.SignalTest);
+		add(ash.core.AshAndFamilyIntegrationTest);
+		add(ash.core.AshTest);
+		add(ash.core.ComponentMatchingFamilyTest);
+		add(ash.core.EntityTest);
+		add(ash.core.NodeListTest);
+		add(ash.core.SystemTest);
+		add(ash.fsm.ComponentInstanceProviderTest);
+		add(ash.fsm.ComponentSingletonProviderTest);
+		add(ash.fsm.ComponentTypeProviderTest);
+		add(ash.fsm.EntityStateMachineTest);
+		add(ash.fsm.EntityStateTest);
+		add(ash.signals.SignalTest);
+		add(ash.tools.ComponentPoolTest);
+		add(ash.tools.ListIteratingSystemTest);
 	}
 }

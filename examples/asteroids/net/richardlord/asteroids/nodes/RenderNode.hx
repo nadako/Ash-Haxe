@@ -2,7 +2,8 @@ package net.richardlord.asteroids.nodes;
 
 import flash.display.DisplayObject;
 
-import net.richardlord.ash.core.Node;
+import ash.core.Node;
+
 import net.richardlord.asteroids.components.Display;
 import net.richardlord.asteroids.components.Position;
 

@@ -1,6 +1,6 @@
 package net.richardlord.asteroids.components;
 
-import net.richardlord.ash.fsm.EntityStateMachine;
+import ash.fsm.EntityStateMachine;
 
 class Spaceship
 {

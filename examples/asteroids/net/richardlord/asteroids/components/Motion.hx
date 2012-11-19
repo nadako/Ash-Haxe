@@ -1,4 +1,5 @@
 package net.richardlord.asteroids.components;
+
 import flash.geom.Point;
 
 class Motion

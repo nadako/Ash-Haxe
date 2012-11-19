@@ -1,9 +1,11 @@
 package net.richardlord.asteroids.systems;
 
 import flash.geom.Point;
-import net.richardlord.ash.core.Game;
-import net.richardlord.ash.core.NodeList;
-import net.richardlord.ash.core.System;
+
+import ash.core.Ash;
+import ash.core.NodeList;
+import ash.core.System;
+
 import net.richardlord.asteroids.EntityCreator;
 import net.richardlord.asteroids.nodes.AsteroidCollisionNode;
 import net.richardlord.asteroids.nodes.BulletCollisionNode;
@@ -24,7 +26,7 @@ class CollisionSystem extends System
         this.creator = creator;
     }
 
-    override public function addToGame(game:Game):Void
+    override public function addToGame(game:Ash):Void
     {
         spaceships = game.getNodeList(SpaceshipCollisionNode);
         asteroids = game.getNodeList(AsteroidCollisionNode);
@@ -64,7 +66,7 @@ class CollisionSystem extends System
         }
     }
 
-    override public function removeFromGame(game:Game):Void
+    override public function removeFromGame(game:Ash):Void
     {
         spaceships = null;
         asteroids = null;
