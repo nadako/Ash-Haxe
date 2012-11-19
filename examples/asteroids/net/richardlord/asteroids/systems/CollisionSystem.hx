@@ -20,6 +20,7 @@ class CollisionSystem extends System
 
     public function new(creator:EntityCreator)
     {
+        super();
         this.creator = creator;
     }
 

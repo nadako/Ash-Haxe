@@ -24,6 +24,7 @@ class GameManager extends System
 
     public function new(creator:EntityCreator, config:GameConfig)
     {
+        super();
         this.creator = creator;
         this.config = config;
     }

@@ -18,6 +18,7 @@ class RenderSystem extends System
 
     public function new(container:DisplayObjectContainer)
     {
+        super();
         this.container = container;
     }
 
