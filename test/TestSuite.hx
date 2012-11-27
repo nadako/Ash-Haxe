@@ -1,8 +1,8 @@
 import massive.munit.TestSuite;
 
 import ash.core.AshAndFamilyIntegrationTest;
-import ash.core.AshTest;
 import ash.core.ComponentMatchingFamilyTest;
+import ash.core.EngineTest;
 import ash.core.EntityTest;
 import ash.core.NodeListTest;
 import ash.core.SystemTest;
@@ -28,8 +28,8 @@ class TestSuite extends massive.munit.TestSuite
 		super();
 
 		add(ash.core.AshAndFamilyIntegrationTest);
-		add(ash.core.AshTest);
 		add(ash.core.ComponentMatchingFamilyTest);
+		add(ash.core.EngineTest);
 		add(ash.core.EntityTest);
 		add(ash.core.NodeListTest);
 		add(ash.core.SystemTest);

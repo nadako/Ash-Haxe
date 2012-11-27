@@ -6,34 +6,34 @@ import flash.geom.Matrix;
 import flash.geom.Point;
 
 import ash.core.Entity;
-import ash.core.Ash;
+import ash.core.Engine;
 import ash.core.Node;
 import ash.Mocks;
 
 /**
- * Tests the family class through the game class. Left over from a previous
+ * Tests the family class through the engine class. Left over from a previous
  * architecture but retained because all tests should still pass.
  */
 class AshAndFamilyIntegrationTest extends MatchersBase
 {
-    private var game:Ash;
+    private var engine:Engine;
 
     @Before
     public function createEntity():Void
     {
-        game = new Ash();
+        engine = new Engine();
     }
 
     @After
     public function clearEntity():Void
     {
-        game = null;
+        engine = null;
     }
 
     @Test
     public function testFamilyIsInitiallyEmpty():Void
     {
-        var nodes = game.getNodeList(MockNode2);
+        var nodes = engine.getNodeList(MockNode2);
         assertThat(nodes.head, nullValue());
     }
 
@@ -46,8 +46,8 @@ class AshAndFamilyIntegrationTest extends MatchersBase
         entity.add(point);
         entity.add(matrix);
 
-        var nodes = game.getNodeList(MockNode2);
-        game.addEntity(entity);
+        var nodes = engine.getNodeList(MockNode2);
+        engine.addEntity(entity);
         assertThat(nodes.head.point, sameInstance(point));
         assertThat(nodes.head.matrix, sameInstance(matrix));
     }
@@ -58,8 +58,8 @@ class AshAndFamilyIntegrationTest extends MatchersBase
         var entity:Entity = new Entity();
         entity.add(new Point());
         entity.add(new Matrix());
-        var nodes = game.getNodeList(MockNode2);
-        game.addEntity(entity);
+        var nodes = engine.getNodeList(MockNode2);
+        engine.addEntity(entity);
         assertThat(nodes.head.entity, sameInstance(entity));
     }
 
@@ -69,8 +69,8 @@ class AshAndFamilyIntegrationTest extends MatchersBase
         var entity:Entity = new Entity();
         entity.add(new Point());
         entity.add(new Matrix());
-        game.addEntity(entity);
-        var nodes = game.getNodeList(MockNode2);
+        engine.addEntity(entity);
+        var nodes = engine.getNodeList(MockNode2);
         assertThat(nodes.head.entity, sameInstance(entity));
     }
 
@@ -78,8 +78,8 @@ class AshAndFamilyIntegrationTest extends MatchersBase
     public function testCorrectEntityAddedToFamilyWhenComponentsAdded():Void
     {
         var entity:Entity = new Entity();
-        game.addEntity(entity);
-        var nodes = game.getNodeList(MockNode2);
+        engine.addEntity(entity);
+        var nodes = engine.getNodeList(MockNode2);
         entity.add(new Point());
         entity.add(new Matrix());
         assertThat(nodes.head.entity, sameInstance(entity));
@@ -89,8 +89,8 @@ class AshAndFamilyIntegrationTest extends MatchersBase
     public function testIncorrectEntityNotAddedToFamilyWhenAccessFamilyFirst():Void
     {
         var entity:Entity = new Entity();
-        var nodes = game.getNodeList(MockNode2);
-        game.addEntity(entity);
+        var nodes = engine.getNodeList(MockNode2);
+        engine.addEntity(entity);
         assertThat(nodes.head, nullValue());
     }
 
@@ -98,8 +98,8 @@ class AshAndFamilyIntegrationTest extends MatchersBase
     public function testIncorrectEntityNotAddedToFamilyWhenAccessFamilySecond():Void
     {
         var entity:Entity = new Entity();
-        game.addEntity(entity);
-        var nodes = game.getNodeList(MockNode2);
+        engine.addEntity(entity);
+        var nodes = engine.getNodeList(MockNode2);
         assertThat(nodes.head, nullValue());
     }
 
@@ -109,8 +109,8 @@ class AshAndFamilyIntegrationTest extends MatchersBase
         var entity:Entity = new Entity();
         entity.add(new Point());
         entity.add(new Matrix());
-        game.addEntity(entity);
-        var nodes = game.getNodeList(MockNode2);
+        engine.addEntity(entity);
+        var nodes = engine.getNodeList(MockNode2);
         entity.remove(Point);
         assertThat(nodes.head, nullValue());
     }
@@ -121,33 +121,33 @@ class AshAndFamilyIntegrationTest extends MatchersBase
         var entity:Entity = new Entity();
         entity.add(new Point());
         entity.add(new Matrix());
-        game.addEntity(entity);
+        engine.addEntity(entity);
         entity.remove(Point);
-        var nodes = game.getNodeList(MockNode2);
+        var nodes = engine.getNodeList(MockNode2);
         assertThat(nodes.head, nullValue());
     }
 
     @Test
-    public function testEntityRemovedFromFamilyWhenRemovedFromGameAndFamilyAlreadyAccessed():Void
+    public function testEntityRemovedFromFamilyWhenRemovedFromEngineAndFamilyAlreadyAccessed():Void
     {
         var entity:Entity = new Entity();
         entity.add(new Point());
         entity.add(new Matrix());
-        game.addEntity(entity);
-        var nodes = game.getNodeList(MockNode2);
-        game.removeEntity(entity);
+        engine.addEntity(entity);
+        var nodes = engine.getNodeList(MockNode2);
+        engine.removeEntity(entity);
         assertThat(nodes.head, nullValue());
     }
 
     @Test
-    public function testEntityRemovedFromFamilyWhenRemovedFromGameAndFamilyNotAlreadyAccessed():Void
+    public function testEntityRemovedFromFamilyWhenRemovedFromEngineAndFamilyNotAlreadyAccessed():Void
     {
         var entity:Entity = new Entity();
         entity.add(new Point());
         entity.add(new Matrix());
-        game.addEntity(entity);
-        game.removeEntity(entity);
-        var nodes = game.getNodeList(MockNode2);
+        engine.addEntity(entity);
+        engine.removeEntity(entity);
+        var nodes = engine.getNodeList(MockNode2);
         assertThat(nodes.head, nullValue());
     }
 
@@ -161,10 +161,10 @@ class AshAndFamilyIntegrationTest extends MatchersBase
             entity.add(new Point());
             entity.add(new Matrix());
             entities.push(entity);
-            game.addEntity(entity);
+            engine.addEntity(entity);
         }
 
-        var nodes = game.getNodeList(MockNode2);
+        var nodes = engine.getNodeList(MockNode2);
         for (node in nodes)
         {
             assertThat(entities, hasItem(node.entity));
@@ -181,10 +181,10 @@ class AshAndFamilyIntegrationTest extends MatchersBase
             entity.add(new Point());
             entity.add(new Matrix());
             entities.push(entity);
-            game.addEntity(entity);
+            engine.addEntity(entity);
         }
 
-        var nodes = game.getNodeList(MockNode2);
+        var nodes = engine.getNodeList(MockNode2);
         for (node in nodes)
         {
             var index:Int = Lambda.indexOf(entities, node.entity);
@@ -199,9 +199,9 @@ class AshAndFamilyIntegrationTest extends MatchersBase
         var entity:Entity = new Entity();
         entity.add(new Point());
         entity.add(new Matrix());
-        game.addEntity(entity);
-        var nodes = game.getNodeList(MockNode2);
-        game.releaseNodeList(MockNode2);
+        engine.addEntity(entity);
+        var nodes = engine.getNodeList(MockNode2);
+        engine.releaseNodeList(MockNode2);
         assertThat(nodes.head, nullValue());
     }
 
@@ -215,12 +215,12 @@ class AshAndFamilyIntegrationTest extends MatchersBase
             entity.add(new Point());
             entity.add(new Matrix());
             entities.push(entity);
-            game.addEntity(entity);
+            engine.addEntity(entity);
         }
 
-        var nodes = game.getNodeList(MockNode2);
+        var nodes = engine.getNodeList(MockNode2);
         var node:MockNode2 = nodes.head.next;
-        game.releaseNodeList(MockNode2);
+        engine.releaseNodeList(MockNode2);
         assertThat(node.next, nullValue());
     }
 
@@ -230,13 +230,13 @@ class AshAndFamilyIntegrationTest extends MatchersBase
         var entity:Entity = new Entity();
         entity.add(new Point());
         entity.add(new Matrix());
-        game.addEntity(entity);
+        engine.addEntity(entity);
         entity = new Entity();
         entity.add(new Point());
         entity.add(new Matrix());
-        game.addEntity(entity);
-        var nodes = game.getNodeList(MockNode2);
-        game.removeAllEntities();
+        engine.addEntity(entity);
+        var nodes = engine.getNodeList(MockNode2);
+        engine.removeAllEntities();
         assertThat(nodes.head, nullValue());
     }
 }

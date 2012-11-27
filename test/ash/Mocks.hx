@@ -1,6 +1,6 @@
 package ash;
 
-import ash.core.Ash;
+import ash.core.Engine;
 import ash.core.SystemTest;
 import ash.core.System;
 import ash.core.Node;
@@ -63,16 +63,16 @@ class MockSystem extends System
         this.tests = tests;
     }
 
-    override public function addToGame(game:Ash):Void
+    override public function addToEngine(engine:Engine):Void
     {
         if (tests.asyncCallback != null)
-            tests.asyncCallback(this, "added", game);
+            tests.asyncCallback(this, "added", engine);
     }
 
-    override public function removeFromGame(game:Ash):Void
+    override public function removeFromEngine(engine:Engine):Void
     {
         if (tests.asyncCallback != null)
-            tests.asyncCallback(this, "removed", game);
+            tests.asyncCallback(this, "removed", engine);
     }
 
     override public function update(time:Float):Void

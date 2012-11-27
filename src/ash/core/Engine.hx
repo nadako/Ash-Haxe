@@ -7,10 +7,10 @@ import ash.signals.Signal1;
 
 
 /**
- * The game class is the central point for creating and managing your game state. Add
- * entities and systems to the game, and fetch families of nodes from the game.
+ * The Engine class is the central point for creating and managing your game state. Add
+ * entities and systems to the engine, and fetch families of nodes from the engine.
  */
-class Ash
+class Engine
 {
     public var entities(getEntities, never):Iterable<Entity>;
     public var systems(getSystems, never):Iterable<System>;
@@ -20,7 +20,7 @@ class Ash
     private var families:ObjectHash<Class<Dynamic>, IFamily<Dynamic>>;
 
     /**
-     * Indicates if the game is currently in its update loop.
+     * Indicates if the engine is currently in its update loop.
      */
     public var updating:Bool;
 
@@ -29,7 +29,7 @@ class Ash
 
     /**
      * Dispatched when the update loop ends. If you want to add and remove systems from the
-     * game it is usually best not to do so during the update loop. To avoid this you can
+     * engine it is usually best not to do so during the update loop. To avoid this you can
      * listen for this signal and make the change when the signal is dispatched.
      */
     public var updateComplete (default, null):Signal0;
@@ -55,7 +55,7 @@ class Ash
     }
 
     /**
-     * Add an entity to the game.
+     * Add an entity to the engine.
      *
      * @param entity The entity to add.
      */
@@ -73,7 +73,7 @@ class Ash
     }
 
     /**
-     * Remove an entity from the game.
+     * Remove an entity from the engine.
      *
      * @param entity The entity to remove.
      */
@@ -91,7 +91,7 @@ class Ash
     }
 
     /**
-     * Remove all entities from the game.
+     * Remove all entities from the engine.
      */
 
     public function removeAllEntities():Void
@@ -103,7 +103,7 @@ class Ash
     }
 
     /**
-     * Returns an iterator of all entities in the game.
+     * Returns an iterator of all entities in the engine.
      */
     private function getEntities():Iterable<Entity>
     {
@@ -135,16 +135,16 @@ class Ash
     }
 
     /**
-     * Get a collection of nodes from the game, based on the type of the node required.
+     * Get a collection of nodes from the engine, based on the type of the node required.
      *
-     * <p>The game will create the appropriate NodeList if it doesn't already exist and
+     * <p>The engine will create the appropriate NodeList if it doesn't already exist and
      * will keep its contents up to date as entities are added to and removed from the
-     * game.</p>
+     * engine.</p>
      *
      * <p>If a NodeList is no longer required, release it with the releaseNodeList method.</p>
      *
      * @param nodeClass The type of node required.
-     * @return A linked list of all nodes of this type from all entities in the game.
+     * @return A linked list of all nodes of this type from all entities in the engine.
      */
 
     public function getNodeList<TNode:Node<TNode>>(nodeClass:Class<TNode>):NodeList<TNode>
@@ -162,7 +162,7 @@ class Ash
     }
 
     /**
-     * If a NodeList is no longer required, this method will stop the game updating
+     * If a NodeList is no longer required, this method will stop the engine updating
      * the list and will release all references to the list within the framework
      * classes, enabling it to be garbage collected.
      *
@@ -182,31 +182,31 @@ class Ash
     }
 
     /**
-     * Add a system to the game, and set its priority for the order in which the
-     * systems are updated by the game loop.
+     * Add a system to the engine, and set its priority for the order in which the
+     * systems are updated by the engine update loop.
      *
-     * <p>The priority dictates the order in which the systems are updated by the game
+     * <p>The priority dictates the order in which the systems are updated by the engine update
      * loop. Lower numbers for priority are updated first. i.e. a priority of 1 is
      * updated before a priority of 2.</p>
      *
-     * @param system The system to add to the game.
-     * @param priority The priority for updating the systems during the game loop. A
+     * @param system The system to add to the engine.
+     * @param priority The priority for updating the systems during the engine loop. A
      * lower number means the system is updated sooner.
      */
 
     public function addSystem(system:System, priority:Int):Void
     {
         system.priority = priority;
-        system.addToGame(this);
+        system.addToEngine(this);
         systemList.add(system);
     }
 
     /**
-     * Get the system instance of a particular type from within the game.
+     * Get the system instance of a particular type from within the engine.
      *
      * @param type The type of system
-     * @return The instance of the system type that is in the game, or
-     * null if no systems of this type are in the game.
+     * @return The instance of the system type that is in the engine, or
+     * null if no systems of this type are in the engine.
      */
 
     public function getSystem<TSystem:System>(type:Class<TSystem>):TSystem
@@ -215,7 +215,7 @@ class Ash
     }
 
     /**
-     * Returns an iterator of all systems in the game.
+     * Returns an iterator of all systems in the engine.
      */
     private function getSystems():Iterable<System>
     {
@@ -223,19 +223,19 @@ class Ash
     }
 
     /**
-     * Remove a system from the game.
+     * Remove a system from the engine.
      *
-     * @param system The system to remove from the game.
+     * @param system The system to remove from the engine.
      */
 
     public function removeSystem(system:System):Void
     {
         systemList.remove(system);
-        system.removeFromGame(this);
+        system.removeFromEngine(this);
     }
 
     /**
-     * Remove all systems from the game.
+     * Remove all systems from the engine.
      */
 
     public function removeAllSystems():Void
@@ -247,10 +247,10 @@ class Ash
     }
 
     /**
-     * Update the game. This causes the game loop to run, calling update on all the
-     * systems in the game.
+     * Update the engine. This causes the engine update loop to run, calling update on all the
+     * systems in the engine.
      *
-     * <p>The package net.richardlord.ash.tick contains classes that can be used to provide
+     * <p>The package ash.tick contains classes that can be used to provide
      * a steady or variable tick that calls this update method.</p>
      *
      * @time The duration, in seconds, of this update step.

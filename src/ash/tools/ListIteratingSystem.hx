@@ -1,6 +1,6 @@
 package ash.tools;
 
-import ash.core.Ash;
+import ash.core.Engine;
 import ash.core.Node;
 import ash.core.NodeList;
 import ash.core.System;
@@ -44,9 +44,9 @@ class ListIteratingSystem<TNode:Node<TNode>> extends System
         this.nodeRemovedFunction = nodeRemovedFunction;
     }
 
-    override public function addToGame(game:Ash):Void
+    override public function addToEngine(engine:Engine):Void
     {
-        nodeList = game.getNodeList(nodeClass);
+        nodeList = engine.getNodeList(nodeClass);
         if (nodeAddedFunction != null)
         {
             for (node in nodeList)
@@ -59,7 +59,7 @@ class ListIteratingSystem<TNode:Node<TNode>> extends System
         }
     }
 
-    override public function removeFromGame(game:Ash):Void
+    override public function removeFromEngine(engine:Engine):Void
     {
         if (nodeAddedFunction != null)
         {

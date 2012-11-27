@@ -1,6 +1,6 @@
 package net.richardlord.asteroids.systems;
 
-import ash.core.Ash;
+import ash.core.Engine;
 import ash.core.NodeList;
 import ash.core.System;
 
@@ -30,12 +30,12 @@ class GameManager extends System
         this.config = config;
     }
 
-    override public function addToGame(game:Ash):Void
+    override public function addToEngine(engine:Engine):Void
     {
-        gameNodes = game.getNodeList(GameNode);
-        spaceships = game.getNodeList(SpaceshipNode);
-        asteroids = game.getNodeList(AsteroidCollisionNode);
-        bullets = game.getNodeList(BulletCollisionNode);
+        gameNodes = engine.getNodeList(GameNode);
+        spaceships = engine.getNodeList(SpaceshipNode);
+        asteroids = engine.getNodeList(AsteroidCollisionNode);
+        bullets = engine.getNodeList(BulletCollisionNode);
     }
 
     override public function update(time:Float):Void
@@ -90,7 +90,7 @@ class GameManager extends System
         }
     }
 
-    override public function removeFromGame(game:Ash):Void
+    override public function removeFromEngine(engine:Engine):Void
     {
         gameNodes = null;
         spaceships = null;

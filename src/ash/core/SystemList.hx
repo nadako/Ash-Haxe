@@ -3,7 +3,7 @@ package ash.core;
 import ash.GenericListIterator;
 
 /**
- * Used internally, this is an ordered list of Systems for use by the game loop.
+ * Used internally, this is an ordered list of Systems for use by the engine update loop.
  */
 class SystemList
 {

@@ -3,8 +3,8 @@ package ash.core;
 import nme.ObjectHash;
 
 /**
- * An default class for managing a NodeList. This class creates the NodeList and adds and removes
- * nodes to/from the list as the entities and the components in the game change.
+ * A default class for managing a NodeList. This class creates the NodeList and adds and removes
+ * nodes to/from the list as the entities and the components in the engine change.
  *
  * It uses the basic entity matching pattern of an entity system - entities are added to the list if
  * they contain components matching all the public properties of the node class.
@@ -16,12 +16,12 @@ class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
     private var nodeClass:Class<TNode>;
     private var components:ObjectHash<Class<Dynamic>, String>;
     private var nodePool:NodePool<TNode>;
-    private var game:Ash;
+    private var engine:Engine;
 
-    public function new(nodeClass:Class<TNode>, game:Ash)
+    public function new(nodeClass:Class<TNode>, engine:Engine)
     {
         this.nodeClass = nodeClass;
-        this.game = game;
+        this.engine = engine;
         init();
     }
 
@@ -90,10 +90,10 @@ class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
             var node:TNode = entities.get(entity);
             entities.remove(entity);
             nodeList.remove(node);
-            if (game.updating)
+            if (engine.updating)
             {
                 nodePool.cache(node);
-                game.updateComplete.add(releaseNodePoolCache);
+                engine.updateComplete.add(releaseNodePoolCache);
             }
             else
             {
@@ -104,7 +104,7 @@ class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
 
     private function releaseNodePoolCache():Void
     {
-        game.updateComplete.remove(releaseNodePoolCache);
+        engine.updateComplete.remove(releaseNodePoolCache);
         nodePool.releaseCache();
     }
 

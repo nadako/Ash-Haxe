@@ -3,7 +3,7 @@ package net.richardlord.asteroids.systems;
 import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 
-import ash.core.Ash;
+import ash.core.Engine;
 import ash.core.NodeList;
 import ash.core.System;
 
@@ -23,9 +23,9 @@ class RenderSystem extends System
         this.container = container;
     }
 
-    override public function addToGame(game:Ash):Void
+    override public function addToEngine(engine:Engine):Void
     {
-        nodes = game.getNodeList(RenderNode);
+        nodes = engine.getNodeList(RenderNode);
         for (node in nodes)
             addToDisplay(node);
         nodes.nodeAdded.add(addToDisplay);
@@ -55,7 +55,7 @@ class RenderSystem extends System
         }
     }
 
-    override public function removeFromGame(game:Ash):Void
+    override public function removeFromEngine(engine:Engine):Void
     {
         nodes = null;
     }

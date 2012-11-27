@@ -3,7 +3,7 @@ package net.richardlord.asteroids;
 import flash.ui.Keyboard;
 
 import ash.core.Entity;
-import ash.core.Ash;
+import ash.core.Engine;
 import ash.fsm.EntityStateMachine;
 import ash.tools.ComponentPool;
 
@@ -27,16 +27,16 @@ import net.richardlord.asteroids.graphics.SpaceshipDeathView;
 
 class EntityCreator
 {
-    private var game:Ash;
+    private var engine:Engine;
 
-    public function new(game:Ash)
+    public function new(engine:Engine)
     {
-        this.game = game;
+        this.engine = engine;
     }
 
     public function destroyEntity(entity:Entity):Void
     {
-        game.removeEntity(entity);
+        engine.removeEntity(entity);
         if (entity.has(Asteroid))
             ComponentPool.dispose(entity.get(Asteroid));
     }
@@ -45,7 +45,7 @@ class EntityCreator
     {
         var gameEntity:Entity = new Entity()
         .add(new GameState());
-        game.addEntity(gameEntity);
+        engine.addEntity(gameEntity);
         return gameEntity;
     }
 
@@ -57,7 +57,7 @@ class EntityCreator
         .add(new Collision(radius))
         .add(new Motion( ( Math.random() - 0.5 ) * 4 * ( 50 - radius ), ( Math.random() - 0.5 ) * 4 * ( 50 - radius ), Math.random() * 2 - 1, 0 ))
         .add(new Display( new AsteroidView( radius ) ));
-        game.addEntity(asteroid);
+        engine.addEntity(asteroid);
         return asteroid;
     }
 
@@ -83,7 +83,7 @@ class EntityCreator
         spaceship.add( new Spaceship( fsm ) ).add( new Position( 300, 225, 0 ) );
 
         fsm.changeState( "playing" );
-        game.addEntity(spaceship);
+        engine.addEntity(spaceship);
 
         return spaceship;
     }
@@ -99,7 +99,7 @@ class EntityCreator
         .add(new Collision(0))
         .add(new Motion( cos * 150, sin * 150, 0, 0 ))
         .add(new Display( new BulletView() ));
-        game.addEntity(bullet);
+        engine.addEntity(bullet);
         return bullet;
     }
 }

@@ -7,27 +7,27 @@ import flash.geom.Point;
 
 import ash.core.Entity;
 import ash.core.ComponentMatchingFamily;
-import ash.core.Ash;
+import ash.core.Engine;
 import ash.core.Node;
 import ash.Mocks;
 
 class ComponentMatchingFamilyTest extends MatchersBase
 {
-    private var game:Ash;
+    private var engine:Engine;
     private var family:ComponentMatchingFamily<MockNode>;
 
     @Before
     public function createFamily():Void
     {
-        game = new Ash();
-        family = new ComponentMatchingFamily( MockNode, game );
+        engine = new Engine();
+        family = new ComponentMatchingFamily( MockNode, engine );
     }
 
     @After
     public function clearFamily():Void
     {
         family = null;
-        game = null;
+        engine = null;
     }
 
     @Test

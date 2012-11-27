@@ -2,7 +2,7 @@ package net.richardlord.asteroids.systems;
 
 import flash.geom.Point;
 
-import ash.core.Ash;
+import ash.core.Engine;
 import ash.core.NodeList;
 import ash.core.System;
 
@@ -26,11 +26,11 @@ class CollisionSystem extends System
         this.creator = creator;
     }
 
-    override public function addToGame(game:Ash):Void
+    override public function addToEngine(engine:Engine):Void
     {
-        spaceships = game.getNodeList(SpaceshipCollisionNode);
-        asteroids = game.getNodeList(AsteroidCollisionNode);
-        bullets = game.getNodeList(BulletCollisionNode);
+        spaceships = engine.getNodeList(SpaceshipCollisionNode);
+        asteroids = engine.getNodeList(AsteroidCollisionNode);
+        bullets = engine.getNodeList(BulletCollisionNode);
     }
 
     override public function update(time:Float):Void
@@ -66,7 +66,7 @@ class CollisionSystem extends System
         }
     }
 
-    override public function removeFromGame(game:Ash):Void
+    override public function removeFromEngine(engine:Engine):Void
     {
         spaceships = null;
         asteroids = null;

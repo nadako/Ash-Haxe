@@ -6,8 +6,8 @@ import ash.signals.Signal1;
 /**
  * A collection of nodes.
  *
- * <p>Systems within the game access the components of entities via NodeLists. A NodeList contains
- * a node for each Entity in the game that has all the components required by the node. To iterate
+ * <p>Systems within the engine access the components of entities via NodeLists. A NodeList contains
+ * a node for each Entity in the engine that has all the components required by the node. To iterate
  * over a NodeList, start from the head and step to the next on each loop, until the returned value
  * is null. Or just use for in syntax.</p>
  *
