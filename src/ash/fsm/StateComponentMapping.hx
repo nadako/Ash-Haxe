@@ -67,6 +67,8 @@ class StateComponentMapping<T>
 
     public function withSingleton(type:Class<Dynamic> = null):StateComponentMapping<T>
     {
+        if (type == null)
+            type = componentType;
         setProvider(new ComponentSingletonProvider( type ));
         return this;
     }
