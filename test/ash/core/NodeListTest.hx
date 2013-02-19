@@ -202,4 +202,127 @@ class NodeListTest extends MatchersBase
         nodes.swap(node1, node3);
         assertThat(nodes, NodeListMatcher.nodeList([node3, node2, node1]));
     }
+
+    @Test
+    public function insertionSortCorrectlySortsSortedNodes():Void
+    {
+        var nodes:NodeList<MockNode4> = new NodeList();
+        var node1:MockNode4 = new MockNode4( 1 );
+        var node2:MockNode4 = new MockNode4( 2 );
+        var node3:MockNode4 = new MockNode4( 3 );
+        var node4:MockNode4 = new MockNode4( 4 );
+        nodes.add(node1);
+        nodes.add(node2);
+        nodes.add(node3);
+        nodes.add(node4);
+        nodes.insertionSort(sortFunction);
+        assertThat(nodes, NodeListMatcher.nodeList([node1, node2, node3, node4]));
+    }
+
+    @Test
+    public function insertionSortCorrectlySortsReversedNodes():Void
+    {
+        var nodes:NodeList<MockNode4> = new NodeList();
+        var node1:MockNode4 = new MockNode4( 1 );
+        var node2:MockNode4 = new MockNode4( 2 );
+        var node3:MockNode4 = new MockNode4( 3 );
+        var node4:MockNode4 = new MockNode4( 4 );
+        nodes.add(node4);
+        nodes.add(node3);
+        nodes.add(node2);
+        nodes.add(node1);
+        nodes.insertionSort(sortFunction);
+        assertThat(nodes, NodeListMatcher.nodeList([node1, node2, node3, node4]));
+    }
+
+    @Test
+    public function insertionSortCorrectlySortsMixedNodes():Void
+    {
+        var nodes:NodeList<MockNode4> = new NodeList();
+        var node1:MockNode4 = new MockNode4( 1 );
+        var node2:MockNode4 = new MockNode4( 2 );
+        var node3:MockNode4 = new MockNode4( 3 );
+        var node4:MockNode4 = new MockNode4( 4 );
+        var node5:MockNode4 = new MockNode4( 5 );
+        nodes.add(node3);
+        nodes.add(node4);
+        nodes.add(node1);
+        nodes.add(node5);
+        nodes.add(node2);
+        nodes.insertionSort(sortFunction);
+        assertThat(nodes, NodeListMatcher.nodeList([node1, node2, node3, node4, node5]));
+    }
+
+    @Test
+    public function insertionSortRetainsTheOrderOfEquivalentNodes():Void
+    {
+        var nodes:NodeList<MockNode4> = new NodeList();
+        var node1:MockNode4 = new MockNode4( 1 );
+        var node2:MockNode4 = new MockNode4( 1 );
+        var node3:MockNode4 = new MockNode4( 3 );
+        var node4:MockNode4 = new MockNode4( 4 );
+        var node5:MockNode4 = new MockNode4( 4 );
+        nodes.add(node3);
+        nodes.add(node4);
+        nodes.add(node1);
+        nodes.add(node5);
+        nodes.add(node2);
+        nodes.insertionSort(sortFunction);
+        assertThat(nodes, NodeListMatcher.nodeList([node1, node2, node3, node4, node5]));
+    }
+
+    @Test
+    public function mergeSortCorrectlySortsSortedNodes():Void
+    {
+        var nodes:NodeList<MockNode4> = new NodeList();
+        var node1:MockNode4 = new MockNode4( 1 );
+        var node2:MockNode4 = new MockNode4( 2 );
+        var node3:MockNode4 = new MockNode4( 3 );
+        var node4:MockNode4 = new MockNode4( 4 );
+        nodes.add(node1);
+        nodes.add(node2);
+        nodes.add(node3);
+        nodes.add(node4);
+        nodes.mergeSort(sortFunction);
+        assertThat(nodes, NodeListMatcher.nodeList([node1, node2, node3, node4]));
+    }
+
+    @Test
+    public function mergeSortCorrectlySortsReversedNodes():Void
+    {
+        var nodes:NodeList<MockNode4> = new NodeList();
+        var node1:MockNode4 = new MockNode4( 1 );
+        var node2:MockNode4 = new MockNode4( 2 );
+        var node3:MockNode4 = new MockNode4( 3 );
+        var node4:MockNode4 = new MockNode4( 4 );
+        nodes.add(node4);
+        nodes.add(node3);
+        nodes.add(node2);
+        nodes.add(node1);
+        nodes.mergeSort(sortFunction);
+        assertThat(nodes, NodeListMatcher.nodeList([node1, node2, node3, node4]));
+    }
+
+    @Test
+    public function mergeSortCorrectlySortsMixedNodes():Void
+    {
+        var nodes:NodeList<MockNode4> = new NodeList();
+        var node1:MockNode4 = new MockNode4( 1 );
+        var node2:MockNode4 = new MockNode4( 2 );
+        var node3:MockNode4 = new MockNode4( 3 );
+        var node4:MockNode4 = new MockNode4( 4 );
+        var node5:MockNode4 = new MockNode4( 5 );
+        nodes.add(node3);
+        nodes.add(node4);
+        nodes.add(node1);
+        nodes.add(node5);
+        nodes.add(node2);
+        nodes.mergeSort(sortFunction);
+        assertThat(nodes, NodeListMatcher.nodeList([node1, node2, node3, node4, node5]));
+    }
+
+    private function sortFunction(node1:MockNode4, node2:MockNode4):Int
+    {
+        return node1.pos - node2.pos;
+    }
 }

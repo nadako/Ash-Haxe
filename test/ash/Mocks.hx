@@ -25,6 +25,16 @@ class MockNode3 extends Node<MockNode3>
     public var matrix:Matrix;
 }
 
+class MockNode4 extends Node<MockNode4>
+{
+    public var pos:Int;
+
+    public function new(value:Int = 0):Void
+    {
+        pos = value;
+    }
+}
+
 class MockComponent
 {
     public var value:Int;

@@ -159,4 +159,170 @@ class NodeList<TNode:Node<TNode>>
         if (node2.next != null)
             node2.next.previous = node2;
     }
+
+
+    /**
+     * Performs an insertion sort on the node list. In general, insertion sort is very efficient with short lists
+     * and with lists that are mostly sorted, but is inefficient with large lists that are randomly ordered.
+     *
+     * <p>The sort function takes two nodes and returns a Number.</p>
+     *
+     * <p><code>function sortFunction( node1 : MockNode, node2 : MockNode ) : Number</code></p>
+     *
+     * <p>If the returned number is less than zero, the first node should be before the second. If it is greater
+     * than zero the second node should be before the first. If it is zero the order of the nodes doesn't matter
+     * and the original order will be retained.</p>
+     *
+     * <p>This insertion sort implementation runs in place so no objects are created during the sort.</p>
+     */
+
+    public function insertionSort(sortFunction:SortFunction<TNode>):Void
+    {
+        if (head == tail)
+            return;
+
+        var remains:TNode = head.next;
+        var node:TNode = remains;
+        while (node != null)
+        {
+            remains = node.next;
+
+            var other:TNode = node.previous;
+            while (other != null)
+            {
+                if (sortFunction(node, other) >= 0)
+                {
+                    // move node to after other
+                    if (node != other.next)
+                    {
+                        // remove from place
+                        if (tail == node)
+                            tail = node.previous;
+
+                        node.previous.next = node.next;
+                        if (node.next != null)
+                            node.next.previous = node.previous;
+
+                        // insert after other
+                        node.next = other.next;
+                        node.previous = other;
+                        node.next.previous = node;
+                        other.next = node;
+                    }
+                    break; // exit the inner for loop
+                }
+
+                other = other.previous;
+            }
+
+            if (other == null) // the node belongs at the start of the list
+            {
+                // remove from place
+                if (tail == node)
+                    tail = node.previous;
+                node.previous.next = node.next;
+                if (node.next != null)
+                    node.next.previous = node.previous;
+                // insert at head
+                node.next = head;
+                head.previous = node;
+                node.previous = null;
+                head = node;
+            }
+
+            node = remains;
+        }
+    }
+
+    /**
+     * Performs a merge sort on the node list. In general, merge sort is more efficient than insertion sort
+     * with long lists that are very unsorted.
+     *
+     * <p>The sort function takes two nodes and returns a Number.</p>
+     *
+     * <p><code>function sortFunction( node1 : MockNode, node2 : MockNode ) : Number</code></p>
+     *
+     * <p>If the returned number is less than zero, the first node should be before the second. If it is greater
+     * than zero the second node should be before the first. If it is zero the order of the nodes doesn't matter.</p>
+     *
+     * <p>This merge sort implementation creates and uses a single Vector during the sort operation.</p>
+     */
+
+    public function mergeSort(sortFunction:SortFunction<TNode>):Void
+    {
+        if (head == tail)
+            return;
+
+        var lists:Array<TNode> = [];
+
+        // disassemble the list
+        var start:TNode = head;
+        var end:TNode;
+        while (start != null)
+        {
+            end = start;
+            while (end.next != null && sortFunction(end, end.next) <= 0)
+                end = end.next;
+
+            var next:TNode = end.next;
+            start.previous = end.next = null;
+            lists.push(start);
+            start = next;
+        }
+
+        // reassemble it in order
+        while (lists.length > 1)
+            lists.push(merge(lists.shift(), lists.shift(), sortFunction));
+
+        // find the tail
+        tail = head = lists[0];
+        while (tail.next != null)
+            tail = tail.next;
+    }
+
+    private function merge(head1:TNode, head2:TNode, sortFunction:SortFunction<TNode>):TNode
+    {
+        var node:TNode;
+        var head:TNode;
+        if (sortFunction(head1, head2) <= 0)
+        {
+            head = node = head1;
+            head1 = head1.next;
+        }
+        else
+        {
+            head = node = head2;
+            head2 = head2.next;
+        }
+        while (head1 != null && head2 != null)
+        {
+            if (sortFunction(head1, head2) <= 0)
+            {
+                node.next = head1;
+                head1.previous = node;
+                node = head1;
+                head1 = head1.next;
+            }
+            else
+            {
+                node.next = head2;
+                head2.previous = node;
+                node = head2;
+                head2 = head2.next;
+            }
+        }
+        if (head1 != null)
+        {
+            node.next = head1;
+            head1.previous = node;
+        }
+        else
+        {
+            node.next = head2;
+            head2.previous = node;
+        }
+        return head;
+    }
 }
+
+typedef SortFunction<TNode:Node<TNode>> = TNode -> TNode -> Int;
