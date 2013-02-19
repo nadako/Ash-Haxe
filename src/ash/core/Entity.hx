@@ -5,8 +5,9 @@ import nme.ObjectHash;
 import ash.signals.Signal2;
 
 /**
- * An entity is a collection object for components. Sometimes, the entities in a game
- * will mirror the actual characters and objects in the game, but this is not necessary.
+ * An entity is composed from components. As such, it is essentially a collection object for components.
+ * Sometimes, the entities in a game will mirror the actual characters and objects in the game, but this
+ * is not necessary.
  *
  * <p>Components are simple value objects that contain data relevant to the entity. Entities
  * with similar functionality will have instances of the same components. So we might have

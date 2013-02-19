@@ -34,14 +34,14 @@ class NodeList<TNode:Node<TNode>>
     /**
      * A signal that is dispatched whenever a node is added to the node list.
      *
-     * <p>The signal will pass a single parameter to the listeners - the node that was added.
+     * <p>The signal will pass a single parameter to the listeners - the node that was added.</p>
      */
     public var nodeAdded(default, null):Signal1<TNode>;
 
     /**
      * A signal that is dispatched whenever a node is removed from the node list.
      *
-     * <p>The signal will pass a single parameter to the listeners - the node that was removed.
+     * <p>The signal will pass a single parameter to the listeners - the node that was removed.</p>
      */
     public var nodeRemoved(default, null):Signal1<TNode>;
 
