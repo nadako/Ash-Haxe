@@ -172,6 +172,14 @@ class EntityTest extends MatchersBase
     }
 
     @Test
+    public function cloneHasChildComponentAsBaseType():Void
+    {
+        entity.add(new MockComponentExtended(), MockComponent);
+        var clone:Entity = entity.clone();
+        assertThat(clone.has(MockComponent), is(true));
+    }
+
+    @Test
     public function cloneChildComponentIsNewReference():Void
     {
         entity.add(new MockComponent());

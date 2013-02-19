@@ -144,15 +144,16 @@ class Entity
     public function clone():Entity
     {
         var copy:Entity = new Entity();
-        for (component in components)
+        for (classRef in components.keys())
         {
+            var component:Dynamic = components.get(classRef);
             var componentClass:Class<Dynamic> = Type.getClass(component);
             var newComponent:Dynamic = Type.createEmptyInstance(componentClass);
             for (key in Type.getInstanceFields(componentClass))
             {
                 Reflect.setField(newComponent, key, Reflect.field(component, key));
             }
-            copy.add(newComponent);
+            copy.add(newComponent, classRef);
         }
         return copy;
     }
