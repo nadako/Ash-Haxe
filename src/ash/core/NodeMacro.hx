@@ -41,10 +41,10 @@ class NodeMacro
         if (componentLinkFields.length == 0)
             throw new Error("Node subclass doesnt declare any component variables", nodeClass.pos);
 
-        // Type path for nme.ObjectHash<Class<Dynamic>, String>
+        // Type path for ash.ObjectHash<Class<Dynamic>, String>
         var componentsTypePath:TypePath =
         {
-            pack: ["nme"],
+            pack: ["ash"],
             name: "ObjectHash",
             params: [
                 TPType(TPath({

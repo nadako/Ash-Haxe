@@ -1,6 +1,6 @@
 package ash.fsm;
 
-import nme.ObjectHash;
+import ash.ObjectHash;
 
 /**
  * Represents a state for an EntityStateMachine. The state contains any number of ComponentProviders which

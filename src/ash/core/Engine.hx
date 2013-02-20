@@ -1,7 +1,6 @@
 package ash.core;
 
-import nme.ObjectHash;
-
+import ash.ObjectHash;
 import ash.signals.Signal0;
 import ash.signals.Signal1;
 

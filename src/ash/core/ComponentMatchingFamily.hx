@@ -1,6 +1,6 @@
 package ash.core;
 
-import nme.ObjectHash;
+import ash.ObjectHash;
 
 /**
  * The default class for managing a NodeList. This class creates the NodeList and adds and removes

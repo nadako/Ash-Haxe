@@ -1,7 +1,6 @@
 package ash.fsm;
 
-import nme.ObjectHash;
-
+import ash.ObjectHash;
 import ash.core.Entity;
 
 /**

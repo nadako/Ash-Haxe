@@ -1,6 +1,6 @@
 package ash.tools;
 
-import nme.ObjectHash;
+import ash.ObjectHash;
 
 /**
  * An object pool for re-using components. This is not integrated in to Ash but is used dierectly by

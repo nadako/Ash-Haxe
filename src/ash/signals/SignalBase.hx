@@ -3,8 +3,7 @@
  */
 package ash.signals;
 
-import nme.ObjectHash;
-
+import ash.ObjectHash;
 import ash.GenericListIterator;
 
 /**

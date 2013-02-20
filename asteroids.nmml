@@ -6,11 +6,6 @@
     <classpath name="src" />
     <classpath name="examples/asteroids" />
 
-    <set name="BUILD_DIR" value="out" />
-
     <haxelib name="nme"/>
-
     <ndll name="nme" haxelib="nme" />
-
-    <haxedef name="fdb" if="flash"/>
 </project>

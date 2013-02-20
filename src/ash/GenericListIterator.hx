@@ -5,7 +5,7 @@ package ash;
  * has "next" variable in its elements.
  **/
 class GenericListIterator<TNode
-#if haxe_211
+#if haxe3
 :HasNext<TNode>
 #end
 >
@@ -25,7 +25,7 @@ class GenericListIterator<TNode
     public function next():TNode
     {
         var node:TNode = previous.next;
-        previous = #if !haxe_211 untyped #end node;
+        previous = #if !haxe3 untyped #end node;
         return node;
     }
 }
