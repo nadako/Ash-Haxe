@@ -4,8 +4,7 @@
     <tag v="component"/>
     <tag v="game"/>
     <description>Port of the Ash entity component framework originally written in ActionScript 3</description>
-    <version name="1.0">
-        Initial release, ported everything besides some third-party integration stuff. Added static typing
-        features of HaXe for compile-time checks.
+    <version name="1.1">
+        Minor code cleanups.
     </version>
 </project>
