@@ -132,28 +132,4 @@ class Entity
     {
         return components.exists(componentClass);
     }
-
-    /**
-     * Make a copy of the entity
-     *
-     * @return A new entity with new components that are copies of the components on the
-     * original entity.
-     */
-
-    public function clone():Entity
-    {
-        var copy:Entity = new Entity();
-        for (classRef in components.keys())
-        {
-            var component:Dynamic = components.get(classRef);
-            var componentClass:Class<Dynamic> = Type.getClass(component);
-            var newComponent:Dynamic = Type.createEmptyInstance(componentClass);
-            for (key in Type.getInstanceFields(componentClass))
-            {
-                Reflect.setField(newComponent, key, Reflect.field(component, key));
-            }
-            copy.add(newComponent, classRef);
-        }
-        return copy;
-    }
 }

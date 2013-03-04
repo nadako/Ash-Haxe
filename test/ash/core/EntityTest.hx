@@ -155,48 +155,6 @@ class EntityTest extends MatchersBase
         entity.remove(MockComponent);
     }
 
-    @Test
-    public function cloneIsNewReference():Void
-    {
-        entity.add(new MockComponent());
-        var clone:Entity = entity.clone();
-        assertThat(clone, not(sameInstance(entity)));
-    }
-
-    @Test
-    public function cloneHasChildComponent():Void
-    {
-        entity.add(new MockComponent());
-        var clone:Entity = entity.clone();
-        assertThat(clone.has(MockComponent), is(true));
-    }
-
-    @Test
-    public function cloneHasChildComponentAsBaseType():Void
-    {
-        entity.add(new MockComponentExtended(), MockComponent);
-        var clone:Entity = entity.clone();
-        assertThat(clone.has(MockComponent), is(true));
-    }
-
-    @Test
-    public function cloneChildComponentIsNewReference():Void
-    {
-        entity.add(new MockComponent());
-        var clone:Entity = entity.clone();
-        assertThat(clone.get(MockComponent), not(sameInstance(entity.get(MockComponent))));
-    }
-
-    @Test
-    public function cloneChildComponentHasSameProperties():Void
-    {
-        var component:MockComponent = new MockComponent();
-        component.value = 5;
-        entity.add(component);
-        var clone:Entity = entity.clone();
-        assertThat(clone.get(MockComponent).value, equalTo(5));
-    }
-
     private function testSignalContent(signalEntity:Entity, componentClass:Class<Dynamic>):Void
     {
         assertThat(signalEntity, sameInstance(entity));
