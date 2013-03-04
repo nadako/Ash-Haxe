@@ -10,18 +10,6 @@
 
 --next
 
-## Flash 8
--main TestMain
--lib munit
--lib hamcrest
--cp src
-
--cp test
--swf-version 8
--swf out/test/as2_test.swf
-
---next
-
 ## JavaScript
 -main TestMain
 -lib munit
