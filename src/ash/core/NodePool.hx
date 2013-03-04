@@ -36,7 +36,7 @@ class NodePool<TNode:Node<TNode>>
         }
         else
         {
-            return Type.createInstance(nodeClass, []);
+            return Type.createEmptyInstance(nodeClass);
         }
     }
 
