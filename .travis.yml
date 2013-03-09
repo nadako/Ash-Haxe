@@ -1,0 +1,14 @@
+language: python
+python:
+    - 2.7
+
+before_script:
+    - sudo add-apt-repository ppa:eyecreate/haxe -y
+    - sudo apt-get update -y
+    - sudo apt-get install haxe -y
+    - mkdir -p ~/.haxe/lib
+    - echo ~/.haxe/lib | haxelib setup
+    - haxelib install munit || true
+    - haxelib install nme || true
+
+script: haxelib run munit t -as3 -js
