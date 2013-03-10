@@ -323,6 +323,6 @@ class NodeListTest extends MatchersBase
 
     private function sortFunction(node1:MockNode4, node2:MockNode4):Int
     {
-        return node1.pos - node2.pos;
+        return node1.pos.value - node2.pos.value;
     }
 }

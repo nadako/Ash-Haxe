@@ -1,6 +1,6 @@
 package ash.fsm;
 
-import ash.ObjectHash;
+import ash.ObjectMap;
 
 /**
  * Represents a state for an EntityStateMachine. The state contains any number of ComponentProviders which
@@ -11,11 +11,11 @@ class EntityState
     /**
      * @private
      */
-    public var providers(default, null):ObjectHash<Class<Dynamic>, IComponentProvider<Dynamic>>;
+    public var providers(default, null):ObjectMap<Class<Dynamic>, IComponentProvider<Dynamic>>;
 
     public function new()
     {
-        providers = new ObjectHash();
+        providers = new ObjectMap();
     }
 
     /**

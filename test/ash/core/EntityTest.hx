@@ -93,7 +93,9 @@ class EntityTest extends MatchersBase
         entity.add(component2);
         var all:Array<Dynamic> = entity.getAll();
         assertThat(all.length, equalTo(2));
-        assertThat(all, hasItems([component1, component2]));
+        
+        var components:Array<Dynamic> = [component1, component2];
+        assertThat(all, hasItems(components));
     }
 
     @Test

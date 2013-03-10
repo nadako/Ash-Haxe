@@ -8,7 +8,7 @@ class ListenerNode<TListener>
     public var previous:ListenerNode<TListener>;
     public var next:ListenerNode<TListener>;
 
-    #if cpp // see http://code.google.com/p/hxcpp/issues/detail?id=196
+    #if (cpp && !haxe3) // see http://code.google.com/p/hxcpp/issues/detail?id=196
     public var listener(get_listener, set_listener):TListener;
     #else
     public var listener:TListener;
@@ -20,7 +20,7 @@ class ListenerNode<TListener>
     {
     }
 
-    #if cpp // see http://code.google.com/p/hxcpp/issues/detail?id=196
+    #if (cpp && !haxe3) // see http://code.google.com/p/hxcpp/issues/detail?id=196
     private function get_listener():TListener
     {
         return listener;

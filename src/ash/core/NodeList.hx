@@ -101,9 +101,9 @@ class NodeList<TNode:Node<TNode>>
     /**
      * true if the list is empty, false otherwise.
      */
-    public var empty(getEmpty, never):Bool;
+    public var empty(get_empty, never):Bool;
 
-    private function getEmpty():Bool
+    private inline function get_empty():Bool
     {
         return head == null;
     }

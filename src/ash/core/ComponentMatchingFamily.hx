@@ -1,6 +1,6 @@
 package ash.core;
 
-import ash.ObjectHash;
+import ash.ObjectMap;
 
 /**
  * The default class for managing a NodeList. This class creates the NodeList and adds and removes
@@ -18,9 +18,9 @@ class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
      */
     public var nodeList(default, null):NodeList<TNode>;
 
-    private var entities:ObjectHash<Entity, TNode>;
+    private var entities:ObjectMap<Entity, TNode>;
     private var nodeClass:Class<TNode>;
-    private var components:ObjectHash<Class<Dynamic>, String>;
+    private var components:ObjectMap<Class<Dynamic>, String>;
     private var nodePool:NodePool<TNode>;
     private var engine:Engine;
 
@@ -46,7 +46,7 @@ class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
     {
         nodePool = new NodePool<TNode>( nodeClass );
         nodeList = new NodeList<TNode>();
-        entities = new ObjectHash<Entity, TNode>();
+        entities = new ObjectMap<Entity, TNode>();
 
         #if cpp
         components = Reflect.field(nodeClass, "_getComponents")();

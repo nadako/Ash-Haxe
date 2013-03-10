@@ -11,7 +11,7 @@ import haxe.macro.Expr;
  **/
 class NodeMacro
 {
-    @:macro public static function build():Array<Field>
+    #if haxe3 macro #else @:macro #end public static function build():Array<Field>
     {
         var nodeClass:ClassType = Context.getLocalClass().get();
         var fields:Array<Field> = Context.getBuildFields();
@@ -21,7 +21,7 @@ class NodeMacro
         {
             switch (field.kind)
             {
-                case FVar(type, expr):
+                case FVar(type, _):
                     switch (type)
                     {
                         case TPath(path):
@@ -41,11 +41,11 @@ class NodeMacro
         if (componentLinkFields.length == 0)
             throw new Error("Node subclass doesnt declare any component variables", nodeClass.pos);
 
-        // Type path for ash.ObjectHash<Class<Dynamic>, String>
+        // Type path for ObjectMap<Class<Dynamic>, String>
         var componentsTypePath:TypePath =
         {
             pack: ["ash"],
-            name: "ObjectHash",
+            name: "ObjectMap",
             params: [
                 TPType(TPath({
                     pack: [],
@@ -91,7 +91,7 @@ class NodeMacro
         {
             switch (field.kind)
             {
-                case FVar(type, expr):
+                case FVar(type, _):
                     switch (type)
                     {
                         case TPath(path):

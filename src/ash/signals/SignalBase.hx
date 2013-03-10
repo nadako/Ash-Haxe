@@ -3,7 +3,7 @@
  */
 package ash.signals;
 
-import ash.ObjectHash;
+import ash.ObjectMap;
 import ash.GenericListIterator;
 
 /**
@@ -15,7 +15,7 @@ class SignalBase<TListener>
     public var tail:ListenerNode<TListener>;
 
     #if !(cpp || neko)
-    private var nodes:ObjectHash<TListener, ListenerNode<TListener>>;
+    private var nodes:ObjectMap<TListener, ListenerNode<TListener>>;
     #end
     private var listenerNodePool:ListenerNodePool<TListener>;
     private var toAddHead:ListenerNode<TListener>;
@@ -25,7 +25,7 @@ class SignalBase<TListener>
     public function new()
     {
         #if !(cpp || neko)
-        nodes = new ObjectHash<TListener, ListenerNode<TListener>>();
+        nodes = new ObjectMap<TListener, ListenerNode<TListener>>();
         #end
         listenerNodePool = new ListenerNodePool();
     }

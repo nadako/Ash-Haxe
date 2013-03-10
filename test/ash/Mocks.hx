@@ -27,11 +27,11 @@ class MockNode3 extends Node<MockNode3>
 
 class MockNode4 extends Node<MockNode4>
 {
-    public var pos:Int;
+    public var pos:MockComponent;
 
     public function new(value:Int = 0):Void
     {
-        pos = value;
+        pos = new MockComponent(value);
     }
 }
 
@@ -39,8 +39,9 @@ class MockComponent
 {
     public var value:Int;
 
-    public function new()
+    public function new(value:Int = 0)
     {
+        this.value = value;
     }
 }
 

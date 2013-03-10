@@ -1,6 +1,6 @@
 package ash.tools;
 
-import ash.ObjectHash;
+import ash.ObjectMap;
 
 /**
  * An object pool for re-using components. This is not integrated in to Ash but is used dierectly by
@@ -27,7 +27,7 @@ import ash.ObjectHash;
  */
 class ComponentPool
 {
-    private static var pools:ObjectHash<Class<Dynamic>, Array<Dynamic>> = new ObjectHash<Class<Dynamic>, Array<Dynamic>>();
+    private static var pools:ObjectMap<Class<Dynamic>, Array<Dynamic>> = new ObjectMap<Class<Dynamic>, Array<Dynamic>>();
 
     private static function getPool<TComponent>(componentClass:Class<TComponent>):Array<TComponent>
     {
@@ -78,6 +78,6 @@ class ComponentPool
 
     public static function empty():Void
     {
-        pools = new ObjectHash<Class<Dynamic>, Array<Dynamic>>();
+        pools = new ObjectMap<Class<Dynamic>, Array<Dynamic>>();
     }
 }

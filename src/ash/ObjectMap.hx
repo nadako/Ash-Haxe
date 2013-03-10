@@ -1,13 +1,18 @@
 package ash;
-#if !haxe3
 
+#if (haxe3 && !js) // see https://code.google.com/p/haxe/issues/detail?id=1613
+typedef ObjectMap<K, V> = haxe.ds.ObjectMap<K, V>;
+#else
 
 #if flash
 import flash.utils.TypedDictionary;
 #end
 
+#if haxe3
+private typedef IntHash<V> = haxe.ds.IntMap<V>;
+#end
 
-class ObjectHash <K, T> {
+class ObjectMap <K, T> {
 
 
 	#if flash
@@ -172,8 +177,4 @@ class ObjectHash <K, T> {
 
 
 }
-
-
-#else
-typedef ObjectHash<K,T> = haxe.ds.ObjectMap<K,T>;
 #end

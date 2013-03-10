@@ -1,9 +1,8 @@
 package ash.core;
 
-import ash.ObjectHash;
+import ash.ObjectMap;
 import ash.signals.Signal0;
 import ash.signals.Signal1;
-
 
 /**
  * The Engine class is the central point for creating and managing your game state. Add
@@ -11,12 +10,12 @@ import ash.signals.Signal1;
  */
 class Engine
 {
-    public var entities(getEntities, never):Iterable<Entity>;
-    public var systems(getSystems, never):Iterable<System>;
+    public var entities(get_entities, never):Iterable<Entity>;
+    public var systems(get_systems, never):Iterable<System>;
 
     private var entityList:EntityList;
     private var systemList:SystemList;
-    private var families:ObjectHash<Class<Dynamic>, IFamily<Dynamic>>;
+    private var families:ObjectMap<Class<Dynamic>, IFamily<Dynamic>>;
 
     /**
      * Indicates if the engine is currently in its update loop.
@@ -46,7 +45,7 @@ class Engine
     {
         entityList = new EntityList();
         systemList = new SystemList();
-        families = new ObjectHash<Class<Node<Dynamic>>, IFamily<Dynamic>>();
+        families = new ObjectMap<Class<Node<Dynamic>>, IFamily<Dynamic>>();
         entityAdded = new Signal1<Entity>();
         entityRemoved = new Signal1<Entity>();
         updateComplete = new Signal0();
@@ -104,7 +103,7 @@ class Engine
     /**
      * Returns an iterator of all entities in the engine.
      */
-    private function getEntities():Iterable<Entity>
+    private inline function get_entities():Iterable<Entity>
     {
         return entityList;
     }
@@ -216,7 +215,7 @@ class Engine
     /**
      * Returns an iterator of all systems in the engine.
      */
-    private function getSystems():Iterable<System>
+    private inline function get_systems():Iterable<System>
     {
         return systemList;
     }
