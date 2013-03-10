@@ -4,9 +4,7 @@
     <tag v="component"/>
     <tag v="game"/>
     <description>Port of the Ash entity component framework originally written in ActionScript 3</description>
-    <version name="1.2">
-        Remove Entity.clone method.
-        Fix signals on C++.
-        Minor cleanups.
+    <version name="1.3">
+        Added Haxe 3 support.
     </version>
 </project>
