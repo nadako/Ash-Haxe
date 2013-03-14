@@ -12,10 +12,10 @@ import ash.signals.Signal2;
  * with similar functionality will have instances of the same components. So we might have
  * a position component</p>
  *
- * <p><code>public class PositionComponent
+ * <p><code>class PositionComponent
  * {
- *   public var x : Number;
- *   public var y : Number;
+ *   public var x:Float;
+ *   public var y:Float;
  * }</code></p>
  *
  * <p>All entities that have a position in the game world, will have an instance of the
@@ -58,9 +58,9 @@ class Entity
      * @return A reference to the entity. This enables the chaining of calls to add, to make
      * creating and configuring entities cleaner. e.g.
      *
-     * <code>var entity : Entity = new Entity()
-     *     .add( new Position( 100, 200 )
-     *     .add( new Display( new PlayerClip() );</code>
+     * <code>var entity:Entity = new Entity()
+     *     .add(new Position(100, 200)
+     *     .add(new Display(new PlayerClip());</code>
      */
 
     public function add<T>(component:T, componentClass:Class<Dynamic> = null):Entity

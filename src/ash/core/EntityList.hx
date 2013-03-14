@@ -41,7 +41,7 @@ class EntityList
             entity.previous.next = entity.next;
         if (entity.next != null)
             entity.next.previous = entity.previous;
-        // N.B. Don't set node.next and node.previous to null because that will break the list iteration if node is the current node in the iteration.
+        // N.B. Don't set entity.next and entity.previous to null because that will break the list iteration if entity is the current entity in the iteration.
     }
 
     public function removeAll():Void

@@ -65,7 +65,7 @@ class SystemList
             system.previous.next = system.next;
         if (system.next != null)
             system.next.previous = system.previous;
-        // N.B. Don't set system.next and system.previous to null because that will break the list iteration if node is the current node in the iteration.
+        // N.B. Don't set system.next and system.previous to null because that will break the list iteration if system is the current system in the iteration.
     }
 
     public function removeAll():Void

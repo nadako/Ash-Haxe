@@ -8,7 +8,7 @@ import ash.ObjectMap;
  *
  * <p>Fetch an object from the pool with</p>
  *
- * <p>ComponentPool.get( ComponentClass );</p>
+ * <p>ComponentPool.get(ComponentClass);</p>
  *
  * <p>If the pool contains an object of the required type, it will be returned. If it does not, a new object
  * will be created and returned.</p>
@@ -18,12 +18,12 @@ import ash.ObjectMap;
  *
  * <p>Add an object to the pool with</p>
  *
- * <p>ComponentPool.dispose( component );</p>
+ * <p>ComponentPool.dispose(component);</p>
  *
  * <p>You will usually want to do this when removing a component from an entity. The remove method on the entity
  * returns the component that was removed, so this can be done in one line of code like this</p>
  *
- * <p>ComponentPool.dispose( entity.remove( component ) );</p>
+ * <p>ComponentPool.dispose(entity.remove(component));</p>
  */
 class ComponentPool
 {

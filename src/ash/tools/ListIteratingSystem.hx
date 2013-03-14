@@ -11,21 +11,20 @@ import ash.core.System;
  * a node update method into the constructor. The node update method will be called once per node on the update cycle
  * with the node instance and the frame time as parameters. e.g.
  *
- * <code>package
+ * <code>package;
+ * class MySystem extends ListIteratingSystem<MyNode>
  * {
- *   public class MySystem extends ListIteratingSystem
- *   {
- *     public function MySystem()
+ *     public function new()
  *     {
- *       super( MyNode, updateNode );
+ *         super(MyNode, updateNode);
  *     }
  *
- *     private function updateNode( node : MyNode, time : Number ) : void
+ *     private function updateNode(node:MyNode, time:Float):Void
  *     {
- *       // process the node here
+ *         // process the node here
  *     }
- *   }
- * }</code>
+ * }
+ * </code>
  */
 class ListIteratingSystem<TNode:Node<TNode>> extends System
 {

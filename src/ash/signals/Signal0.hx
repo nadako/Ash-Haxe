@@ -1,7 +1,6 @@
 /*
  * Based on ideas used in Robert Penner's AS3-signals - https://github.com/robertpenner/as3-signals
  */
-
 package ash.signals;
 
 /**

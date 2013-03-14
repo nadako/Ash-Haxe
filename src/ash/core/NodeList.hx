@@ -165,9 +165,9 @@ class NodeList<TNode:Node<TNode>>
      * Performs an insertion sort on the node list. In general, insertion sort is very efficient with short lists
      * and with lists that are mostly sorted, but is inefficient with large lists that are randomly ordered.
      *
-     * <p>The sort function takes two nodes and returns a Number.</p>
+     * <p>The sort function takes two nodes and returns an Int.</p>
      *
-     * <p><code>function sortFunction( node1 : MockNode, node2 : MockNode ) : Number</code></p>
+     * <p><code>function sortFunction( node1 : MockNode, node2 : MockNode ) : Int</code></p>
      *
      * <p>If the returned number is less than zero, the first node should be before the second. If it is greater
      * than zero the second node should be before the first. If it is zero the order of the nodes doesn't matter
@@ -238,9 +238,9 @@ class NodeList<TNode:Node<TNode>>
      * Performs a merge sort on the node list. In general, merge sort is more efficient than insertion sort
      * with long lists that are very unsorted.
      *
-     * <p>The sort function takes two nodes and returns a Number.</p>
+     * <p>The sort function takes two nodes and returns an Int.</p>
      *
-     * <p><code>function sortFunction( node1 : MockNode, node2 : MockNode ) : Number</code></p>
+     * <p><code>function sortFunction( node1 : MockNode, node2 : MockNode ) : Int</code></p>
      *
      * <p>If the returned number is less than zero, the first node should be before the second. If it is greater
      * than zero the second node should be before the first. If it is zero the order of the nodes doesn't matter.</p>

@@ -19,7 +19,7 @@ class FrameTickProvider implements ITickProvider
     private var signal:Signal1<Float>;
 
     /**
-     * Applies a time adjustement factor to the tick, so you can slow down or speed up the entire engine.
+     * Applies a time adjustment factor to the tick, so you can slow down or speed up the entire engine.
      * The update tick time is multiplied by this value, so a value of 1 will run the engine at the normal rate.
      */
     public var timeAdjustment:Float = 1;
