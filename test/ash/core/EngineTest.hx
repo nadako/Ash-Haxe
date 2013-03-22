@@ -125,6 +125,42 @@ class EngineTest extends MatchersBase
         engine.releaseNodeList(MockNode);
         assertThat(MockFamily.instances[0].cleanUpCalls, equalTo(1));
     }
+
+    @Test
+    public function entityCanBeObtainedByName():Void
+    {
+        var entity:Entity = new Entity( "anything" );
+        engine.addEntity(entity);
+        var other:Entity = engine.getEntityByName("anything");
+        assertThat(other, sameInstance(entity));
+    }
+
+    @Test
+    public function getEntityByInvalidNameReturnsNull():Void
+    {
+        var entity:Entity = engine.getEntityByName("anything");
+        assertThat(entity, nullValue());
+    }
+
+    @Test
+    public function entityCanBeObtainedByNameAfterRenaming():Void
+    {
+        var entity:Entity = new Entity( "anything" );
+        engine.addEntity(entity);
+        entity.name = "otherName";
+        var other:Entity = engine.getEntityByName("otherName");
+        assertThat(other, sameInstance(entity));
+    }
+
+    @Test
+    public function entityCannotBeObtainedByOldNameAfterRenaming():Void
+    {
+        var entity:Entity = new Entity( "anything" );
+        engine.addEntity(entity);
+        entity.name = "otherName";
+        var other:Entity = engine.getEntityByName("anything");
+        assertThat(other, nullValue());
+    }
 }
 
 class MockFamily<T:Node<T>> implements IFamily<T>

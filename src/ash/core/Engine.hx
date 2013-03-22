@@ -13,6 +13,11 @@ class Engine
     public var entities(get_entities, never):Iterable<Entity>;
     public var systems(get_systems, never):Iterable<System>;
 
+    #if haxe3
+    private var entityNames:Map<String, Entity>;
+    #else
+    private var entityNames:Hash<Entity>;
+    #end
     private var entityList:EntityList;
     private var systemList:SystemList;
     private var families:ObjectMap<Class<Dynamic>, IFamily<Dynamic>>;
@@ -44,6 +49,7 @@ class Engine
     public function new()
     {
         entityList = new EntityList();
+        entityNames = #if haxe3 new Map() #else new Hash() #end;
         systemList = new SystemList();
         families = new ObjectMap<Class<Node<Dynamic>>, IFamily<Dynamic>>();
         entityAdded = new Signal1<Entity>();
@@ -60,9 +66,13 @@ class Engine
 
     public function addEntity(entity:Entity):Void
     {
+        if (entityNames.exists(entity.name))
+            throw "The entity name " + entity.name + " is already in use by another entity.";
         entityList.add(entity);
+        entityNames.set(entity.name, entity);
         entity.componentAdded.add(componentAdded);
         entity.componentRemoved.add(componentRemoved);
+        entity.nameChanged.add(entityNameChanged);
         for (family in families)
         {
             family.newEntity(entity);
@@ -80,18 +90,39 @@ class Engine
     {
         entity.componentAdded.remove(componentAdded);
         entity.componentRemoved.remove(componentRemoved);
+        entity.nameChanged.remove(entityNameChanged);
         for (family in families)
         {
             family.removeEntity(entity);
         }
+        entityNames.remove(entity.name);
         entityList.remove(entity);
         entityRemoved.dispatch(entity);
+    }
+
+    private function entityNameChanged(entity:Entity, oldName:String):Void
+    {
+        if (entityNames.get(oldName) == entity)
+        {
+            entityNames.remove(oldName);
+            entityNames.set(entity.name, entity);
+        }
+    }
+
+    /**
+     * Get an entity based n its name.
+     *
+     * @param name The name of the entity
+     * @return The entity, or null if no entity with that name exists on the engine
+     */
+    public inline function getEntityByName(name:String):Entity
+    {
+        return entityNames.get(name);
     }
 
     /**
      * Remove all entities from the engine.
      */
-
     public function removeAllEntities():Void
     {
         while (entityList.head != null)

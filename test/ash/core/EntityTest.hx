@@ -93,7 +93,7 @@ class EntityTest extends MatchersBase
         entity.add(component2);
         var all:Array<Dynamic> = entity.getAll();
         assertThat(all.length, equalTo(2));
-        
+
         var components:Array<Dynamic> = [component1, component2];
         assertThat(all, hasItems(components));
     }
@@ -161,5 +161,43 @@ class EntityTest extends MatchersBase
     {
         assertThat(signalEntity, sameInstance(entity));
         assertThat(componentClass, sameInstance(MockComponent));
+    }
+
+    @Test
+    public function testEntityHasNameByDefault():Void
+    {
+        entity = new Entity();
+        assertThat(entity.name.length, greaterThan(0));
+    }
+
+    @Test
+    public function testEntityNameStoredAndReturned():Void
+    {
+        var name:String = "anything";
+        entity = new Entity( name );
+        assertThat(entity.name, equalTo(name));
+    }
+
+    @Test
+    public function testEntityNameCanBeChanged():Void
+    {
+        entity = new Entity( "anything" );
+        entity.name = "otherThing";
+        assertThat(entity.name, equalTo("otherThing"));
+    }
+
+    @AsyncTest
+    public function testChangingEntityNameDispatchesSignal(async:AsyncFactory):Void
+    {
+        entity = new Entity( "anything" );
+        entity.nameChanged.add(async.createHandler(this, testNameChangedSignal, 10));
+        entity.name = "otherThing";
+    }
+
+    private function testNameChangedSignal(signalEntity:Entity, oldName:String):Void
+    {
+        assertThat(signalEntity, sameInstance(entity));
+        assertThat(entity.name, equalTo("otherThing"));
+        assertThat(oldName, equalTo("anything"));
     }
 }

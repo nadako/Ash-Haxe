@@ -23,10 +23,12 @@ import ash.signals.Signal2;
  */
 class Entity
 {
+    private static var nameCount:Int = 0;
+
     /**
      * Optional, give the entity a name. This can help with debugging and with serialising the entity.
      */
-    public var name:String;
+    public var name(default, set_name):String;
     /**
      * This signal is dispatched when a component is added to the entity.
      */
@@ -35,16 +37,37 @@ class Entity
      * This signal is dispatched when a component is removed from the entity.
      */
     public var componentRemoved(default, null):Signal2<Entity, Class<Dynamic>>;
+    /**
+     * Dispatched when the name of the entity changes. Used internally by the engine to track entities based on their names.
+     */
+    public var nameChanged:Signal2<Entity, String>;
 
     public var previous:Entity;
     public var next:Entity;
     public var components(default, null):ObjectMap<Class<Dynamic>, Dynamic>;
 
-    public function new()
+    public function new(name:String = "")
     {
         componentAdded = new Signal2<Entity, Class<Dynamic>>();
         componentRemoved = new Signal2<Entity, Class<Dynamic>>();
+        nameChanged = new Signal2<Entity, String>();
         components = new ObjectMap<Class<Dynamic>, Dynamic>();
+
+        if (name != "")
+            this.name = name;
+        else
+            this.name = "_entity" + (++nameCount);
+    }
+
+    private inline function set_name(value:String):String
+    {
+        if (name != value)
+        {
+            var previous = name;
+            name = value;
+            nameChanged.dispatch(this, previous);
+        }
+        return value;
     }
 
     /**
