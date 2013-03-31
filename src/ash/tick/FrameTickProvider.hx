@@ -24,7 +24,7 @@ class FrameTickProvider implements ITickProvider
      */
     public var timeAdjustment:Float = 1;
 
-    public function new(displayObject:DisplayObject, maximumFrameTime:Float = 9999999999999999)
+    public function new(displayObject:DisplayObject, maximumFrameTime:Float = 9999999999999999.0)
     {
         signal = new Signal1<Float>();
         this.displayObject = displayObject;
