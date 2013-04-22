@@ -1,5 +1,7 @@
 package ash.fsm;
 
+import ash.fsm.DynamicComponentProvider.DynamicComponentProviderClosure;
+
 /**
  * Used by the EntityState class to create the mappings of components to providers via a fluent interface.
  */
@@ -70,6 +72,19 @@ class StateComponentMapping<T>
         if (type == null)
             type = componentType;
         setProvider(new ComponentSingletonProvider( type ));
+        return this;
+    }
+
+    /**
+     * Creates a mapping for the component type to a method call. A
+     * DynamicComponentProvider is used for the mapping.
+     *
+     * @param method The method to return the component instance
+     * @return This ComponentMapping, so more modifications can be applied
+     */
+    public function withMethod(method:DynamicComponentProviderClosure<T>):StateComponentMapping<T>
+    {
+        setProvider(new DynamicComponentProvider( method ));
         return this;
     }
 

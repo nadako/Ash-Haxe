@@ -9,6 +9,7 @@ import ash.core.SystemTest;
 import ash.fsm.ComponentInstanceProviderTest;
 import ash.fsm.ComponentSingletonProviderTest;
 import ash.fsm.ComponentTypeProviderTest;
+import ash.fsm.DynamicComponentProviderTest;
 import ash.fsm.EntityStateMachineTest;
 import ash.fsm.EntityStateTest;
 import ash.signals.SignalTest;
@@ -36,6 +37,7 @@ class TestSuite extends massive.munit.TestSuite
 		add(ash.fsm.ComponentInstanceProviderTest);
 		add(ash.fsm.ComponentSingletonProviderTest);
 		add(ash.fsm.ComponentTypeProviderTest);
+		add(ash.fsm.DynamicComponentProviderTest);
 		add(ash.fsm.EntityStateMachineTest);
 		add(ash.fsm.EntityStateTest);
 		add(ash.signals.SignalTest);
