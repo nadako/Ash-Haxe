@@ -11,4 +11,5 @@ interface ITickProvider
     function remove(listener:Float->Void):Void;
     function start():Void;
     function stop():Void;
+    var playing(default, null):Bool;
 }
