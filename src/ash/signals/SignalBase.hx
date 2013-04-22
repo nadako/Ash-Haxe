@@ -14,6 +14,8 @@ class SignalBase<TListener>
     public var head:ListenerNode<TListener>;
     public var tail:ListenerNode<TListener>;
 
+    public var numListeners(default, null):Int;
+
     #if !(cpp || neko)
     private var nodes:ObjectMap<TListener, ListenerNode<TListener>>;
     #end
@@ -28,6 +30,7 @@ class SignalBase<TListener>
         nodes = new ObjectMap<TListener, ListenerNode<TListener>>();
         #end
         listenerNodePool = new ListenerNodePool();
+        numListeners = 0;
     }
 
     private function startDispatch():Void
@@ -136,6 +139,7 @@ class SignalBase<TListener>
                 tail = node;
             }
         }
+        numListeners++;
     }
 
     public function remove(listener:TListener):Void
@@ -199,6 +203,8 @@ class SignalBase<TListener>
                 listenerNodePool.cache(node);
             else
                 listenerNodePool.dispose(node);
+
+            numListeners--;
         }
     }
 
@@ -214,6 +220,7 @@ class SignalBase<TListener>
         tail = null;
         toAddHead = null;
         toAddTail = null;
+        numListeners = 0;
     }
 
     private function iterator():Iterator<ListenerNode<TListener>>

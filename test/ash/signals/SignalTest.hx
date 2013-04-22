@@ -40,9 +40,15 @@ class SignalTest extends MatchersBase
     }
 
     @Test
-    public function newSignalHasNoListeners():Void
+    public function newSignalHasNullHead():Void
     {
         assertThat(signal.head, nullValue());
+    }
+
+    @Test
+    public function newSignalHasListenersCountZero():Void
+    {
+        assertThat(signal.numListeners, equalTo(0));
     }
 
     @AsyncTest
@@ -53,12 +59,28 @@ class SignalTest extends MatchersBase
     }
 
     @Test
+    public function addListenerThenListenersCountIsOne():Void
+    {
+        signal.add(newEmptyHandler());
+        assertThat(signal.numListeners, equalTo(1));
+    }
+
+    @Test
     public function addListenerThenRemoveThenDispatchShouldNotCallListener():Void
     {
         signal.add(failIfCalled);
         signal.remove(failIfCalled);
         dispatchSignal();
     }
+
+    @Test
+    public function addListenerThenRemoveThenListenersCountIsZero():Void
+    {
+        signal.add(failIfCalled);
+        signal.remove(failIfCalled);
+        assertThat(signal.numListeners, equalTo(0));
+    }
+
 
     @Test
     public function removeFunctionNotInListenersShouldNotThrowError():Void
@@ -83,6 +105,14 @@ class SignalTest extends MatchersBase
         dispatchSignal();
     }
 
+    @Test
+    public function add2ListenersThenListenersCountIsTwo():Void
+    {
+        signal.add(newEmptyHandler());
+        signal.add(newEmptyHandler());
+        assertThat(signal.numListeners, equalTo(2));
+    }
+
     @AsyncTest
     public function add2ListenersRemove1stThenDispatchShouldCall2ndNot1stListener(async:AsyncFactory):Void
     {
@@ -99,6 +129,15 @@ class SignalTest extends MatchersBase
         signal.add(failIfCalled);
         signal.remove(failIfCalled);
         dispatchSignal();
+    }
+
+    @Test
+    public function add2ListenersThenRemove1ThenListenersCountIsOne():Void
+    {
+        signal.add(newEmptyHandler());
+        signal.add(failIfCalled);
+        signal.remove(failIfCalled);
+        assertThat(signal.numListeners, equalTo(1));
     }
 
     @Test
@@ -121,6 +160,14 @@ class SignalTest extends MatchersBase
         var listener = newEmptyHandler();
         signal.add(listener);
         signal.add(listener);
+    }
+
+    @Test
+    public function addSameListenerTwiceThenListenersCountIsOne():Void
+    {
+        signal.add(failIfCalled);
+        signal.add(failIfCalled);
+        assertThat(signal.numListeners, equalTo(1));
     }
 
     @AsyncTest
@@ -157,6 +204,21 @@ class SignalTest extends MatchersBase
     }
 
     @Test
+    public function addingAListenerDuringDispatchIncrementsListenersCount():Void
+    {
+        signal.add(addListenerDuringDispatchToTestCount);
+        dispatchSignal();
+        assertThat(signal.numListeners, equalTo(2));
+    }
+
+    private function addListenerDuringDispatchToTestCount():Void
+    {
+        assertThat(signal.numListeners, equalTo(1));
+        signal.add(newEmptyHandler());
+        assertThat(signal.numListeners, equalTo(2));
+    }
+
+    @Test
     public function dispatch2Listeners2ndListenerRemoves1stThen1stListenerIsNotCalled():Void
     {
         signal.add(removeFailListener);
@@ -176,6 +238,15 @@ class SignalTest extends MatchersBase
         signal.add(newEmptyHandler());
         signal.removeAll();
         assertThat(signal.head, nullValue());
+    }
+
+    @Test
+    public function add2ListenersThenRemoveAllThenListenerCountIsZero():Void
+    {
+        signal.add(newEmptyHandler());
+        signal.add(newEmptyHandler());
+        signal.removeAll();
+        assertThat(signal.numListeners, equalTo(0));
     }
 
     @Test
