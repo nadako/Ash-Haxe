@@ -15,7 +15,6 @@
 -lib munit
 -lib hamcrest
 -lib nme
---remap flash:nme
 -cp src
 
 -cp test
@@ -28,7 +27,6 @@
 -lib munit
 -lib hamcrest
 -lib nme
---remap flash:nme
 -cp src
 
 -cp test
@@ -41,7 +39,6 @@
 -lib munit
 -lib hamcrest
 -lib nme
---remap flash:nme
 -cp src
 
 -cp test

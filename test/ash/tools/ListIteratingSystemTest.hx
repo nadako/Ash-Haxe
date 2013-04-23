@@ -1,7 +1,6 @@
 package ash.tools;
 
 import org.hamcrest.MatchersBase;
-import flash.geom.Point;
 
 import ash.core.Node;
 import ash.core.Entity;

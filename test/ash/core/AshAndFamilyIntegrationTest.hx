@@ -2,9 +2,6 @@ package ash.core;
 
 import org.hamcrest.MatchersBase;
 
-import flash.geom.Matrix;
-import flash.geom.Point;
-
 import ash.core.Entity;
 import ash.core.Engine;
 import ash.core.Node;

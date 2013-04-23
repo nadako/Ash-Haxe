@@ -5,9 +5,19 @@ import ash.core.SystemTest;
 import ash.core.System;
 import ash.core.Node;
 
-import flash.geom.Matrix;
-import flash.geom.Point;
+class Point
+{
+    public function new()
+    {
+    }
+}
 
+class Matrix
+{
+    public function new()
+    {
+    }
+}
 
 class MockNode extends Node<MockNode>
 {

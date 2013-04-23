@@ -1,6 +1,6 @@
 package ash;
 
-#if (haxe3 && !js) // see https://code.google.com/p/haxe/issues/detail?id=1613
+#if (haxe3 && !js && !neko) // see https://code.google.com/p/haxe/issues/detail?id=1613
 typedef ObjectMap<K, V> = haxe.ds.ObjectMap<K, V>;
 #else
 

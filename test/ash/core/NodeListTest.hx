@@ -3,9 +3,6 @@ package ash.core;
 import org.hamcrest.MatchersBase;
 import massive.munit.async.AsyncFactory;
 
-import flash.geom.Matrix;
-import flash.geom.Point;
-
 import ash.core.NodeList;
 import ash.core.Node;
 import ash.matchers.NodeListMatcher;
