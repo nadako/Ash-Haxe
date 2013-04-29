@@ -152,7 +152,7 @@ class SignalBase<TListener>
         node = head;
         while (node != null)
         {
-            if (node.listener == listener)
+            if (Reflect.compareMethods(node.listener, listener))
             {
                 foundNode = true;
                 break;
@@ -165,7 +165,7 @@ class SignalBase<TListener>
             node = toAddHead;
             while (node != null)
             {
-                if (node.listener == listener)
+            	if (Reflect.compareMethods(node.listener, listener))
                 {
                     foundNode = true;
                     break;
