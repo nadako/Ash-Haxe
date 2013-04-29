@@ -4,12 +4,8 @@
     <tag v="component"/>
     <tag v="game"/>
     <description>Port of the Ash entity component framework originally written in ActionScript 3</description>
-    <version name="1.4">
-        Add facility to get an entity from the engine based on its name.
-        Add DynamicComponentProvider for Entity FSM.
-        Add numListeners property to the signals.
-        Add playing property to the tick providers.
-        Fix compilation on OSX.
-        Documentation updates.
+    <version name="1.5">
+        Fix JS and Neko signal registration.
+        Fix tests for C++ and Neko.
     </version>
 </project>
