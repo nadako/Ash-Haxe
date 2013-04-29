@@ -25,7 +25,7 @@ class Engine
     /**
      * Indicates if the engine is currently in its update loop.
      */
-    public var updating:Bool;
+    public var updating(default, null):Bool;
 
     public var entityAdded(default, null):Signal1<Entity>;
     public var entityRemoved(default, null):Signal1<Entity>;
