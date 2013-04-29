@@ -52,6 +52,11 @@ class SignalTest extends MatchersBase
         Assert.fail('This function should not have been called.');
     }
 
+    private function methodFailIfCalled():Void
+    {
+        Assert.fail('This function should not have been called.');
+    }
+
     @Test
     public function newSignalHasNullHead():Void
     {
@@ -96,6 +101,21 @@ class SignalTest extends MatchersBase
         assertThat(signal.numListeners, equalTo(0));
     }
 
+    @Test
+    public function addMethodListenerThenRemoveThenDispatchShouldNotCallListener():Void
+    {
+        signal.add(methodFailIfCalled);
+        signal.remove(methodFailIfCalled);
+        dispatchSignal();
+    }
+
+    @Test
+    public function addMethodListenerThenRemoveThenListenersCountIsZero():Void
+    {
+        signal.add(methodFailIfCalled);
+        signal.remove(methodFailIfCalled);
+        assertThat(signal.numListeners, equalTo(0));
+    }
 
     @Test
     public function removeFunctionNotInListenersShouldNotThrowError():Void

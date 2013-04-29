@@ -16,7 +16,7 @@ class SignalBase<TListener>
 
     public var numListeners(default, null):Int;
 
-    #if !(cpp || neko)
+    #if !(cpp || neko || js)
     private var nodes:ObjectMap<TListener, ListenerNode<TListener>>;
     #end
     private var listenerNodePool:ListenerNodePool<TListener>;
@@ -26,7 +26,7 @@ class SignalBase<TListener>
 
     public function new()
     {
-        #if !(cpp || neko)
+        #if !(cpp || neko || js)
         nodes = new ObjectMap<TListener, ListenerNode<TListener>>();
         #end
         listenerNodePool = new ListenerNodePool();
@@ -60,20 +60,20 @@ class SignalBase<TListener>
         listenerNodePool.releaseCache();
     }
 
-    private #if !(cpp || neko) inline #end function nodeExists(listener:TListener):Bool
+    private #if !(cpp || neko || js) inline #end function nodeExists(listener:TListener):Bool
     {
-        #if (cpp || neko)
+        #if (cpp || neko || js)
         var node:ListenerNode<TListener> = head;
         while (node != null)
         {
-            if (node.listener == listener)
+            if (Reflect.compareMethods(node.listener, listener))
                 return true;
             node = node.next;
         }
         node = toAddHead;
         while (node != null)
         {
-            if (node.listener == listener)
+            if (Reflect.compareMethods(node.listener, listener))
                 return true;
             node = node.next;
         }
@@ -91,7 +91,7 @@ class SignalBase<TListener>
 
         var node:ListenerNode<TListener> = listenerNodePool.get();
         node.listener = listener;
-        #if !(cpp || neko)
+        #if !(cpp || neko || js)
         nodes.set(listener, node);
         #end
         addNode(node);
@@ -105,7 +105,7 @@ class SignalBase<TListener>
         var node:ListenerNode<TListener> = listenerNodePool.get();
         node.listener = listener;
         node.once = true;
-        #if !(cpp || neko)
+        #if !(cpp || neko || js)
         nodes.set(listener, node);
         #end
         addNode(node);
@@ -146,13 +146,13 @@ class SignalBase<TListener>
     {
         var node:ListenerNode<TListener>;
 
-        #if (cpp || neko)
+        #if (cpp || neko || js)
         var foundNode:Bool = false;
 
         node = head;
         while (node != null)
         {
-            if (node.listener == listener)
+            if (Reflect.compareMethods(node.listener, listener))
             {
                 foundNode = true;
                 break;
@@ -165,7 +165,7 @@ class SignalBase<TListener>
             node = toAddHead;
             while (node != null)
             {
-                if (node.listener == listener)
+                if (Reflect.compareMethods(node.listener, listener))
                 {
                     foundNode = true;
                     break;
@@ -195,7 +195,7 @@ class SignalBase<TListener>
             if (node.next != null)
                 node.next.previous = node.previous;
 
-            #if !(cpp || neko)
+            #if !(cpp || neko || js)
             nodes.remove(listener);
             #end
 
