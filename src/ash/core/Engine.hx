@@ -35,7 +35,7 @@ class Engine
      * engine it is usually best not to do so during the update loop. To avoid this you can
      * listen for this signal and make the change when the signal is dispatched.
      */
-    public var updateComplete (default, null):Signal0;
+    public var updateComplete(default, null):Signal0;
 
     /**
      * The class used to manage node lists. In most cases the default class is sufficient
