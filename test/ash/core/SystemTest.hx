@@ -1,7 +1,6 @@
 package ash.core;
 
 import org.hamcrest.MatchersBase;
-import massive.munit.async.AsyncFactory;
 
 import ash.core.Engine;
 import ash.core.System;
@@ -9,8 +8,7 @@ import ash.Mocks;
 
 class SystemTest extends MatchersBase
 {
-    public var async:AsyncFactory;
-    public var asyncCallback:Dynamic;
+    public var callBack:Dynamic;
 
     private var engine:Engine;
 
@@ -27,7 +25,7 @@ class SystemTest extends MatchersBase
     public function clearEntity():Void
     {
         engine = null;
-        asyncCallback = null;
+        callBack = null;
     }
 
     @Test
@@ -40,30 +38,41 @@ class SystemTest extends MatchersBase
         assertThat(engine.systems, hasItems([system1, system2]));
     }
 
-    @AsyncTest
-    public function addSystemCallsAddToEngine(async:AsyncFactory):Void
+    private function shouldCall<T>(f:T)
     {
-        var system:System = new MockSystem( this );
-        asyncCallback = async.createHandler(this, addedCallbackMethod, 10);
-        engine.addSystem(system, 0);
+        return new ShouldCallHelper(f, this);
     }
 
-    @AsyncTest
-    public function removeSystemCallsRemovedFromEngine(async:AsyncFactory):Void
+    @Test
+    public function addSystemCallsAddToEngine():Void
     {
+        var h = shouldCall(addedCallbackMethod);
+        var system:System = new MockSystem( this );
+        callBack = h.func;
+        engine.addSystem(system, 0);
+        h.assertIsCalled();
+    }
+
+    @Test
+    public function removeSystemCallsRemovedFromEngine():Void
+    {
+        var h = shouldCall(removedCallbackMethod);
         var system:System = new MockSystem( this );
         engine.addSystem(system, 0);
-        asyncCallback = async.createHandler(this, removedCallbackMethod, 10);
+        callBack = h.func;
         engine.removeSystem(system);
+        h.assertIsCalled();
     }
 
-    @AsyncTest
-    public function engineCallsUpdateOnSystems(async:AsyncFactory):Void
+    @Test
+    public function engineCallsUpdateOnSystems():Void
     {
+        var h = shouldCall(updateCallbackMethod);
         var system:System = new MockSystem( this );
         engine.addSystem(system, 0);
-        asyncCallback = async.createHandler(this, updateCallbackMethod, 10);
+        callBack = h.func;
         engine.update(0.1);
+        h.assertIsCalled();
     }
 
     @Test
@@ -88,9 +97,8 @@ class SystemTest extends MatchersBase
         engine.addSystem(system1, 10);
         system2 = new MockSystem( this );
         engine.addSystem(system2, 20);
-        //        this.async = async;
-        //        asyncCallback = async.createHandler(this, updateCallbackMethod1, 10);
-        asyncCallback = updateCallbackMethod1;
+        //        asyncCallback = async.createHandler(this, updateCallbackMethod1);
+        callBack = updateCallbackMethod1;
         engine.update(0.1);
     }
 
@@ -101,8 +109,8 @@ class SystemTest extends MatchersBase
         engine.addSystem(system2, 20);
         system1 = new MockSystem( this );
         engine.addSystem(system1, 10);
-        //        asyncCallback = async.add(updateCallbackMethod1, 10);
-        asyncCallback = updateCallbackMethod1;
+        //        asyncCallback = async.add(updateCallbackMethod1);
+        callBack = updateCallbackMethod1;
         engine.update(0.1);
     }
 
@@ -114,7 +122,7 @@ class SystemTest extends MatchersBase
         system1 = new MockSystem( this );
         engine.addSystem(system1, -20);
         //        asyncCallback = async.add(updateCallbackMethod1, 10);
-        asyncCallback = updateCallbackMethod1;
+        callBack = updateCallbackMethod1;
         engine.update(0.1);
     }
 
@@ -129,7 +137,7 @@ class SystemTest extends MatchersBase
     {
         var system:System = new MockSystem( this );
         engine.addSystem(system, 0);
-        asyncCallback = assertsUpdatingIsTrue;
+        callBack = assertsUpdatingIsTrue;
         engine.update(0.1);
     }
 
@@ -140,14 +148,15 @@ class SystemTest extends MatchersBase
         assertThat(engine.updating, is(false));
     }
 
-    @AsyncTest
-    public function completeSignalIsDispatchedAfterUpdate(async:AsyncFactory):Void
+    @Test
+    public function completeSignalIsDispatchedAfterUpdate():Void
     {
+        var h = shouldCall(function() {});
         var system:System = new MockSystem( this );
         engine.addSystem(system, 0);
-        this.async = async;
-        asyncCallback = listensForUpdateComplete;
+        callBack = function(s, a, t) { engine.updateComplete.add(h.func); };
         engine.update(0.1);
+        h.assertIsCalled();
     }
 
     @Test
@@ -212,7 +221,7 @@ class SystemTest extends MatchersBase
     {
         assertThat(system, equalTo(system1));
         //        asyncCallback = async.createHandler(this, updateCallbackMethod2, 10);
-        asyncCallback = updateCallbackMethod2;
+        callBack = updateCallbackMethod2;
     }
 
     private function updateCallbackMethod2(system:System, action:String, time:Float):Void
@@ -223,11 +232,5 @@ class SystemTest extends MatchersBase
     private function assertsUpdatingIsTrue(system:System, action:String, time:Float):Void
     {
         assertThat(engine.updating, is(true));
-    }
-
-    private function listensForUpdateComplete(system:System, action:String, time:Float):Void
-    {
-        engine.updateComplete.add(async.createHandler(this, function()
-        {}));
     }
 }

@@ -86,20 +86,20 @@ class MockSystem extends System
 
     override public function addToEngine(engine:Engine):Void
     {
-        if (tests.asyncCallback != null)
-            tests.asyncCallback(this, "added", engine);
+        if (tests.callBack != null)
+            tests.callBack(this, "added", engine);
     }
 
     override public function removeFromEngine(engine:Engine):Void
     {
-        if (tests.asyncCallback != null)
-            tests.asyncCallback(this, "removed", engine);
+        if (tests.callBack != null)
+            tests.callBack(this, "removed", engine);
     }
 
     override public function update(time:Float):Void
     {
-        if (tests.asyncCallback != null)
-            tests.asyncCallback(this, "update", time);
+        if (tests.callBack != null)
+            tests.callBack(this, "update", time);
     }
 }
 

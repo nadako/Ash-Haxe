@@ -1,7 +1,6 @@
 package ash.core;
 
 import org.hamcrest.MatchersBase;
-import massive.munit.async.AsyncFactory;
 
 import ash.core.Entity;
 import ash.Mocks;
@@ -20,6 +19,11 @@ class EntityTest extends MatchersBase
     public function clearEntity():Void
     {
         entity = null;
+    }
+
+    private function shouldCall<T>(f:T):ShouldCallHelper<T>
+    {
+        return new ShouldCallHelper(f, this);
     }
 
     @Test
@@ -121,39 +125,41 @@ class EntityTest extends MatchersBase
         assertThat(entity.has(MockComponent), is(false));
     }
 
-    @AsyncTest
-    public function storingComponentTriggersAddedSignal(async:AsyncFactory):Void
+    @Test
+    public function storingComponentTriggersAddedSignal():Void
     {
+        var h = shouldCall(function(e, c) {});
         var component:MockComponent = new MockComponent();
-        entity.componentAdded.add(async.createHandler(this, function():Void
-        {}));
+        entity.componentAdded.add(h.func);
         entity.add(component);
+        h.assertIsCalled();
     }
 
-    @AsyncTest
-    public function removingComponentTriggersRemovedSignal(async:AsyncFactory):Void
+    @Test
+    public function removingComponentTriggersRemovedSignal():Void
     {
+        var h = shouldCall(function(e, c) {});
         var component:MockComponent = new MockComponent();
         entity.add(component);
-        entity.componentRemoved.add(async.createHandler(this, function():Void
-        {}));
+        entity.componentRemoved.add(h.func);
         entity.remove(MockComponent);
+        h.assertIsCalled();
     }
 
-    @AsyncTest
-    public function componentAddedSignalContainsCorrectParameters(async:AsyncFactory):Void
+    @Test
+    public function componentAddedSignalContainsCorrectParameters():Void
     {
         var component:MockComponent = new MockComponent();
-        entity.componentAdded.add(async.createHandler(this, testSignalContent, 10));
+        entity.componentAdded.add(testSignalContent);
         entity.add(component);
     }
 
-    @AsyncTest
-    public function componentRemovedSignalContainsCorrectParameters(async:AsyncFactory):Void
+    @Test
+    public function componentRemovedSignalContainsCorrectParameters():Void
     {
         var component:MockComponent = new MockComponent();
         entity.add(component);
-        entity.componentRemoved.add(async.createHandler(this, testSignalContent, 10));
+        entity.componentRemoved.add(testSignalContent);
         entity.remove(MockComponent);
     }
 
@@ -186,12 +192,14 @@ class EntityTest extends MatchersBase
         assertThat(entity.name, equalTo("otherThing"));
     }
 
-    @AsyncTest
-    public function testChangingEntityNameDispatchesSignal(async:AsyncFactory):Void
+    @Test
+    public function testChangingEntityNameDispatchesSignal():Void
     {
+        var h = shouldCall(testNameChangedSignal);
         entity = new Entity( "anything" );
-        entity.nameChanged.add(async.createHandler(this, testNameChangedSignal, 10));
+        entity.nameChanged.add(h.func);
         entity.name = "otherThing";
+        h.assertIsCalled();
     }
 
     private function testNameChangedSignal(signalEntity:Entity, oldName:String):Void

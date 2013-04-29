@@ -1,7 +1,6 @@
 package ash.core;
 
 import org.hamcrest.MatchersBase;
-import massive.munit.async.AsyncFactory;
 
 import ash.core.NodeList;
 import ash.core.Node;
@@ -24,21 +23,30 @@ class NodeListTest extends MatchersBase
         nodes = null;
     }
 
-    @AsyncTest
-    public function addingNodeTriggersAddedSignal(async:AsyncFactory):Void
+    private function shouldCall():ShouldCallHelper<MockNode2->Void>
     {
-        var node:MockNode2 = Type.createEmptyInstance(MockNode2);
-        nodes.nodeAdded.add(async.createHandler(this, function() {}));
-        nodes.add(node);
+        return new ShouldCallHelper(function(n) {});
     }
 
-    @AsyncTest
-    public function removingNodeTriggersRemovedSignal(async:AsyncFactory):Void
+    @Test
+    public function addingNodeTriggersAddedSignal():Void
     {
+        var h = shouldCall();
+        var node:MockNode2 = Type.createEmptyInstance(MockNode2);
+        nodes.nodeAdded.add(h.func);
+        nodes.add(node);
+        h.assertIsCalled();
+    }
+
+    @Test
+    public function removingNodeTriggersRemovedSignal():Void
+    {
+        var h = shouldCall();
         var node:MockNode2 = Type.createEmptyInstance(MockNode2);
         nodes.add(node);
-        nodes.nodeRemoved.add(async.createHandler(this, function() {}));
+        nodes.nodeRemoved.add(h.func);
         nodes.remove(node);
+        h.assertIsCalled();
     }
 
     @Test
@@ -110,20 +118,20 @@ class NodeListTest extends MatchersBase
 
     private var tempNode:MockNode2;
 
-    @AsyncTest
-    public function componentAddedSignalContainsCorrectParameters(async:AsyncFactory):Void
+    @Test
+    public function componentAddedSignalContainsCorrectParameters():Void
     {
         tempNode = Type.createEmptyInstance(MockNode2);
-        nodes.nodeAdded.add(async.createHandler(this, testSignalContent, 10));
+        nodes.nodeAdded.add(testSignalContent);
         nodes.add(tempNode);
     }
 
-    @AsyncTest
-    public function componentRemovedSignalContainsCorrectParameters(async:AsyncFactory):Void
+    @Test
+    public function componentRemovedSignalContainsCorrectParameters():Void
     {
         tempNode = Type.createEmptyInstance(MockNode2);
         nodes.add(tempNode);
-        nodes.nodeRemoved.add(async.createHandler(this, testSignalContent, 10));
+        nodes.nodeRemoved.add(testSignalContent);
         nodes.remove(tempNode);
     }
 
