@@ -29,7 +29,7 @@
         </exec>
 
         <exec executable="haxelib">
-            <arg line="run munit t -as3 -js" />
+            <arg line="run munit t -result-exit-code" />
         </exec>
     </target>
     
