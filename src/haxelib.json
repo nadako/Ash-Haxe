@@ -2,7 +2,7 @@
     "name": "ash",
     "url" : "https://github.com/nadako/Ash-HaXe",
     "license": "MIT",
-    "tags": ["entity", "component", "game"],
+    "tags": ["entity", "component", "system", "game"],
     "description": "Port of the Ash entity component framework originally written in ActionScript 3",
     "version": "1.5.0",
     "releasenote": "Initial release for new haxelib.",
