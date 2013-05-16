@@ -3,7 +3,10 @@
  */
 package ash.signals;
 
-import ash.ObjectMap;
+#if flash
+import flash.utils.Dictionary;
+#end
+
 import ash.GenericListIterator;
 
 /**
@@ -16,9 +19,10 @@ class SignalBase<TListener>
 
     public var numListeners(default, null):Int;
 
-    #if !(cpp || neko || js)
-    private var nodes:ObjectMap<TListener, ListenerNode<TListener>>;
+    #if flash
+    private var nodes:Dictionary;
     #end
+
     private var listenerNodePool:ListenerNodePool<TListener>;
     private var toAddHead:ListenerNode<TListener>;
     private var toAddTail:ListenerNode<TListener>;
@@ -26,8 +30,8 @@ class SignalBase<TListener>
 
     public function new()
     {
-        #if !(cpp || neko || js)
-        nodes = new ObjectMap<TListener, ListenerNode<TListener>>();
+        #if flash
+        nodes = new Dictionary(true);
         #end
         listenerNodePool = new ListenerNodePool();
         numListeners = 0;
@@ -60,29 +64,38 @@ class SignalBase<TListener>
         listenerNodePool.releaseCache();
     }
 
-    private #if !(cpp || neko || js) inline #end function nodeExists(listener:TListener):Bool
+    private inline function getNode(listener:TListener):ListenerNode<TListener>
     {
-        #if (cpp || neko || js)
+        #if flash
+        return untyped nodes[listener];
+        #else
         var node:ListenerNode<TListener> = head;
         while (node != null)
         {
             if (Reflect.compareMethods(node.listener, listener))
-                return true;
+                break;
             node = node.next;
         }
-        node = toAddHead;
-        while (node != null)
+
+        if (node == null)
         {
-            if (Reflect.compareMethods(node.listener, listener))
-                return true;
-            node = node.next;
+            node = toAddHead;
+            while (node != null)
+            {
+                if (Reflect.compareMethods(node.listener, listener))
+                    break;
+                node = node.next;
+            }
         }
-        return false;
-        #else
-        return nodes.exists(listener);
+
+        return node;
         #end
     }
 
+    private inline function nodeExists(listener:TListener):Bool
+    {
+        return getNode(listener) != null;
+    }
 
     public function add(listener:TListener):Void
     {
@@ -91,8 +104,8 @@ class SignalBase<TListener>
 
         var node:ListenerNode<TListener> = listenerNodePool.get();
         node.listener = listener;
-        #if !(cpp || neko || js)
-        nodes.set(listener, node);
+        #if flash
+        untyped nodes[listener] =  node;
         #end
         addNode(node);
     }
@@ -105,8 +118,8 @@ class SignalBase<TListener>
         var node:ListenerNode<TListener> = listenerNodePool.get();
         node.listener = listener;
         node.once = true;
-        #if !(cpp || neko || js)
-        nodes.set(listener, node);
+        #if flash
+        untyped nodes[listener] = node;
         #end
         addNode(node);
     }
@@ -144,42 +157,7 @@ class SignalBase<TListener>
 
     public function remove(listener:TListener):Void
     {
-        var node:ListenerNode<TListener>;
-
-        #if (cpp || neko || js)
-        var foundNode:Bool = false;
-
-        node = head;
-        while (node != null)
-        {
-            if (Reflect.compareMethods(node.listener, listener))
-            {
-                foundNode = true;
-                break;
-            }
-            node = node.next;
-        }
-
-        if (!foundNode)
-        {
-            node = toAddHead;
-            while (node != null)
-            {
-                if (Reflect.compareMethods(node.listener, listener))
-                {
-                    foundNode = true;
-                    break;
-                }
-                node = node.next;
-            }
-        }
-
-        if (!foundNode)
-            node = null;
-        #else
-        node = nodes.get(listener);
-        #end
-
+        var node:ListenerNode<TListener> = getNode(listener);
         if (node != null)
         {
             if (head == node)
@@ -195,8 +173,8 @@ class SignalBase<TListener>
             if (node.next != null)
                 node.next.previous = node.previous;
 
-            #if !(cpp || neko || js)
-            nodes.remove(listener);
+            #if flash
+            untyped __delete__(nodes, listener);
             #end
 
             if (dispatching)

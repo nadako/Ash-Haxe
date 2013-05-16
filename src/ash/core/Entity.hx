@@ -1,6 +1,6 @@
 package ash.core;
 
-import ash.ObjectMap;
+import ash.ClassMap;
 import ash.signals.Signal2;
 
 /**
@@ -44,14 +44,14 @@ class Entity
 
     public var previous:Entity;
     public var next:Entity;
-    public var components(default, null):ObjectMap<Class<Dynamic>, Dynamic>;
+    public var components(default, null):ClassMap<Class<Dynamic>, Dynamic>;
 
     public function new(name:String = "")
     {
         componentAdded = new Signal2<Entity, Class<Dynamic>>();
         componentRemoved = new Signal2<Entity, Class<Dynamic>>();
         nameChanged = new Signal2<Entity, String>();
-        components = new ObjectMap<Class<Dynamic>, Dynamic>();
+        components = new ClassMap();
 
         if (name != "")
             this.name = name;

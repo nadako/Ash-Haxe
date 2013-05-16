@@ -1,6 +1,6 @@
 package ash.fsm;
 
-import ash.ObjectMap;
+import ash.ClassMap;
 import ash.core.Entity;
 
 /**
@@ -10,11 +10,7 @@ import ash.core.Entity;
  */
 class EntityStateMachine
 {
-    #if haxe3
     private var states:Map<String, EntityState>;
-    #else
-    private var states:Hash<EntityState>;
-    #end
     /**
      * The current state of the state machine.
      */
@@ -31,7 +27,7 @@ class EntityStateMachine
     public function new(entity:Entity)
     {
         this.entity = entity;
-        states = new #if haxe3 Map #else Hash #end();
+        states = new Map();
     }
 
     /**
@@ -82,10 +78,10 @@ class EntityStateMachine
             newState = null;
             return;
         }
-        var toAdd:ObjectMap<Class<Dynamic>, IComponentProvider<Dynamic>>;
+        var toAdd:ClassMap<Class<Dynamic>, IComponentProvider<Dynamic>>;
         if (currentState != null)
         {
-            toAdd = new ObjectMap();
+            toAdd = new ClassMap();
             for (t in newState.providers.keys())
             {
                 toAdd.set(t, newState.providers.get(t));

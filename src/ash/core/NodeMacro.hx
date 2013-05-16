@@ -11,7 +11,7 @@ import haxe.macro.Expr;
  **/
 class NodeMacro
 {
-    #if haxe3 macro #else @:macro #end public static function build():Array<Field>
+    macro public static function build():Array<Field>
     {
         var nodeClass:ClassType = Context.getLocalClass().get();
         var fields:Array<Field> = Context.getBuildFields();
@@ -45,7 +45,7 @@ class NodeMacro
         var componentsTypePath:TypePath =
         {
             pack: ["ash"],
-            name: "ObjectMap",
+            name: "ClassMap",
             params: [
                 TPType(TPath({
                     pack: [],

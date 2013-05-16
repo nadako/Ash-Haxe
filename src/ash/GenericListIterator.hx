@@ -4,7 +4,7 @@ package ash;
  * An iterator class for any linked lists that
  * has "next" variable in its elements.
  **/
-class GenericListIterator<TNode#if haxe3 :HasNext<TNode> #end>
+class GenericListIterator<TNode:HasNext<TNode>>
 {
     private var previous:HasNext<TNode>;
 
@@ -21,7 +21,7 @@ class GenericListIterator<TNode#if haxe3 :HasNext<TNode> #end>
     public function next():TNode
     {
         var node:TNode = previous.next;
-        previous = #if !haxe3 untyped #end node;
+        previous = node;
         return node;
     }
 }

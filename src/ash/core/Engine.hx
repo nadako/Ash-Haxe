@@ -1,6 +1,6 @@
 package ash.core;
 
-import ash.ObjectMap;
+import ash.ClassMap;
 import ash.signals.Signal0;
 import ash.signals.Signal1;
 
@@ -13,14 +13,10 @@ class Engine
     public var entities(get_entities, never):Iterable<Entity>;
     public var systems(get_systems, never):Iterable<System>;
 
-    #if haxe3
     private var entityNames:Map<String, Entity>;
-    #else
-    private var entityNames:Hash<Entity>;
-    #end
     private var entityList:EntityList;
     private var systemList:SystemList;
-    private var families:ObjectMap<Class<Dynamic>, IFamily<Dynamic>>;
+    private var families:ClassMap<Class<Dynamic>, IFamily<Dynamic>>;
 
     /**
      * Indicates if the engine is currently in its update loop.
@@ -49,9 +45,9 @@ class Engine
     public function new()
     {
         entityList = new EntityList();
-        entityNames = #if haxe3 new Map() #else new Hash() #end;
+        entityNames = new Map<String, Entity>();
         systemList = new SystemList();
-        families = new ObjectMap<Class<Node<Dynamic>>, IFamily<Dynamic>>();
+        families = new ClassMap();
         entityAdded = new Signal1<Entity>();
         entityRemoved = new Signal1<Entity>();
         updateComplete = new Signal0();

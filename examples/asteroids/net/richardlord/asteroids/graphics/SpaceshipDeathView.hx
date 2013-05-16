@@ -4,7 +4,7 @@ import flash.display.Shape;
 import flash.display.Sprite;
 import flash.geom.Point;
 
-class SpaceshipDeathView extends Sprite #if !haxe3,#end implements IAnimatable
+class SpaceshipDeathView extends Sprite implements IAnimatable
 {
     private var shape1:Shape;
     private var shape2:Shape;
