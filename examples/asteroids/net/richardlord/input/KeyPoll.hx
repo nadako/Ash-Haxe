@@ -28,9 +28,9 @@ package net.richardlord.input;
 import haxe.io.Bytes;
 import haxe.Log;
 
-import nme.events.KeyboardEvent;
-import nme.events.Event;
-import nme.display.DisplayObject;
+import flash.events.KeyboardEvent;
+import flash.events.Event;
+import flash.display.DisplayObject;
 
 /**
  * <p>Games often need to get the current state of various keys in order to respond to user input.
