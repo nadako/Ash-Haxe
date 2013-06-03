@@ -91,20 +91,13 @@ class StateComponentMapping<T>
     /**
      * Creates a mapping for the component type to any ComponentProvider.
      *
-     * @param The component provider to use.
+     * @param provider The component provider to use.
      * @return This ComponentMapping, so more modifications can be applied.
      */
-
     public function withProvider(provider:IComponentProvider<T>):StateComponentMapping<T>
     {
         setProvider(provider);
         return this;
-    }
-
-    private function setProvider(provider:IComponentProvider<T>):Void
-    {
-        this.provider = provider;
-        creatingState.providers.set(componentType, provider);
     }
 
     /**
@@ -114,9 +107,14 @@ class StateComponentMapping<T>
      * @param type The type of component to add a mapping to the state for
      * @return The new ComponentMapping for that type
      */
-
     public function add<T>(type:Class<T>):StateComponentMapping<T>
     {
         return creatingState.add(type);
+    }
+
+    private function setProvider(provider:IComponentProvider<T>):Void
+    {
+        this.provider = provider;
+        creatingState.providers.set(componentType, provider);
     }
 }
