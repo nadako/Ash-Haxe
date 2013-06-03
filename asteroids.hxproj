@@ -5,27 +5,28 @@
     <movie outputType="Application" />
     <movie input="" />
     <movie path="asteroids.nmml" />
-    <movie fps="60" />
+    <movie fps="30" />
     <movie width="800" />
     <movie height="600" />
     <movie version="3" />
     <movie minorVersion="0" />
     <movie platform="NME" />
-    <movie background="000000" />
+    <movie background="0" />
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
     <class path="src" />
     <class path="examples/asteroids" />
-    <class path="out/flash/haxe" />
+    <class path="C:\Program Files (x86)\HaxeFoundation\haxe/lib\nme/3,5,6/" />
+    <class path="bin/flash/haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="nme_install_tool&#xA;fdb&#xA;web&#xA;code_completion" />
+    <option directives="nme&#xA;nme_ver=3.5.6&#xA;nme_install_tool=1&#xA;nme3=1&#xA;web" />
     <option flashStrict="False" />
     <option mainClass="ApplicationMain" />
     <option enabledebug="True" />
-    <option additional="-swf-version 10.1" />
+    <option additional="-swf-version 11" />
   </build>
   <!-- haxelib libraries -->
   <haxelib>

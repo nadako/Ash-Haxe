@@ -14,7 +14,7 @@ class Engine
     public var systems(get_systems, never):Iterable<System>;
 
     private var entityNames:Map<String, Entity>;
-    private var entityList:EntityList;
+    private var entityList:List<Entity>;
     private var systemList:SystemList;
     private var families:ClassMap<Class<Dynamic>, IFamily<Dynamic>>;
 
@@ -44,7 +44,7 @@ class Engine
 
     public function new()
     {
-        entityList = new EntityList();
+        entityList = new List();
         entityNames = new Map<String, Entity>();
         systemList = new SystemList();
         families = new ClassMap();
@@ -121,10 +121,7 @@ class Engine
      */
     public function removeAllEntities():Void
     {
-        while (entityList.head != null)
-        {
-            removeEntity(entityList.head);
-        }
+       entityList.clear();
     }
 
     /**
