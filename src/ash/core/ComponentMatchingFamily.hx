@@ -44,7 +44,6 @@ class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
      */
     private function init():Void
     {
-        nodePool = new NodePool<TNode>( nodeClass );
         nodeList = new NodeList<TNode>();
         entities = new Map<Entity, TNode>();
 
@@ -53,6 +52,8 @@ class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
         #else
         components = untyped nodeClass._getComponents();
         #end
+
+        nodePool = new NodePool<TNode>( nodeClass, components );
     }
 
     /**
