@@ -5,7 +5,7 @@
     "tags": ["entity", "component", "system", "game"],
     "description": "Port of the Ash entity component framework originally written in ActionScript 3",
     "version": "1.5.0",
-    "releasenote": "Initial release for new haxelib.",
+    "releasenote": "Fix the memory leak in the Node Pool class.\nMove Asteroids example to OpenFL.",
     "contributors": ["nadako"],
     "dependencies": {}
 }
