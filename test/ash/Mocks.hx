@@ -105,8 +105,9 @@ class MockSystem extends System
 
 class EmptySystem extends System
 {
-    public function new()
-    {
-        super();
-    }
+}
+
+class EmptySystem2 extends System
+{
+    public var value:String;
 }
