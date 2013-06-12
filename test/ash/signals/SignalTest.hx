@@ -292,6 +292,16 @@ class SignalTest extends MatchersBase
     }
 
     @Test
+    public function addListenerThenRemoveAllThenAddAgainShouldAddListener():Void
+    {
+        var handler = newEmptyHandler();
+        signal.add(handler);
+        signal.removeAll();
+        signal.add(handler);
+        assertThat(signal.numListeners, equalTo(1));
+    }
+
+    @Test
     public function add2ListenersThenRemoveAllThenListenerCountIsZero():Void
     {
         signal.add(newEmptyHandler());

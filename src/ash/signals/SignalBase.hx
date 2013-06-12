@@ -190,10 +190,14 @@ class SignalBase<TListener>
     {
         while (head != null)
         {
-            var listener:ListenerNode<TListener> = head;
+            var node:ListenerNode<TListener> = head;
             head = head.next;
-            listener.previous = null;
-            listener.next = null;
+            #if flash
+            untyped __delete__(nodes, node.listener);
+            #end
+            listenerNodePool.dispose(node);
+            node.previous = null;
+            node.next = null;
         }
         tail = null;
         toAddHead = null;
