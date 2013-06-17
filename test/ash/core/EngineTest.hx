@@ -34,7 +34,32 @@ class EngineTest extends MatchersBase
         engine.addEntity(entity1);
         var entity2:Entity = new Entity();
         engine.addEntity(entity2);
+        assertThat(Lambda.array(engine.entities).length, equalTo(2));
         assertThat(engine.entities, hasItems([entity1, entity2]));
+    }
+
+    @Test
+    public function getEntityByNameReturnsCorrectEntity():Void
+    {
+        var entity1:Entity = new Entity();
+        entity1.name = "otherEntity";
+        engine.addEntity(entity1);
+        var entity2:Entity = new Entity();
+        entity2.name = "myEntity";
+        engine.addEntity(entity2);
+        assertThat(engine.getEntityByName("myEntity"), sameInstance(entity2));
+    }
+
+    @Test
+    public function getEntityByNameReturnsNullIfNoEntity():Void
+    {
+        var entity1:Entity = new Entity();
+        entity1.name = "otherEntity";
+        engine.addEntity(entity1);
+        var entity2:Entity = new Entity();
+        entity2.name = "myEntity";
+        engine.addEntity(entity2);
+        assertThat(engine.getEntityByName("wrongName"), is(null));
     }
 
     @Test
