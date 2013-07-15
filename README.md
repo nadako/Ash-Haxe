@@ -5,4 +5,9 @@ of runtime than in original ActionScript 3 version.
 
 Check out original Ash website for great articles on entity frameworks and game development.
 
+**TODO:**
+
+ * Port serialization stuff. This is kind of tricky because original Ash uses reflection and we are trying to avoid it, so we gotta be smart about macros.
+ * Refine access control for private classes and fields. Original Ash used internal class/field feature of AS3, in Haxe we need to use ACL metadata.
+
 Author: Dan Korostelev <nadako@gmail.com>
