@@ -42,6 +42,7 @@ class NodeMacro
             throw new Error("Node subclass doesnt declare any component variables", nodeClass.pos);
 
         // Type path for ObjectMap<Class<Dynamic>, String>
+
         var componentsTypePath:TypePath =
         {
             pack: ["ash"],
@@ -74,19 +75,8 @@ class NodeMacro
             pos: nodeClass.pos
         });
 
-        var componentsRef:ExprDef = EConst(CIdent("_components"));
 
-        var populateExprs:Array<Expr> = [
-            {
-                expr: EBinop(
-                    OpAssign,
-                    {expr: componentsRef, pos: nodeClass.pos},
-                    {expr: ENew(componentsTypePath, []), pos: nodeClass.pos}
-                ),
-                pos: nodeClass.pos
-            }
-        ];
-
+        var populateExprs:Array<Expr> = [];
         for (field in componentLinkFields)
         {
             switch (field.kind)
@@ -95,55 +85,12 @@ class NodeMacro
                     switch (type)
                     {
                         case TPath(path):
-                            var componentClassExpr = {
-                                expr: EConst(CIdent(path.name)),
-                                pos: field.pos
-                            };
-                            var componentFieldNameExpr = {
-                                expr: EConst(CString(field.name)),
-                                pos: field.pos
-                            };
-                            populateExprs.push({
-                                expr: ECall(
-                                    {
-                                        expr: EField({expr: componentsRef, pos: field.pos}, "set"),
-                                        pos: field.pos
-                                    },
-                                    [componentClassExpr, componentFieldNameExpr]
-                                ),
-                                pos: field.pos
-                            });
+                            populateExprs.push(macro _components.set($i{path.name}, $v{field.name}));
                         default:
                     }
                 default:
             }
         }
-
-
-        var getComponentsExprs:Array<Expr> = [
-            {
-                expr: EIf(
-                    {
-                        expr: EBinop(
-                            OpEq,
-                            {expr: componentsRef, pos: nodeClass.pos},
-                            {expr: EConst(CIdent("null")), pos: nodeClass.pos}
-                        ),
-                        pos: nodeClass.pos
-                    },
-                    {
-                        expr: EBlock(populateExprs),
-                        pos: nodeClass.pos
-                    },
-                    null
-                ),
-                pos: nodeClass.pos
-            },
-            {
-                expr: EReturn({expr: componentsRef, pos: nodeClass.pos}),
-                pos: nodeClass.pos
-            }
-        ];
 
         fields.push({
             name: "_getComponents",
@@ -151,9 +98,17 @@ class NodeMacro
                 args: [],
                 params: [],
                 ret: componentsType,
-                expr: {expr: EBlock(getComponentsExprs), pos: nodeClass.pos}
+                expr: macro
+                {
+                    if (_components == null)
+                    {
+                        _components = new ash.ClassMap<Class<Dynamic>, String>();
+                        $b{populateExprs};
+                    }
+                    return _components;
+                }
             }),
-            access: [APublic, AStatic, AInline],
+            access: [APublic, AStatic],
             pos: nodeClass.pos
         });
 
