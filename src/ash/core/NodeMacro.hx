@@ -13,10 +13,10 @@ class NodeMacro
 {
     macro public static function build():Array<Field>
     {
-        var nodeClass:ClassType = Context.getLocalClass().get();
-        var fields:Array<Field> = Context.getBuildFields();
+        var fields = Context.getBuildFields();
+        var pos = Context.currentPos();
 
-        var componentLinkFields:Array<Field> = [];
+        var populateExprs = [];
         for (field in fields)
         {
             switch (field.kind)
@@ -28,7 +28,7 @@ class NodeMacro
                             // TODO: add support for type parameters
                             if (path.params.length > 0)
                                 throw new Error("Type parameters for node field types are not yet supported yet", field.pos);
-                            componentLinkFields.push(field);
+                            populateExprs.push(macro _components.set($i{path.name}, $v{field.name}));
                         default:
                             throw new Error("Invalid node class with field type other than class: " + field.name, field.pos);
                     }
@@ -38,59 +38,18 @@ class NodeMacro
             }
         }
 
-        if (componentLinkFields.length == 0)
-            throw new Error("Node subclass doesnt declare any component variables", nodeClass.pos);
+        if (populateExprs.length == 0)
+            throw new Error("Node subclass doesnt declare any component variables", pos);
 
-        // Type path for ObjectMap<Class<Dynamic>, String>
 
-        var componentsTypePath:TypePath =
-        {
-            pack: ["ash"],
-            name: "ClassMap",
-            params: [
-                TPType(TPath({
-                    pack: [],
-                    name: "Class",
-                    params: [
-                        TPType(TPath({
-                            pack: [],
-                            name: "Dynamic",
-                            params: []
-                        }))
-                    ]
-                })),
-                TPType(TPath({
-                    pack: [],
-                    name: "String",
-                    params: []
-                }))
-            ]
-        }
-        var componentsType:ComplexType = TPath(componentsTypePath);
+        var componentsType = macro : ash.ClassMap<Class<Dynamic>, String>;
 
         fields.push({
             name: "_components",
             kind: FVar(componentsType),
             access: [APrivate, AStatic],
-            pos: nodeClass.pos
+            pos: pos
         });
-
-
-        var populateExprs:Array<Expr> = [];
-        for (field in componentLinkFields)
-        {
-            switch (field.kind)
-            {
-                case FVar(type, _):
-                    switch (type)
-                    {
-                        case TPath(path):
-                            populateExprs.push(macro _components.set($i{path.name}, $v{field.name}));
-                        default:
-                    }
-                default:
-            }
-        }
 
         fields.push({
             name: "_getComponents",
@@ -109,7 +68,7 @@ class NodeMacro
                 }
             }),
             access: [APublic, AStatic],
-            pos: nodeClass.pos
+            pos: pos
         });
 
         return fields;
