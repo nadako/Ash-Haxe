@@ -12,6 +12,7 @@ import ash.GenericListIterator;
 /**
  * The base class for all the signal classes.
  */
+@:autoBuild(ash.signals.SignalMacro.build())
 class SignalBase<TListener>
 {
     public var head:ListenerNode<TListener>;
