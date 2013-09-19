@@ -7,8 +7,6 @@ package ash.signals;
 import flash.utils.Dictionary;
 #end
 
-import ash.GenericListIterator;
-
 /**
  * The base class for all the signal classes.
  */
@@ -204,10 +202,5 @@ class SignalBase<TListener>
         toAddHead = null;
         toAddTail = null;
         numListeners = 0;
-    }
-
-    private function iterator():Iterator<ListenerNode<TListener>>
-    {
-        return new GenericListIterator(head);
     }
 }

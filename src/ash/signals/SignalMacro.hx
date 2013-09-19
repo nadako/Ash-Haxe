@@ -44,11 +44,13 @@ class SignalMacro
                 ret: macro : Void,
                 expr: macro {
                     startDispatch();
-                    for (node in this)
+                    var node = head;
+                    while (node != null)
                     {
                         node.listener($a{callArgs});
                         if (node.once)
                             remove(node.listener);
+                        node = node.next;
                     }
                     endDispatch();
                 },
