@@ -14,6 +14,7 @@ class Engine
     public var systems(get_systems, never):Iterable<System>;
 
     private var entityNames:Map<String, Entity>;
+    private var entityIds:Map<Int, Entity>;
     private var entityList:EntityList;
     private var systemList:SystemList;
     private var families:ClassMap<Class<Dynamic>, IFamily<Dynamic>>;
@@ -46,6 +47,7 @@ class Engine
     {
         entityList = new EntityList();
         entityNames = new Map<String, Entity>();
+        entityIds = new Map<Int, Entity>();
         systemList = new SystemList();
         families = new ClassMap();
         entityAdded = new Signal1<Entity>();
@@ -64,8 +66,13 @@ class Engine
     {
         if (entityNames.exists(entity.name))
             throw "The entity name " + entity.name + " is already in use by another entity.";
+        #if debug
+        if (entityIds.exists(entity.id))
+            throw "The entity id " + entity.id + " is already in use by another entity.";
+        #end
         entityList.add(entity);
         entityNames.set(entity.name, entity);
+        entityIds.set(entity.id, entity);
         entity.componentAdded.add(componentAdded);
         entity.componentRemoved.add(componentRemoved);
         entity.nameChanged.add(entityNameChanged);
@@ -91,6 +98,7 @@ class Engine
         {
             family.removeEntity(entity);
         }
+        entityIds.remove(entity.id);
         entityNames.remove(entity.name);
         entityList.remove(entity);
         entityRemoved.dispatch(entity);
@@ -106,7 +114,7 @@ class Engine
     }
 
     /**
-     * Get an entity based n its name.
+     * Get an entity based on its name.
      *
      * @param name The name of the entity
      * @return The entity, or null if no entity with that name exists on the engine
@@ -114,6 +122,17 @@ class Engine
     public inline function getEntityByName(name:String):Entity
     {
         return entityNames.get(name);
+    }
+
+    /**
+     * Get an entity based on its id.
+     *
+     * @param id The id of the entity
+     * @return The entity, or null if no entity with that id exists on the engine
+     */
+    public inline function getEntityById(id:Int):Entity
+    {
+        return entityIds.get(id);
     }
 
     /**
