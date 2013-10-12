@@ -6,6 +6,6 @@
     "description": "Port of the Ash entity component framework originally written in ActionScript 3",
     "version": "1.5.3",
     "releasenote": "Fix error in signal.removeAll()",
-    "contributors": ["nadako"],
+    "contributors": ["nadako", "theor"],
     "dependencies": {}
 }
