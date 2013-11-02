@@ -92,7 +92,7 @@ class SystemList
         return null;
     }
 
-    public function iterator():Iterator<System>
+    public inline function iterator():GenericListIterator<System>
     {
         return new GenericListIterator(head);
     }

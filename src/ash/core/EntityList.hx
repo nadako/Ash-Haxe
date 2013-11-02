@@ -56,7 +56,7 @@ class EntityList
         tail = null;
     }
 
-    public function iterator():Iterator<Entity>
+    public inline function iterator():GenericListIterator<Entity>
     {
         return new GenericListIterator(head);
     }

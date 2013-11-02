@@ -8,17 +8,17 @@ class GenericListIterator<TNode:HasNext<TNode>>
 {
     private var previous:HasNext<TNode>;
 
-    public function new(head:TNode)
+    public inline function new(head:TNode)
     {
         this.previous = {next: head};
     }
 
-    public function hasNext():Bool
+    public inline function hasNext():Bool
     {
         return previous.next != null;
     }
 
-    public function next():TNode
+    public inline function next():TNode
     {
         var node:TNode = previous.next;
         previous = node;

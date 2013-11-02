@@ -108,7 +108,7 @@ class NodeList<TNode:Node<TNode>>
         return head == null;
     }
 
-    public function iterator():Iterator<TNode>
+    public inline function iterator():GenericListIterator<TNode>
     {
         return new GenericListIterator(head);
     }
