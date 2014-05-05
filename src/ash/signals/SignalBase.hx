@@ -195,8 +195,6 @@ class SignalBase<TListener>
             untyped __delete__(nodes, node.listener);
             #end
             listenerNodePool.dispose(node);
-            node.previous = null;
-            node.next = null;
         }
         tail = null;
         toAddHead = null;
