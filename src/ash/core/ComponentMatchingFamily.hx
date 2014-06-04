@@ -9,6 +9,7 @@ import ash.ClassMap;
  * It uses the basic entity matching pattern of an entity system - entities are added to the list if
  * they contain components matching all the public properties of the node class.
  */
+@:keep
 class ComponentMatchingFamily<TNode:Node<TNode>> implements IFamily<TNode>
 {
     /**
