@@ -29,6 +29,18 @@ class EntityStateMachine
         this.entity = entity;
         states = new Map();
     }
+    
+    /**
+     * Check if a state exists.
+     *
+     * @param name The name of the state to query
+     * @return A Bool that indicates whether or not a state exists.
+     */
+    
+    public function hasState(name:String):Bool
+    {
+        return states.exists(name);
+    }
 
     /**
      * Add a state to this state machine.
