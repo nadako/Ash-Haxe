@@ -7,8 +7,11 @@ import ash.GenericListIterator;
  */
 class SystemList
 {
-    public var head(default, null):System;
-    public var tail(default, null):System;
+    @:allow(ash.core)
+    var head:System;
+
+    @:allow(ash.core)
+    var tail:System;
 
     public function new()
     {
