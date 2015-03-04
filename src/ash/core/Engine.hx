@@ -267,8 +267,14 @@ class Engine
     {
         while (systemList.head != null)
         {
+          var system : System = systemList.head;
+            systemList.head = systemList.head.next;
+            system.previous = null;
+            system.next = null;
+            system.removeFromEngine( this );
             removeSystem(systemList.head);
         }
+        systemList.tail = null;
     }
 
     /**
