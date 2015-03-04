@@ -23,12 +23,17 @@ import ash.signals.Signal2;
  */
 class Entity
 {
+    private static var lastId:Int = 0;
     private static var nameCount:Int = 0;
 
     /**
      * Optional, give the entity a name. This can help with debugging and with serialising the entity.
      */
     public var name(default, set_name):String;
+    /**
+     * Automatic unique entity id
+     */
+     public var id(default, null):Int;
     /**
      * This signal is dispatched when a component is added to the entity.
      */
@@ -48,6 +53,7 @@ class Entity
 
     public function new(name:String = "")
     {
+        this.id = lastId++;
         componentAdded = new Signal2<Entity, Class<Dynamic>>();
         componentRemoved = new Signal2<Entity, Class<Dynamic>>();
         nameChanged = new Signal2<Entity, String>();
