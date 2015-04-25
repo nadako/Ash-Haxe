@@ -1,5 +1,6 @@
 {
     "name": "ash",
+    "classPath": "src",
     "url" : "https://github.com/nadako/Ash-HaXe",
     "license": "MIT",
     "tags": ["entity", "component", "system", "game"],
