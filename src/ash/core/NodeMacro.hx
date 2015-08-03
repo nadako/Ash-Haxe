@@ -16,6 +16,8 @@ class NodeMacro
         var fields = Context.getBuildFields();
         var pos = Context.currentPos();
 
+        Context.getLocalClass().get().meta.add(":keep", [], pos);
+
         var populateExprs = [];
         for (field in fields)
         {
