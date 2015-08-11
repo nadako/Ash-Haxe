@@ -5,8 +5,8 @@
     "license": "MIT",
     "tags": ["entity", "component", "system", "game"],
     "description": "Port of the Ash entity component framework originally written in ActionScript 3",
-    "version": "1.5.3",
-    "releasenote": "Fix error in signal.removeAll()",
+    "version": "1.5.4",
+    "releasenote": "Fixed a DCE issue, added EntityStateMachine.hasState, fix Engine.removeAllSystems (from upstream Ash)",
     "contributors": ["nadako"],
     "dependencies": {}
 }
