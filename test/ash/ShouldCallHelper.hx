@@ -1,10 +1,11 @@
 package ash;
 
+import haxe.Constraints.Function;
 import haxe.PosInfos;
 
 import massive.munit.Assert;
 
-class ShouldCallHelper<T>
+class ShouldCallHelper<T:Function>
 {
     private var called:Bool;
     private var callback:T;

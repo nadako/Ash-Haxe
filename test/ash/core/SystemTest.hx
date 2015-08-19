@@ -1,5 +1,6 @@
 package ash.core;
 
+import haxe.Constraints.Function;
 import org.hamcrest.MatchersBase;
 
 import ash.core.Engine;
@@ -38,7 +39,7 @@ class SystemTest extends MatchersBase
         assertThat(engine.systems, hasItems([system1, system2]));
     }
 
-    private function shouldCall<T>(f:T)
+    private function shouldCall<T:Function>(f:T)
     {
         return new ShouldCallHelper(f, this);
     }
@@ -196,7 +197,7 @@ class SystemTest extends MatchersBase
         engine.removeAllSystems();
         assertThat( system1.next, nullValue() );
     }
-       
+
     @Test
     public function removeSystemAndAddItAgainDontCauseInvalidLinkedList():Void
     {

@@ -1,5 +1,6 @@
 package ash.core;
 
+import haxe.Constraints.Function;
 import org.hamcrest.MatchersBase;
 
 import ash.core.Entity;
@@ -21,7 +22,7 @@ class EntityTest extends MatchersBase
         entity = null;
     }
 
-    private function shouldCall<T>(f:T):ShouldCallHelper<T>
+    private function shouldCall<T:Function>(f:T):ShouldCallHelper<T>
     {
         return new ShouldCallHelper(f, this);
     }
