@@ -1,4 +1,4 @@
-This is a Haxe port of the awesome Ash entity component framework by Richard Lord (http://www.ashframework.org/).
+This is a [Haxe](http://haxe.org/) port of the awesome [Ash entity component framework](http://www.ashframework.org/) by Richard Lord.
 It leverages Haxe's great cross-platform portability and runs on Flash, JavaScript, C++, Android, iOS and so on.
 Also it uses much static typing features of Haxe, allowing more mistakes to be detected at compile time instead
 of runtime than in original ActionScript 3 version.
