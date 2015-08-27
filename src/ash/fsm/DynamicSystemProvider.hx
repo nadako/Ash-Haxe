@@ -29,9 +29,10 @@ class DynamicSystemProvider<T:System> implements ISystemProvider<T>
      *
      * @param method The method that returns the System instance;
      */
-    public function new(method:DynamicSystemProviderClosure<T>)
+    public function new(method:DynamicSystemProviderClosure<T>, priority:Int = 0)
     {
         this.method = method;
+        this.priority = priority;
     }
 
     /**

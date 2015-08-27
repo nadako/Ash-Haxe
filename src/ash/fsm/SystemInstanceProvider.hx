@@ -28,9 +28,10 @@ class SystemInstanceProvider<T:System> implements ISystemProvider<T>
      *
      * @param instance The instance to return whenever a System is requested.
      */
-    public function new(instance:T)
+    public function new(instance:T, priority:Int = 0)
     {
         this.instance = instance;
+        this.priority = priority;
     }
 
     /**
