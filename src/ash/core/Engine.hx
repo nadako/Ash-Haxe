@@ -25,6 +25,8 @@ class Engine
 
     public var entityAdded(default, null):Signal1<Entity>;
     public var entityRemoved(default, null):Signal1<Entity>;
+    public var systemAdded(default, null):Signal1<System>;
+    public var systemRemoved(default, null):Signal1<System>;
 
     /**
      * Dispatched when the update loop ends. If you want to add and remove systems from the
@@ -50,6 +52,8 @@ class Engine
         families = new ClassMap();
         entityAdded = new Signal1<Entity>();
         entityRemoved = new Signal1<Entity>();
+        systemAdded = new Signal1<System>();
+        systemRemoved = new Signal1<System>();
         updateComplete = new Signal0();
         updating = false;
     }
@@ -224,6 +228,7 @@ class Engine
         system.priority = priority;
         system.addToEngine(this);
         systemList.add(system);
+        systemAdded.dispatch(system);
     }
 
     /**
@@ -257,6 +262,7 @@ class Engine
     {
         systemList.remove(system);
         system.removeFromEngine(this);
+        systemRemoved.dispatch(system);
     }
 
     /**
