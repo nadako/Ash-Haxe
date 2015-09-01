@@ -1,50 +1,52 @@
 package ash;
 
+import haxe.ds.StringMap;
+
 class ClassMap<K:Class<Dynamic>, V> implements Map.IMap<K, V>
 {
-    var h:haxe.ds.StringMap<V>;
+    var valueMap:StringMap<V> = new StringMap<V>(); // class name to value
+    var keyMap:StringMap<K> = new StringMap<K>(); // class name to class
 
     public inline function new():Void
     {
-        h = new haxe.ds.StringMap<V>();
     }
 
     public inline function get(k:K):Null<V>
     {
-        return h.get(Type.getClassName(k));
+        return valueMap.get(Type.getClassName(k));
     }
 
     public inline function set(k:K, v:V):Void
     {
-        h.set(Type.getClassName(k), v);
+    	var name:String = Type.getClassName(k);
+    	keyMap.set(name, k);
+        valueMap.set(name, v);
     }
 
     public inline function exists(k:K):Bool
     {
-        return h.exists(Type.getClassName(k));
+        return valueMap.exists(Type.getClassName(k));
     }
 
     public inline function remove(k:K):Bool
     {
-        return h.remove(Type.getClassName(k));
+    	var name:String = Type.getClassName(k);
+    	keyMap.remove(name);
+        return valueMap.remove(name);
     }
 
     public inline function keys():Iterator<K>
     {
-        var i = h.keys();
-        return {
-            hasNext: i.hasNext,
-            next: function():K { return cast Type.resolveClass(i.next()); }
-        };
+    	return keyMap.iterator();
     }
 
     public inline function iterator():Iterator<V>
     {
-        return h.iterator();
+        return valueMap.iterator();
     }
 
     public inline function toString():String
     {
-        return h.toString();
+        return valueMap.toString();
     }
 }
