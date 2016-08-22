@@ -33,7 +33,7 @@ class EngineStateMachineTest extends MatchersBase
         state.addInstance(system);
         fsm.addState("test", state);
         fsm.changeState("test");
-        assertThat(engine.getSystem(RemovingSystem), sameInstance(system));
+        assertThat(engine.getSystem(RemovingSystem), theInstance(system));
     }
 
     @Test
@@ -51,7 +51,7 @@ class EngineStateMachineTest extends MatchersBase
         fsm.addState("test2", state2);
         fsm.changeState("test2");
 
-        assertThat(engine.getSystem(EmptySystem2), sameInstance(system2));
+        assertThat(engine.getSystem(EmptySystem2), theInstance(system2));
     }
 
     @Test
@@ -89,7 +89,7 @@ class EngineStateMachineTest extends MatchersBase
         fsm.changeState("test2");
 
         assertThat(system1.wasRemoved, is(false));
-        assertThat(engine.getSystem(RemovingSystem), sameInstance(system1));
+        assertThat(engine.getSystem(RemovingSystem), theInstance(system1));
     }
 
     @Test
@@ -109,7 +109,7 @@ class EngineStateMachineTest extends MatchersBase
         fsm.addState("test2", state2);
         fsm.changeState("test2");
 
-        assertThat(engine.getSystem(RemovingSystem), sameInstance(system3));
+        assertThat(engine.getSystem(RemovingSystem), theInstance(system3));
     }
 }
 

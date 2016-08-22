@@ -1,6 +1,8 @@
 package ash.core;
 
 import org.hamcrest.MatchersBase;
+import org.hamcrest.core.IsSame.*;
+import org.hamcrest.collection.IsEmptyIterable.*;
 
 import ash.core.Entity;
 import ash.core.Engine;
@@ -45,8 +47,8 @@ class AshAndFamilyIntegrationTest extends MatchersBase
 
         var nodes = engine.getNodeList(MockNode2);
         engine.addEntity(entity);
-        assertThat(nodes.head.point, sameInstance(point));
-        assertThat(nodes.head.matrix, sameInstance(matrix));
+        assertThat(nodes.head.point, theInstance(point));
+        assertThat(nodes.head.matrix, theInstance(matrix));
     }
 
     @Test
@@ -57,7 +59,7 @@ class AshAndFamilyIntegrationTest extends MatchersBase
         entity.add(new Matrix());
         var nodes = engine.getNodeList(MockNode2);
         engine.addEntity(entity);
-        assertThat(nodes.head.entity, sameInstance(entity));
+        assertThat(nodes.head.entity, theInstance(entity));
     }
 
     @Test
@@ -68,7 +70,7 @@ class AshAndFamilyIntegrationTest extends MatchersBase
         entity.add(new Matrix());
         engine.addEntity(entity);
         var nodes = engine.getNodeList(MockNode2);
-        assertThat(nodes.head.entity, sameInstance(entity));
+        assertThat(nodes.head.entity, theInstance(entity));
     }
 
     @Test
@@ -79,7 +81,7 @@ class AshAndFamilyIntegrationTest extends MatchersBase
         var nodes = engine.getNodeList(MockNode2);
         entity.add(new Point());
         entity.add(new Matrix());
-        assertThat(nodes.head.entity, sameInstance(entity));
+        assertThat(nodes.head.entity, theInstance(entity));
     }
 
     @Test
@@ -187,7 +189,7 @@ class AshAndFamilyIntegrationTest extends MatchersBase
             var index:Int = Lambda.indexOf(entities, node.entity);
             entities.splice(index, 1);
         }
-        assertThat(entities, emptyArray());
+        assertThat(entities, isEmpty());
     }
 
     @Test

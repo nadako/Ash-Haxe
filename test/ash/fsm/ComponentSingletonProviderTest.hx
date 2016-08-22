@@ -1,6 +1,7 @@
 package ash.fsm;
 
 import org.hamcrest.MatchersBase;
+import org.hamcrest.core.IsInstanceOf.*;
 
 import ash.fsm.ComponentSingletonProvider;
 import ash.Mocks;

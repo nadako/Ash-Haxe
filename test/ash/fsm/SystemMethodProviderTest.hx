@@ -18,7 +18,7 @@ class SystemMethodProviderTest extends MatchersBase
         }
 
         var provider:DynamicSystemProvider<EmptySystem> = new DynamicSystemProvider( providerMethod );
-        assertThat(provider.getSystem(), sameInstance(instance));
+        assertThat(provider.getSystem(), theInstance(instance));
     }
 
     @Test
@@ -31,7 +31,7 @@ class SystemMethodProviderTest extends MatchersBase
         }
         var provider1:DynamicSystemProvider<EmptySystem> = new DynamicSystemProvider( providerMethod );
         var provider2:DynamicSystemProvider<EmptySystem> = new DynamicSystemProvider( providerMethod );
-        assertThat(provider1.identifier, sameInstance(provider2.identifier));
+        assertThat(provider1.identifier, theInstance(provider2.identifier));
     }
 
     @Test

@@ -16,7 +16,7 @@ class DynamicComponentProviderTest extends MatchersBase
             return instance;
         };
         var provider:DynamicComponentProvider<MockComponent> = new DynamicComponentProvider( providerMethod );
-        assertThat(provider.getComponent(), sameInstance(instance));
+        assertThat(provider.getComponent(), theInstance(instance));
     }
 
     @Test

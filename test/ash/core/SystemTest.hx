@@ -2,6 +2,7 @@ package ash.core;
 
 import haxe.Constraints.Function;
 import org.hamcrest.MatchersBase;
+import org.hamcrest.core.IsSame.*;
 
 import ash.core.Engine;
 import ash.core.System;
@@ -166,7 +167,7 @@ class SystemTest extends MatchersBase
         var system1:System = new MockSystem( this );
         engine.addSystem(system1, 0);
         engine.addSystem(new EmptySystem(), 0);
-        assertThat(engine.getSystem(MockSystem), sameInstance(system1));
+        assertThat(engine.getSystem(MockSystem), theInstance(system1));
     }
 
     @Test
@@ -193,7 +194,7 @@ class SystemTest extends MatchersBase
         engine.addSystem( system1, 1 );
         var system2 : System = new System();
         engine.addSystem( system2, 2 );
-        assertThat( system1.next, sameInstance( system2 ) );
+        assertThat( system1.next, theInstance( system2 ) );
         engine.removeAllSystems();
         assertThat( system1.next, nullValue() );
     }
@@ -215,13 +216,13 @@ class SystemTest extends MatchersBase
     private function addedCallbackMethod(system:System, action:String, systemEngine:Engine):Void
     {
         assertThat(action, equalTo("added"));
-        assertThat(systemEngine, sameInstance(engine));
+        assertThat(systemEngine, theInstance(engine));
     }
 
     private function removedCallbackMethod(system:System, action:String, systemEngine:Engine):Void
     {
         assertThat(action, equalTo("removed"));
-        assertThat(systemEngine, sameInstance(engine));
+        assertThat(systemEngine, theInstance(engine));
     }
 
     private function updateCallbackMethod(system:System, action:String, time:Float):Void
