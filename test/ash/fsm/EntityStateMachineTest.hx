@@ -35,7 +35,7 @@ class EntityStateMachineTest extends MatchersBase
         state.add(MockComponent).withInstance(component);
         fsm.addState("test", state);
         fsm.changeState("test");
-        assertThat(entity.get(MockComponent), sameInstance(component));
+        assertThat(entity.get(MockComponent), theInstance(component));
     }
 
     @Test
@@ -53,7 +53,7 @@ class EntityStateMachineTest extends MatchersBase
         fsm.addState("test2", state2);
         fsm.changeState("test2");
 
-        assertThat(entity.get(MockComponent2), sameInstance(component2));
+        assertThat(entity.get(MockComponent2), theInstance(component2));
     }
 
     @Test
@@ -92,7 +92,7 @@ class EntityStateMachineTest extends MatchersBase
         fsm.addState("test2", state2);
         fsm.changeState("test2");
 
-        assertThat(entity.get(MockComponent), sameInstance(component1));
+        assertThat(entity.get(MockComponent), theInstance(component1));
     }
 
     @Test
@@ -112,7 +112,7 @@ class EntityStateMachineTest extends MatchersBase
         fsm.addState("test2", state2);
         fsm.changeState("test2");
 
-        assertThat(entity.get(MockComponent), sameInstance(component3));
+        assertThat(entity.get(MockComponent), theInstance(component3));
     }
 
     private static function failIfCalled(entity:Entity, component:Dynamic):Void

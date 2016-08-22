@@ -30,7 +30,7 @@ class ComponentPoolTest extends MatchersBase
         var mockComponent:MockComponent = new MockComponent();
         ComponentPool.dispose(mockComponent);
         var retrievedComponent:MockComponent = ComponentPool.get(MockComponent);
-        assertThat(retrievedComponent, sameInstance(mockComponent));
+        assertThat(retrievedComponent, theInstance(mockComponent));
     }
 
     @Test
@@ -40,6 +40,6 @@ class ComponentPoolTest extends MatchersBase
         ComponentPool.dispose(mockComponent);
         ComponentPool.empty();
         var retrievedComponent:MockComponent = ComponentPool.get(MockComponent);
-        assertThat(retrievedComponent, not(sameInstance(mockComponent)));
+        assertThat(retrievedComponent, not(theInstance(mockComponent)));
     }
 }

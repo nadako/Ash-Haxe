@@ -11,7 +11,7 @@ class SystemInstanceProviderTest extends MatchersBase
     {
         var instance:MockSystem = new MockSystem();
         var provider:SystemInstanceProvider<MockSystem> = new SystemInstanceProvider( instance );
-        assertThat(provider.getSystem(), sameInstance(instance));
+        assertThat(provider.getSystem(), theInstance(instance));
     }
 
     @Test

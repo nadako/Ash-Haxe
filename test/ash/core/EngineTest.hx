@@ -1,6 +1,7 @@
 package ash.core;
 
 import org.hamcrest.MatchersBase;
+import org.hamcrest.core.IsSame.*;
 
 import ash.core.IFamily;
 import ash.core.Entity;
@@ -47,7 +48,7 @@ class EngineTest extends MatchersBase
         var entity2:Entity = new Entity();
         entity2.name = "myEntity";
         engine.addEntity(entity2);
-        assertThat(engine.getEntityByName("myEntity"), sameInstance(entity2));
+        assertThat(engine.getEntityByName("myEntity"), theInstance(entity2));
     }
 
     @Test
@@ -154,7 +155,7 @@ class EngineTest extends MatchersBase
         var entity:Entity = new Entity( "anything" );
         engine.addEntity(entity);
         var other:Entity = engine.getEntityByName("anything");
-        assertThat(other, sameInstance(entity));
+        assertThat(other, theInstance(entity));
     }
 
     @Test
@@ -171,7 +172,7 @@ class EngineTest extends MatchersBase
         engine.addEntity(entity);
         entity.name = "otherName";
         var other:Entity = engine.getEntityByName("otherName");
-        assertThat(other, sameInstance(entity));
+        assertThat(other, theInstance(entity));
     }
 
     @Test

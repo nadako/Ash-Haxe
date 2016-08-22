@@ -2,6 +2,7 @@ package ash.core;
 
 import haxe.Constraints.Function;
 import org.hamcrest.MatchersBase;
+import org.hamcrest.core.IsSame.*;
 
 import ash.core.Entity;
 import ash.Mocks;
@@ -32,7 +33,7 @@ class EntityTest extends MatchersBase
     {
         var component:MockComponent = new MockComponent();
         var e:Entity = entity.add(component);
-        assertThat(e, sameInstance(entity));
+        assertThat(e, theInstance(entity));
     }
 
     @Test
@@ -40,7 +41,7 @@ class EntityTest extends MatchersBase
     {
         var component:MockComponent = new MockComponent();
         entity.add(component);
-        assertThat(entity.get(MockComponent), sameInstance(component));
+        assertThat(entity.get(MockComponent), theInstance(component));
     }
 
     @Test
@@ -50,8 +51,8 @@ class EntityTest extends MatchersBase
         entity.add(component1);
         var component2:MockComponent2 = new MockComponent2();
         entity.add(component2);
-        assertThat(entity.get(MockComponent), sameInstance(component1));
-        assertThat(entity.get(MockComponent2), sameInstance(component2));
+        assertThat(entity.get(MockComponent), theInstance(component1));
+        assertThat(entity.get(MockComponent2), theInstance(component2));
     }
 
     @Test
@@ -61,7 +62,7 @@ class EntityTest extends MatchersBase
         entity.add(component1);
         var component2:MockComponent = new MockComponent();
         entity.add(component2);
-        assertThat(entity.get(MockComponent), sameInstance(component2));
+        assertThat(entity.get(MockComponent), theInstance(component2));
     }
 
     @Test
@@ -71,8 +72,8 @@ class EntityTest extends MatchersBase
         entity.add(component1);
         var component2:MockComponentExtended = new MockComponentExtended();
         entity.add(component2);
-        assertThat(entity.get(MockComponent), sameInstance(component1));
-        assertThat(entity.get(MockComponentExtended), sameInstance(component2));
+        assertThat(entity.get(MockComponent), theInstance(component1));
+        assertThat(entity.get(MockComponentExtended), theInstance(component2));
     }
 
     @Test
@@ -80,7 +81,7 @@ class EntityTest extends MatchersBase
     {
         var component:MockComponentExtended = new MockComponentExtended();
         entity.add(component, MockComponent);
-        assertThat(entity.get(MockComponent), sameInstance(component));
+        assertThat(entity.get(MockComponent), theInstance(component));
     }
 
     @Test
@@ -166,8 +167,8 @@ class EntityTest extends MatchersBase
 
     private function testSignalContent(signalEntity:Entity, componentClass:Class<Dynamic>):Void
     {
-        assertThat(signalEntity, sameInstance(entity));
-        assertThat(componentClass, sameInstance(MockComponent));
+        assertThat(signalEntity, theInstance(entity));
+        assertThat(componentClass, theInstance(MockComponent));
     }
 
     @Test
@@ -205,7 +206,7 @@ class EntityTest extends MatchersBase
 
     private function testNameChangedSignal(signalEntity:Entity, oldName:String):Void
     {
-        assertThat(signalEntity, sameInstance(entity));
+        assertThat(signalEntity, theInstance(entity));
         assertThat(entity.name, equalTo("otherThing"));
         assertThat(oldName, equalTo("anything"));
     }

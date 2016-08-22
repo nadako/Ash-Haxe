@@ -1,6 +1,7 @@
 package ash.fsm;
 
 import org.hamcrest.MatchersBase;
+import org.hamcrest.core.IsSame.*;
 
 import ash.fsm.ComponentInstanceProvider;
 import ash.Mocks;
@@ -12,7 +13,7 @@ class ComponentInstanceProviderTest extends MatchersBase
     {
         var instance:MockComponent = new MockComponent();
         var provider:ComponentInstanceProvider<MockComponent> = new ComponentInstanceProvider( instance );
-        assertThat(provider.getComponent(), sameInstance(instance));
+        assertThat(provider.getComponent(), theInstance(instance));
     }
 
     @Test

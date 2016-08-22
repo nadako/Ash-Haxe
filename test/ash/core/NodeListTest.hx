@@ -1,6 +1,8 @@
 package ash.core;
 
 import org.hamcrest.MatchersBase;
+import org.hamcrest.collection.IsEmptyIterable;
+import org.hamcrest.core.IsSame.*;
 
 import ash.core.NodeList;
 import ash.core.Node;
@@ -65,7 +67,7 @@ class NodeListTest extends MatchersBase
             var index:Int = Lambda.indexOf(nodeArray, node);
             nodeArray.splice(index, 1);
         }
-        assertThat(nodeArray, emptyArray());
+        assertThat(nodeArray, isEmpty());
     }
 
     @Test
@@ -89,7 +91,7 @@ class NodeListTest extends MatchersBase
                 nodes.remove(node);
             }
         }
-        assertThat(nodeArray, emptyArray());
+        assertThat(nodeArray, isEmpty());
     }
 
     @Test
@@ -137,7 +139,7 @@ class NodeListTest extends MatchersBase
 
     private function testSignalContent(signalNode:MockNode2):Void
     {
-        assertThat(signalNode, sameInstance(tempNode));
+        assertThat(signalNode, theInstance(tempNode));
     }
 
     @Test
