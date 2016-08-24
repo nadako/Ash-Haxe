@@ -28,8 +28,7 @@ class Engine
 
     /**
      * Dispatched when the update loop ends. If you want to add and remove systems from the
-     * engine it is usually best not to do so during the update loop. To avoid this you can
-     * listen for this signal and make the change when the signal is dispatched.
+     * engine it is required to listen for this signal and make the change when the signal is dispatched.
      */
     public var updateComplete(default, null):Signal0;
 
@@ -221,6 +220,9 @@ class Engine
 
     public function addSystem(system:System, priority:Int):Void
     {
+        if (updating)
+            throw "Systems cannot be added during engine update. The updateComplete signal should be used.";
+
         system.priority = priority;
         system.addToEngine(this);
         systemList.add(system);
@@ -255,6 +257,9 @@ class Engine
 
     public function removeSystem(system:System):Void
     {
+        if (updating)
+            throw "Systems cannot be removed during engine update. The updateComplete signal should be used.";
+
         systemList.remove(system);
         system.removeFromEngine(this);
     }
