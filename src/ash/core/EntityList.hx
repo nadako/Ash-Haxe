@@ -43,6 +43,17 @@ class EntityList
             entity.next.previous = entity.previous;
         // N.B. Don't set entity.next and entity.previous to null because that will break the list iteration if entity is the current entity in the iteration.
     }
+    
+    public function contains(entity: Entity): Bool
+    {
+        var node = head;
+        while (node != null) {
+            if (node == entity)
+                return true;
+            node = node.next;
+        }
+        return false;
+    }
 
     public function removeAll():Void
     {
