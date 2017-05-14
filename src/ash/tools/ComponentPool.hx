@@ -71,6 +71,17 @@ class ComponentPool
             pool.push(component);
         }
     }
+    
+    public static function contains<TComponent>(component: TComponent): Bool
+    {
+        if (component != null)
+        {
+            var type:Class<TComponent> = Type.getClass(component);
+            var pool:Array<TComponent> = getPool(type);
+            return pool.indexOf(component) >= 0;
+        }
+        return false;
+    }
 
     /**
      * Dispose of all pooled resources, freeing them for garbage collection.

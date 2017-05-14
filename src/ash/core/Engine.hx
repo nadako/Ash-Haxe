@@ -75,6 +75,10 @@ class Engine
         }
         entityAdded.dispatch(entity);
     }
+    
+    public function contains(entity: Entity): Bool {
+        return entityList.contains(entity);
+    }
 
     /**
      * Remove an entity from the engine.
