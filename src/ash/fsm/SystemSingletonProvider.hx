@@ -29,9 +29,10 @@ class SystemSingletonProvider<T:System> implements ISystemProvider<T>
      *
      * @param type The type of the single System instance
      */
-    public function new(type:Class<T>)
+    public function new(type:Class<T>, priority:Int = 0)
     {
         this.componentType = type;
+        this.priority = priority;
     }
 
     /**

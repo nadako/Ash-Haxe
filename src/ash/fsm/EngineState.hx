@@ -24,9 +24,9 @@ class EngineState
      * @return This StateSystemMapping, so more modifications can be applied
      */
 
-    public inline function addInstance<T:System>(system:T):StateSystemMapping<T>
+    public inline function addInstance<T:System>(system:T, priority:Int = 0):StateSystemMapping<T>
     {
-        return addProvider(new SystemInstanceProvider( system ));
+        return addProvider(new SystemInstanceProvider( system, priority ));
     }
 
     /**
@@ -40,10 +40,9 @@ class EngineState
      * @return This StateSystemMapping, so more modifications can be applied
      */
 
-    public function addSingleton<T:System>(type:Class<T>):StateSystemMapping<T>
+    public function addSingleton<T:System>(type:Class<T>, priority:Int = 0):StateSystemMapping<T>
     {
-        return addProvider(new SystemSingletonProvider( type ));
-
+        return addProvider(new SystemSingletonProvider( type, priority ));
     }
 
     /**
@@ -55,9 +54,9 @@ class EngineState
      * @return This StateSystemMapping, so more modifications can be applied.
      */
 
-    public function addMethod<T:System>(method:DynamicSystemProviderClosure<T>):StateSystemMapping<T>
+    public function addMethod<T:System>(method:DynamicSystemProviderClosure<T>, priority:Int = 0):StateSystemMapping<T>
     {
-        return addProvider(new DynamicSystemProvider( method ));
+        return addProvider(new DynamicSystemProvider( method, priority ));
     }
 
     /**
