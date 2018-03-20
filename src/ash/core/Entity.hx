@@ -86,7 +86,7 @@ class Entity
      *     .add(new Display(new PlayerClip());</code>
      */
 
-    public function add<T>(component:T, componentClass:Class<Dynamic> = null):Entity
+    public function add<T>(component:T, componentClass:Class<T> = null):Entity
     {
         if (componentClass == null)
             componentClass = Type.getClass(component);
@@ -106,7 +106,7 @@ class Entity
      * @return the component, or null if the component doesn't exist in the entity
      */
 
-    public function remove<T>(componentClass:Class<Dynamic>):T
+    public function remove<T>(componentClass:Class<T>):T
     {
         var component:T = components.get(componentClass);
         if (component != null)
@@ -125,7 +125,7 @@ class Entity
      * @return The component, or null if none was found.
      */
 
-    public function get<T>(componentClass:Class<Dynamic>):T
+    public function get<T>(componentClass:Class<T>):T
     {
         return components.get(componentClass);
     }
