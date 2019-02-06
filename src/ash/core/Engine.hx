@@ -10,8 +10,8 @@ import ash.signals.Signal1;
  */
 class Engine
 {
-    public var entities(get_entities, never):Iterable<Entity>;
-    public var systems(get_systems, never):Iterable<System>;
+    public var entities(get, never):Iterable<Entity>;
+    public var systems(get, never):Iterable<System>;
 
     private var entityNames:Map<String, Entity>;
     private var entityList:EntityList;

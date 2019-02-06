@@ -28,7 +28,7 @@ class Entity
     /**
      * Optional, give the entity a name. This can help with debugging and with serialising the entity.
      */
-    public var name(default, set_name):String;
+    public var name(default, set):String;
     /**
      * This signal is dispatched when a component is added to the entity.
      */

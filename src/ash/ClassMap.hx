@@ -2,7 +2,7 @@ package ash;
 
 import haxe.ds.StringMap;
 
-class ClassMap<K:Class<Dynamic>, V> implements Map.IMap<K, V>
+class ClassMap<K:Class<Dynamic>, V> implements haxe.Constraints.IMap<K, V>
 {
     var valueMap:StringMap<V> = new StringMap<V>(); // class name to value
     var keyMap:StringMap<K> = new StringMap<K>(); // class name to class
@@ -45,6 +45,15 @@ class ClassMap<K:Class<Dynamic>, V> implements Map.IMap<K, V>
         return valueMap.iterator();
     }
 
+	public function keyValueIterator():KeyValueIterator<K, V> {
+		return this.keyValueIterator();
+	}
+
+	public inline function copy():haxe.Constraints.IMap<K, V>
+	{
+		return this.copy();
+	}
+	
     public inline function toString():String
     {
         return valueMap.toString();
