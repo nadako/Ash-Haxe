@@ -45,14 +45,20 @@ class ClassMap<K:Class<Dynamic>, V> implements haxe.Constraints.IMap<K, V>
         return valueMap.iterator();
     }
 
-	public function keyValueIterator():KeyValueIterator<K, V> {
-		return this.keyValueIterator();
-	}
+    public function keyValueIterator():KeyValueIterator<K, V> {
+            return this.keyValueIterator();
+    }
 
-	public inline function copy():haxe.Constraints.IMap<K, V>
-	{
-		return this.copy();
-	}
+    public inline function copy():haxe.Constraints.IMap<K, V>
+    {
+            return this.copy();
+    }
+
+    public function clear():Void
+    {
+        valueMap.clear();
+        keyMap.clear();
+    }
 	
     public inline function toString():String
     {
