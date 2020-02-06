@@ -36,7 +36,7 @@ class ComponentInstanceProvider<T> implements IComponentProvider<T>
     *
     * @return The instance
     */
-    public var identifier(get_identifier, never):Dynamic;
+    public var identifier(get, never):Dynamic;
 
     private inline function get_identifier():Dynamic
     {

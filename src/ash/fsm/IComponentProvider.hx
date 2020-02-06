@@ -27,5 +27,5 @@ interface IComponentProvider<T>
      *
      * @return An object
      */
-    var identifier(get_identifier, never):Dynamic;
+    var identifier(get, never):Dynamic;
 }
