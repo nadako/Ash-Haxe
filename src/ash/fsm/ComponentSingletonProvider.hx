@@ -41,7 +41,7 @@ class ComponentSingletonProvider<T> implements IComponentProvider<T>
      *
      * @return The single instance
      */
-    public var identifier(get_identifier, never):Dynamic;
+    public var identifier(get, never):Dynamic;
 
     private inline function get_identifier():Dynamic
     {
