@@ -30,7 +30,11 @@ class NodeMacro
                             // TODO: add support for type parameters
                             if (path.params.length > 0)
                                 throw new Error("Type parameters for node field types are not yet supported yet", field.pos);
-                            populateExprs.push(macro _components.set($i{path.name}, $v{field.name}));
+
+                            var namePath = path.pack.copy();
+                            namePath.push(path.name);
+                            populateExprs.push(macro _components.set($p{namePath}, $v{field.name}));
+
                         default:
                             throw new Error("Invalid node class with field type other than class: " + field.name, field.pos);
                     }
